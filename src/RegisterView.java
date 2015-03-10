@@ -12,64 +12,60 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-
-public class LoginView extends JFrame {
+public class RegisterView extends JFrame {
 
 	public String name;
 	public int id;
-	public LoginView lv;
+	public RegisterView rv;
 	
 	private JPasswordField tfUserName;
-	private JPasswordField tfPWD;
+	private JPasswordField tfPWD_1;
+	private JPasswordField tfPWD_2;
+	private JPasswordField tfEmail;
 	
 	private JPanel pnlButton;
-	private JPanel pnlLogIn;
+	private JPanel pnlRegister;
 
 	private JMenu menuStart;
 	private JMenuItem miBeenden;
 	
-	private JButton btnAnmelden;
-	private JButton btnGast;
+	private JButton btnRegistrieren;
+	private JButton btnAbrechen;
 	
-	public LoginView(){
-		super("YACA");
+	public RegisterView(){
+		super("Registrieren");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		centerFrame(500, 280);
 		this.setResizable (false);		
 		
-		pnlLogIn = new JPanel();
-		pnlLogIn.setLayout(new GridLayout(3,3));
-		pnlLogIn.add(new JLabel("Benutzername: "));
-		pnlLogIn.add(tfUserName = new JPasswordField());	
+		pnlRegister = new JPanel();
+		pnlRegister.setLayout(new GridLayout(5,5));
+		pnlRegister.add(new JLabel("Benutzername: "));
+		pnlRegister.add(tfUserName = new JPasswordField());
 		
-		pnlLogIn.add(new JLabel("Passwort: "));
-		pnlLogIn.add(tfPWD = new JPasswordField());	
+		pnlRegister.add(new JLabel("Email: "));
+		pnlRegister.add(tfEmail = new JPasswordField());
+		
+		pnlRegister.add(new JLabel("Passwort: "));
+		pnlRegister.add(tfPWD_1 = new JPasswordField());	
+		
+		pnlRegister.add(new JLabel("Passwort wiederholen: "));
+		pnlRegister.add(tfPWD_2 = new JPasswordField());	
 		
 		pnlButton = new JPanel();
 		pnlButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		pnlButton.add("South",btnAnmelden=new JButton("Anmelden"));
+		pnlButton.add("South",btnRegistrieren=new JButton("Registrieren"));
 		
-		pnlButton.add("South",btnGast=new JButton("Gast"));
+		pnlButton.add("South",btnAbrechen=new JButton("Abrechen"));
 		
-		menuBar();
         
-	   	this.add("Center",pnlLogIn);
+	   	this.add("Center",pnlRegister);
 		this.add("South", pnlButton);
 			
 		setVisible(true);
 		pack();
-	}//UserLogIn()
+	}//UserRegister()
 	
-	// Methode zur Generierung einer MenuBar
-	void menuBar(){
-		JMenuBar menubar = new JMenuBar();
-		setJMenuBar(menubar);
-		menuStart =  new JMenu("Registrieren");
-		menubar.add(menuStart);
-		miBeenden = new JMenuItem("Neue User");
-		menuStart.add(miBeenden);		
-		
-	}//menuBar()
 	
 	public void centerFrame(int x, int y) {
 		 Dimension frameSize = new Dimension(x, y);
@@ -82,9 +78,8 @@ public class LoginView extends JFrame {
 	
 	static public void main(String argv[])
 	{
-		new LoginView();
+		new RegisterView();
 	}
 
 	
-}//class-LoginView
-
+}//class-RegisterView
