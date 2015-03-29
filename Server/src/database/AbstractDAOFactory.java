@@ -7,11 +7,14 @@ public abstract class AbstractDAOFactory {
 	public AbstractDAOFactory getDAOFactory(String factoryName) {
 		switch (factoryName) {
 			case "JSON": 
-				if(!j) j = new JSONDAOFactory();
-				return j
+				if(j == null) j = new JSONDAOFactory();
+				return j;
 			case "SQL": 
-				if(!s) s = SQLDAOFactory();
+				if(s == null) s = new SQLDAOFactory();
 				return s;
+			default:
+				if(j == null) j = new JSONDAOFactory();
+				return j;
 		}
 	}
 	
