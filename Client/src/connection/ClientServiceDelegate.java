@@ -1,10 +1,8 @@
+package connection;
 import java.util.ArrayList;
 
-import DataTransferObjects.LoginTO;
-import DataTransferObjects.MessageTO;
-import DataTransferObjects.ProfileTO;
-import DataTransferObjects.RegisterTO;
 
+/*
 public class ClientServiceDelegate {
 	private ClientStub clientStub = null;
 	private static final int PORTFORSOCKETACCESS = 9050;
@@ -85,3 +83,4 @@ public class ClientServiceDelegate {
 //	}
 
 }
+*/

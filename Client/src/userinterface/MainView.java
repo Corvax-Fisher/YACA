@@ -1,3 +1,4 @@
+package userinterface;
 	import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -66,6 +67,12 @@ import javax.swing.JPasswordField;
 			menuStart.add(miBeenden);	
 			miBeenden = new JMenuItem("Raum schlieﬂen");
 			menuStart.add(miBeenden);
+			
+			menuStart =  new JMenu("Userverwaltung");
+			menubar.add(menuStart);
+			miBeenden = new JMenuItem("User editieren");
+			menuStart.add(miBeenden);	
+			
 		}//menuBar()
 		
 		
