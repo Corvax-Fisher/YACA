@@ -1,9 +1,6 @@
+package connection;
 import java.util.ArrayList;
 
-import DataTransferObjects.LoginTO;
-import DataTransferObjects.MessageTO;
-import DataTransferObjects.ProfileTO;
-import DataTransferObjects.RegisterTO;
 
 public class ClientServiceDelegate implements IClientServiceDelegate {
 	private ClientStub clientStub = null;
