@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-
-import DataTransferObjects.*;
+package Server.src.connection;
+import java.util.List;
 
 
 public interface IServiceFacade {
@@ -25,7 +24,7 @@ public interface IServiceFacade {
 
 	public boolean sendFile(MessageTO messageTO);
 
-	public boolean showProfile(String name);
+	public boolean showProfile(ProfileTO profileTO);
 
 	public boolean saveProfile(ProfileTO profilTO);
 
@@ -33,7 +32,7 @@ public interface IServiceFacade {
 
 	public boolean leaveRoom(MessageTO messageTO);
 
-	public ArrayList<String> getUserList(MessageTO messageTO);
+	public List<String> getUserList(MessageTO messageTO);
 
 	
 	//Update Chat Rückgabewert? MessageTO?

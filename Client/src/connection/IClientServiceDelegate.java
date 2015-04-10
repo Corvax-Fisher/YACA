@@ -1,6 +1,8 @@
-import java.util.ArrayList;
+package connection;
+import java.util.List;
 
 public interface IClientServiceDelegate {
+	public static final int PORTFORSOCKETACCESS = 9050;
 
 	public boolean logIn(String name, String password);
 
@@ -34,12 +36,11 @@ public interface IClientServiceDelegate {
 	public boolean saveProfile(String name, String password,
 			String email, String realName, String role);
 
-	// reicht name?
-	public boolean joinRoom(String name);
+	public boolean joinRoom(String name, String roomName);
 
 	public boolean leaveRoom(String name);
 
 	//name notwendig um rechte zu prüfen ob man die userliste sehen darf
-	public ArrayList<String> getUserList(String roomName);
+	public List<String> getUserList(String roomName);
 
 }

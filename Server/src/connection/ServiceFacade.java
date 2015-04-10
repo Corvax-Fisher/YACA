@@ -1,13 +1,13 @@
-import java.util.ArrayList;
+package Server.src.connection;
+import java.util.List;
 
-import DataTransferObjects.*;
 
 public class ServiceFacade implements IServiceFacade {
 
 	private IChatService chatService = null;
 	private IRoomService roomService = null;
 	private IUserService userService = null;
-	//private IServerServiceDelegate serverServiceDelegate = null;
+	private IServerServiceDelegate serverServiceDelegate = null;
 	
 	//ServerServiceDelegate hier notwendig? oder erst im ChatService
 	public ServiceFacade(IChatService chatService, IRoomService roomService,
@@ -15,7 +15,7 @@ public class ServiceFacade implements IServiceFacade {
 		this.chatService = chatService;
 		this.roomService = roomService;
 		this.userService = userService;
-		//this.serverServiceDelegate = serverServiceDelegate;
+		this.serverServiceDelegate = serverServiceDelegate;
 	}
 
 	public boolean logIn(LoginTO loginTO) {
@@ -68,13 +68,13 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	
-	public boolean showProfile(String name) {
-		return userService.showProfile(name); 
+	public boolean showProfile(ProfileTO profileTO) {
+		return userService.showProfile(profileTO); 
 	}
 
 	
-	public boolean saveProfile(ProfileTO profilTO) {
-		return userService.saveProfile(profilTO);
+	public boolean saveProfile(ProfileTO profileTO) {
+		return userService.saveProfile(profileTO);
 	}
 
 
@@ -88,7 +88,7 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	
-	public ArrayList<String> getUserList(MessageTO messageTO) {
+	public List<String> getUserList(MessageTO messageTO) {
 		return roomService.getUserList(messageTO);
 	}
 

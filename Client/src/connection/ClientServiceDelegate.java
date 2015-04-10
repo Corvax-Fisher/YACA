@@ -1,10 +1,12 @@
 package connection;
-import java.util.ArrayList;
+import java.util.List;
+
+import sun.misc.resources.Messages_zh_TW;
 
 
 public class ClientServiceDelegate implements IClientServiceDelegate {
 	private ClientStub clientStub = null;
-	private static final int PORTFORSOCKETACCESS = 9050;
+	
 
 	public ClientServiceDelegate() {
 		clientStub = new ClientStub(PORTFORSOCKETACCESS);
@@ -64,8 +66,8 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 	}
 
 
-	public boolean sendMessage(String from, String to, String room, String body) {
-		return clientStub.sendObject(new MessageTO(from, to, room,
+	public boolean sendMessage(String from,String room, String body) {
+		return clientStub.sendObject(new MessageTO(from, null, room,
 				"sendMessage", body));
 	}
 
@@ -85,8 +87,8 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 
 	// nur String übergabe?
 
-	public boolean showProfile(String name) {
-		return clientStub.sendObject(name);
+	public boolean showProfile(String from, String to) {
+		return clientStub.sendObject(new MessageTO(from, to, null,"showProfile", null));
 	}
 
 
@@ -96,10 +98,9 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 				realName, role));
 	}
 
-	// reicht name?
 
-	public boolean joinRoom(String name) {
-		return clientStub.sendObject(new MessageTO(null, null, name,
+	public boolean joinRoom(String name, String roomName) {
+		return clientStub.sendObject(new MessageTO(name, null, roomName,
 				"joinRoom", null));
 	}
 
@@ -111,7 +112,7 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 	
 	//name notwendig um rechte zu prüfen ob man die userliste sehen darf?
 
-	public ArrayList<String> getUserList(String roomName){
+	public List<String> getUserList(String roomName){
 		return clientStub.sendObject(new MessageTO(null,null,roomName,"getUserList",null));
 	}
 
