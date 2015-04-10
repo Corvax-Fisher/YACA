@@ -24,7 +24,7 @@ public interface IServiceFacade {
 
 	public boolean sendFile(MessageTO messageTO);
 
-	public boolean showProfile(ProfileTO profileTO);
+	public ProfileTO showProfile(MessageTO messageTO);
 
 	public boolean saveProfile(ProfileTO profilTO);
 

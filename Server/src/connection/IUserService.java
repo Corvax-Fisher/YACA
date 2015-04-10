@@ -2,7 +2,7 @@ package Server.src.connection;
 
 public interface IUserService {
 
-	public boolean showProfile(ProfileTO profileTO);
+	public ProfileTO showProfile(MessageTO messageTO);
 
 	public boolean saveProfile(ProfileTO profileTO);
 

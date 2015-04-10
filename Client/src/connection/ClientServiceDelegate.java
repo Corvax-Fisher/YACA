@@ -87,7 +87,7 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 
 	// nur String übergabe?
 
-	public boolean showProfile(String from, String to) {
+	public ProfileTO showProfile(String from, String to) {
 		return clientStub.sendObject(new MessageTO(from, to, null,"showProfile", null));
 	}
 

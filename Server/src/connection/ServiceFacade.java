@@ -68,8 +68,8 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	
-	public boolean showProfile(ProfileTO profileTO) {
-		return userService.showProfile(profileTO); 
+	public ProfileTO showProfile(MessageTO messageTO) {
+		return userService.showProfile(messageTO); 
 	}
 
 	

@@ -44,19 +44,12 @@ public class RoomService implements IRoomService {
 	@Override
 	public boolean joinRoom(MessageTO messageTO) {
 		for (int i = 0; i < roomPAO.size(); i++) {
-			if (roomDAO.getName(i) == messageTO.getRoom()) {
-				if(roomDAO.addUser(i,messageTO.getFrom())) {
-					return true;
-				}
-			}else if(roomDAO.insertRoom(messageTO.getRoom())){
-					roomDAO.getRoomID(messageTO.getRoom());
-					// muss per roomID ein user eingefügt werden, oder geht das per name?
-					roomDAO.addUser(i,messageTO.getFrom());
-					//hier reicht kein true als rückgabe.... muss die raum id mitschicken.. oder ?
-					return true;
-				}
-			}return false;
 		
+			if (roomDAO.getRoom(i) == messageTO.getRoom()) {
+				
+			}
+				
+		}
 	}
 
 	@Override
