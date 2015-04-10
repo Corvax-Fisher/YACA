@@ -1,4 +1,4 @@
-package DataTransferObjects;
+package connection;
 
 public class Credentials {
 	protected String name;
