@@ -12,9 +12,12 @@ public class UserService implements IUserService{
 	private IServerServiceDelegate serverServiceDelegate = null;
 	private AbstractDAOFactory abstractDAOFactory = null;
 	
-	public UserService(IServerServiceDelegate serverServiceDelegate, AbstractDAOFactory abstractDAOFactory){
+	public UserService(IServerServiceDelegate serverServiceDelegate){
 		this.serverServiceDelegate = serverServiceDelegate;
-		this.abstractDAOFactory = abstractDAOFactory;
+		//DAO Factory erstellen
+		abstractDAOFactory.getDAOFactory("SQL");
+		roleDAO = abstractDAOFactory.createRoleDAO();
+		userDAO = abstractDAOFactory.createUserDAO();
 	}
 	
 	@Override
@@ -54,7 +57,9 @@ public class UserService implements IUserService{
 			 return false;
 		 } else {
 			 //insert Guest user
-			 userDAO.insertUser(new UserPAO());
+			 String userName = loginTO.getName();
+			 UserPAO userPAO = new Builder()
+			 userDAO.insertUser(new UserPAO(new Builder()
 			 return true;
 		 }
 	}

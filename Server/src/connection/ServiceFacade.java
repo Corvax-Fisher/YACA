@@ -12,9 +12,9 @@ public class ServiceFacade implements IServiceFacade {
 	//ServerServiceDelegate hier notwendig? oder erst im ChatService
 	public ServiceFacade(IChatService chatService, IRoomService roomService,
 			IUserService userService, IServerServiceDelegate serverServiceDelegate) {
-		this.chatService = chatService;
-		this.roomService = roomService;
-		this.userService = userService;
+		this.chatService = chatService(serverServiceDelegate);
+		this.roomService = roomService(serverServiceDelegate);
+		this.userService = userService(serverServiceDelegate);
 		this.serverServiceDelegate = serverServiceDelegate;
 	}
 

@@ -13,17 +13,15 @@ public class RoomService implements IRoomService {
 	private IServerServiceDelegate serverServiceDelegate = null;
 	private AbstractDAOFactory abstractDAOFactory = null;
 	private RoomDAO roomDAO = null;
+	private Room room = null;
 	
-	public RoomService(IServerServiceDelegate serverServiceDelegate, AbstractDAOFactory abstractDAOFactory,
-			RoomDAO roomDAO) {
+	public RoomService(IServerServiceDelegate serverServiceDelegate) {
 		this.serverServiceDelegate = serverServiceDelegate;
-		this.abstractDAOFactory = abstractDAOFactory;
-		this.roomDAO = roomDAO;
-		
+				
 		//DAO Factory erstellen
 		abstractDAOFactory.getDAOFactory("SQL");		
 		//RoomDAO erstellen
-		this.roomDAO = abstractDAOFactory.createRoomDAO();
+		roomDAO = abstractDAOFactory.createRoomDAO();
 		//Raumliste füllen
 		roomPAO.addAll(roomDAO.getAllRooms());
 			
@@ -43,25 +41,12 @@ public class RoomService implements IRoomService {
 	
 	@Override
 	public boolean joinRoom(MessageTO messageTO) {
-		for (int i = 0; i < roomPAO.size(); i++) {
 		
-			if (roomDAO.getRoom(i) == messageTO.getRoom()) {
-				
-			}
-				
-		}
 	}
 
 	@Override
 	public boolean leaveRoom(MessageTO messageTO) {
-		for (Room temp_room : room) {
-			if (temp_room.getName() == messageTO.getRoom()) {
-				if(temp_room.addUser(messageTO.getFrom())) {
-					return true;
-				}
-			} 
-		}
-		return false;
+	
 	}
 
 	@Override
