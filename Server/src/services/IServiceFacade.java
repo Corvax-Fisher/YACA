@@ -1,12 +1,17 @@
-package Server.src.connection;
+package Server.src.services;
 import java.util.List;
+
+import Server.src.transferObjects.LoginTO;
+import Server.src.transferObjects.MessageTO;
+import Server.src.transferObjects.ProfileTO;
+import Server.src.transferObjects.RegisterTO;
 
 
 public interface IServiceFacade {
 
-	public boolean logIn(LoginTO loginTO);
+	public String logIn(LoginTO loginTO);
 
-	public boolean logInGuest(LoginTO loginTO);
+	public String logInGuest(LoginTO loginTO);
 
 	public boolean logOut(String logOutTxt);
 
@@ -33,9 +38,8 @@ public interface IServiceFacade {
 	public boolean leaveRoom(MessageTO messageTO);
 
 	public List<String> getUserList(MessageTO messageTO);
-
 	
 	//Update Chat Rückgabewert? MessageTO?
-	public boolean updateChat(MessageTO messageTO);
+	public void updateChat(MessageTO messageTO);
 
 }

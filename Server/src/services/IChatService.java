@@ -1,4 +1,6 @@
-package Server.src.connection;
+package Server.src.services;
+
+import Server.src.transferObjects.MessageTO;
 
 public interface IChatService {
 

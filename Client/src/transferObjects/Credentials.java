@@ -1,8 +1,13 @@
-package connection;
+package Client.src.transferObjects;
 
 public class Credentials {
-	protected String name;
-	protected String password;
+	private String name;
+	private String password;
+	
+	public Credentials(String name, String password) {
+		this.name = name;
+		this.password = password;
+	}
 	
 	public String getPassword() {
 		return password;

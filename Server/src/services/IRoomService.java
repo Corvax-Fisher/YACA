@@ -1,6 +1,8 @@
-package Server.src.connection;
+package Server.src.services;
 
 import java.util.List;
+
+import Server.src.transferObjects.MessageTO;
 
 public interface IRoomService {
 
@@ -16,6 +18,6 @@ public interface IRoomService {
 
 	public List<String> getUserList(MessageTO messageTO);
 
-	public void updateUserList();
+	public void updateUserList(Room room);
 
 }

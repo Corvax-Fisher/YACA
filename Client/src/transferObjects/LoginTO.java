@@ -1,4 +1,4 @@
-package connection;
+package Client.src.transferObjects;
 
 import java.io.Serializable;
 
@@ -7,8 +7,7 @@ public class LoginTO extends Credentials implements Serializable {
 	private String type;
 	
 	public LoginTO(String name, String password, String type){
-		this.name = name;
-		this.password = password;
+		super(name, password);
 		this.type = type;
 	}
 	

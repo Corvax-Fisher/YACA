@@ -1,7 +1,7 @@
-package Server.src.connection;
+package Server.src.services;
 
 public class ServerServiceDelegate implements IServerServiceDelegate {
-	
+	//hier die TOs erstellen
 	private IServerStub serverStub = null;
 	
 	public ServerServiceDelegate(IServerStub serverStub) {
@@ -11,12 +11,12 @@ public class ServerServiceDelegate implements IServerServiceDelegate {
 	}
 	
 	@Override
-	public void updateChat() {
+	public void updateChat(String from, String to, String room, String type, String body) {
 		
 	}
 	
 	@Override
-	public void updateUserList() {
+	public void updateUserList(String from, String to, String room, String type, String body) {
 		
 	}
 	

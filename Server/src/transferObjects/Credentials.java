@@ -1,8 +1,13 @@
-package connection;
+package Server.src.transferObjects;
 
 public class Credentials {
-	protected String name;
-	protected String password;
+	private String name;
+	private String password;
+	
+	public Credentials(String name, String password) {
+		this.name = name;
+		this.password = password;
+	}
 	
 	public String getPassword() {
 		return password;
@@ -19,6 +24,5 @@ public class Credentials {
 	public void setName(String name) {
 		this.name = name;		
 	}
-	
 }
 
