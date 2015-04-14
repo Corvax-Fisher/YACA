@@ -119,7 +119,7 @@ public class MainView extends JFrame implements ActionListener
 		JPanel pnlSchrift = new JPanel();
 		//pnlSchrift.setBorder(BorderFactory.createLineBorder(Color.blue));//Umrandung	
 		//pnlSchrift.setVisible(false);
-		//pnlSchrift.add(new JLabel("offene Räume                                                                                                                                                   angemeldete Anwender"));
+		//pnlSchrift.add(new JLabel("offene RÃ¤ume                                                                                                                                                   angemeldete Anwender"));
 		//ta.setTabSize(1000);???
 		add(pnlSchrift);
 		
