@@ -1,2 +1,4 @@
-.metadata/
-bin/
+Server/.metadata/
+Server/bin/
+Client/.metadata/
+Client/bin/
