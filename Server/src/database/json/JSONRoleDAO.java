@@ -1,6 +1,9 @@
-package database;
+package database.json;
 
 import java.util.List;
+
+import database.RoleDAO;
+import database.RolePAO;
 
 public class JSONRoleDAO implements RoleDAO {
 

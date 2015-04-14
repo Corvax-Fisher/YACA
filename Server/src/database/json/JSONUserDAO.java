@@ -1,6 +1,9 @@
-package database;
+package database.json;
 
 import java.util.List;
+
+import database.UserDAO;
+import database.UserPAO;
 
 public class JSONUserDAO implements UserDAO {
 
