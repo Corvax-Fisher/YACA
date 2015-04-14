@@ -1,11 +1,10 @@
-package Client.src.services;
+package services;
 import java.util.List;
 
-import Client.src.transferObjects.LoginTO;
-import Client.src.transferObjects.MessageTO;
-import Client.src.transferObjects.ProfileTO;
-import Client.src.transferObjects.RegisterTO;
-import sun.misc.resources.Messages_zh_TW;
+import transferObjects.LoginTO;
+import transferObjects.MessageTO;
+import transferObjects.ProfileTO;
+import transferObjects.RegisterTO;
 
 
 public class ClientServiceDelegate implements IClientServiceDelegate {
@@ -33,7 +32,7 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 			return "can not connect";
 		}
 	}
-	// Log Out nur String übergabe? Server wird ja wissen von wem das logOut
+	// Log Out nur String uebergabe? Server wird ja wissen von wem das logOut
 	// geschickt wurde
 	@Override
 	public boolean logOut(String from) {
@@ -74,12 +73,12 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 	public boolean sendPrivateMessage(String from, String to, String room, String body) {
 		return clientStub.sendObject(new MessageTO(from, to, room, "sendPrivateMessage", body));
 	}
-	// FILE als String schicken (body) ? binäres casten....
+	// FILE als String schicken (body) ? binaeres casten....
 	@Override
 	public boolean sendFile(String from, String to, String room, String body) {
 		return clientStub.sendObject(new MessageTO(from, to, room, "sendFile", body));
 	}
-	// nur String übergabe?
+	// nur String uebergabe?
 	@Override
 	public ProfileTO showProfile(String from, String to) {
 		return clientStub.sendObject(new MessageTO(from, to, null,"showProfile", null));
@@ -99,7 +98,7 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 	public boolean leaveRoom(String name) {
 		return clientStub.sendObject(new MessageTO(null, null, name, "leaveRoom", null));
 	}
-	//name notwendig um rechte zu prüfen ob man die userliste sehen darf?
+	//name notwendig um rechte zu pruefen ob man die userliste sehen darf?
 	@Override
 	public List<String> getUserList(String roomName){
 		return clientStub.sendObject(new MessageTO(null,null,roomName,"getUserList",null));

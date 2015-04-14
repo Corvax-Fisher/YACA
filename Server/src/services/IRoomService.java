@@ -1,8 +1,8 @@
-package Server.src.services;
+package services;
 
 import java.util.List;
 
-import Server.src.transferObjects.MessageTO;
+import transferObjects.MessageTO;
 
 public interface IRoomService {
 

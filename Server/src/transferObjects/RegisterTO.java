@@ -1,4 +1,4 @@
-package Server.src.transferObjects;
+package transferObjects;
 
 import java.io.Serializable;
 

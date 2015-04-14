@@ -1,10 +1,10 @@
-package Server.src.services;
+package services;
 import java.util.List;
 
-import Server.src.transferObjects.LoginTO;
-import Server.src.transferObjects.MessageTO;
-import Server.src.transferObjects.ProfileTO;
-import Server.src.transferObjects.RegisterTO;
+import transferObjects.LoginTO;
+import transferObjects.MessageTO;
+import transferObjects.ProfileTO;
+import transferObjects.RegisterTO;
 
 
 public class ServiceFacade implements IServiceFacade {

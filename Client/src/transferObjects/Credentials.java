@@ -1,4 +1,4 @@
-package Client.src.transferObjects;
+package transferObjects;
 
 public class Credentials {
 	private String name;

@@ -1,6 +1,6 @@
-package Server.src.services;
+package services;
 
-import Server.src.transferObjects.MessageTO;
+import transferObjects.MessageTO;
 
 public class ChatService implements IChatService {
 	
@@ -14,13 +14,13 @@ public class ChatService implements IChatService {
 	
 	@Override
 	public void sendMessage(MessageTO messageTO) {
-		//Überprüfung ob Raum vorhanden, und User enthalten sinnvoll?
+		//ueberpruefung ob Raum vorhanden, und User enthalten sinnvoll?
 		serverServiceDelegate.updateChat(messageTO.getFrom(),null,messageTO.getRoom() ,"updateChat" ,messageTO.getBody());
 	}
 	
 	@Override
 	public void sendPrivateMessage(MessageTO messageTO) {
-		//Überprüfung ob Raum vorhanden, und User enthalten sinnvoll?
+		//ueberpruefung ob Raum vorhanden, und User enthalten sinnvoll?
 		serverServiceDelegate.updateChat(messageTO.getFrom(),messageTO.getTo(),messageTO.getRoom(), "updateChat",messageTO.getBody());
 	}
 	
@@ -37,6 +37,7 @@ public class ChatService implements IChatService {
 	@Override
 	public boolean updateChat(MessageTO messageTO) {
 		//Was macht man hier?
+		return false;
 	}
 
 }

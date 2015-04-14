@@ -1,4 +1,4 @@
-package Server.src.services;
+package services;
 
 public class ServerServiceDelegate implements IServerServiceDelegate {
 	//hier die TOs erstellen
