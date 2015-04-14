@@ -1,4 +1,4 @@
-package connection;
+package transferObjects;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package connection;
+package transferObjects;
 
 import java.io.Serializable;
 
@@ -10,8 +10,7 @@ public class MessageTO implements Serializable {
 	private String type;
 	private String body;
 	
-	public MessageTO(String from, String to, String room, String type,
-			String body) {
+	public MessageTO(String from, String to, String room, String type, String body) {
 		
 		this.from = from;
 		this.to = to;
@@ -59,10 +58,4 @@ public class MessageTO implements Serializable {
 	public void setBody(String body) {
 		this.body = body;
 	}
-	
-	
-
-	
-	
-
 }

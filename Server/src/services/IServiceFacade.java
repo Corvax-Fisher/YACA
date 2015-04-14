@@ -1,13 +1,17 @@
-import java.util.ArrayList;
+package services;
+import java.util.List;
 
-import DataTransferObjects.*;
+import transferObjects.LoginTO;
+import transferObjects.MessageTO;
+import transferObjects.ProfileTO;
+import transferObjects.RegisterTO;
 
 
 public interface IServiceFacade {
 
-	public boolean logIn(LoginTO loginTO);
+	public String logIn(LoginTO loginTO);
 
-	public boolean logInGuest(LoginTO loginTO);
+	public String logInGuest(LoginTO loginTO);
 
 	public boolean logOut(String logOutTxt);
 
@@ -25,7 +29,7 @@ public interface IServiceFacade {
 
 	public boolean sendFile(MessageTO messageTO);
 
-	public boolean showProfile(String name);
+	public ProfileTO showProfile(MessageTO messageTO);
 
 	public boolean saveProfile(ProfileTO profilTO);
 
@@ -33,10 +37,9 @@ public interface IServiceFacade {
 
 	public boolean leaveRoom(MessageTO messageTO);
 
-	public ArrayList<String> getUserList(MessageTO messageTO);
-
+	public List<String> getUserList(MessageTO messageTO);
 	
-	//Update Chat Rückgabewert? MessageTO?
-	public boolean updateChat(MessageTO messageTO);
+	//Update Chat Rueckgabewert? MessageTO?
+	public void updateChat(MessageTO messageTO);
 
 }

@@ -1,29 +1,34 @@
-import java.util.ArrayList;
+package services;
+import java.util.List;
 
-import DataTransferObjects.*;
+import transferObjects.LoginTO;
+import transferObjects.MessageTO;
+import transferObjects.ProfileTO;
+import transferObjects.RegisterTO;
+
 
 public class ServiceFacade implements IServiceFacade {
 
 	private IChatService chatService = null;
 	private IRoomService roomService = null;
 	private IUserService userService = null;
-	//private IServerServiceDelegate serverServiceDelegate = null;
+	private IServerServiceDelegate serverServiceDelegate = null;
 	
 	//ServerServiceDelegate hier notwendig? oder erst im ChatService
-	public ServiceFacade(IChatService chatService, IRoomService roomService,
-			IUserService userService, IServerServiceDelegate serverServiceDelegate) {
-		this.chatService = chatService;
-		this.roomService = roomService;
-		this.userService = userService;
-		//this.serverServiceDelegate = serverServiceDelegate;
+	//Haben so alle services das selbe serverServiceDelegate Object?
+	public ServiceFacade() {
+		this.chatService = new ChatService(serverServiceDelegate);
+		this.roomService = new RoomService(serverServiceDelegate);
+		this.userService = new UserService(serverServiceDelegate);
+		this.serverServiceDelegate = serverServiceDelegate;
 	}
 
-	public boolean logIn(LoginTO loginTO) {
+	public String logIn(LoginTO loginTO) {
 		return userService.logIn(loginTO); 
 	}
 
 	
-	public boolean logInGuest(LoginTO loginTO) {
+	public String logInGuest(LoginTO loginTO) {
 		return userService.logInGuest(loginTO); 
 	}
 
@@ -64,17 +69,17 @@ public class ServiceFacade implements IServiceFacade {
 
 	
 	public boolean sendFile(MessageTO messageTO) {
-		return chatService.kick(messageTO);
+		return roomService.kick(messageTO);
 	}
 
 	
-	public boolean showProfile(String name) {
-		return userService.showProfile(name); 
+	public ProfileTO showProfile(MessageTO messageTO) {
+		return userService.showProfile(messageTO); 
 	}
 
 	
-	public boolean saveProfile(ProfileTO profilTO) {
-		return userService.saveProfile(profilTO);
+	public boolean saveProfile(ProfileTO profileTO) {
+		return userService.saveProfile(profileTO);
 	}
 
 
@@ -88,13 +93,13 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	
-	public ArrayList<String> getUserList(MessageTO messageTO) {
+	public List<String> getUserList(MessageTO messageTO) {
 		return roomService.getUserList(messageTO);
 	}
 
 	
-	public boolean updateChat(MessageTO messageTO) {
-		return chatService.updateChat(messageTO);
+	public void updateChat(MessageTO messageTO) {
+		chatService.updateChat(messageTO);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package connection;
+package transferObjects;
 
 import java.io.Serializable;
 
@@ -28,8 +28,4 @@ public class ProfileTO extends RegisterTO implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
-	
-
 }

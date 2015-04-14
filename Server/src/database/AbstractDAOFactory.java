@@ -1,10 +1,10 @@
 package database;
 
 public abstract class AbstractDAOFactory {
-	JSONDAOFactory j = null;
-	SQLDAOFactory s = null;
+	private static JSONDAOFactory j = null;
+	private static SQLDAOFactory s = null;
 	
-	public AbstractDAOFactory getDAOFactory(String factoryName) {
+	public static AbstractDAOFactory getDAOFactory(String factoryName) {
 		switch (factoryName) {
 			case "JSON": 
 				if(j == null) j = new JSONDAOFactory();
