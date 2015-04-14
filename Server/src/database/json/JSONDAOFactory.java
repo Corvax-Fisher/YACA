@@ -1,4 +1,9 @@
-package database;
+package database.json;
+
+import database.AbstractDAOFactory;
+import database.RoleDAO;
+import database.RoomDAO;
+import database.UserDAO;
 
 public class JSONDAOFactory extends AbstractDAOFactory {
 
