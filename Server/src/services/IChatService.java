@@ -1,6 +1,6 @@
-package Server.src.services;
+package services;
 
-import Server.src.transferObjects.MessageTO;
+import transferObjects.MessageTO;
 
 public interface IChatService {
 
@@ -10,6 +10,6 @@ public interface IChatService {
 
 	public void sendFile(MessageTO messageTO);
 
-	public void updateChat(MessageTO messageTO);
+	public boolean updateChat(MessageTO messageTO);
 
 }

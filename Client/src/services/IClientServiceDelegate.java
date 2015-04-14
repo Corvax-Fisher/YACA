@@ -1,7 +1,7 @@
-package Client.src.services;
+package services;
 import java.util.List;
 
-import Client.src.transferObjects.ProfileTO;
+import transferObjects.ProfileTO;
 
 public interface IClientServiceDelegate {
 	public static final int PORTFORSOCKETACCESS = 9050;
@@ -10,7 +10,7 @@ public interface IClientServiceDelegate {
 
 	public String logInGuest(String name);
 
-	// Log Out nur String übergabe? Server wird ja wissen von wem das logOut
+	// Log Out nur String uebergabe? Server wird ja wissen von wem das logOut
 	// geschickt wurde
 	public boolean logOut(String from);
 
@@ -25,9 +25,9 @@ public interface IClientServiceDelegate {
 	public boolean sendMessage(String from, String room, String body);
 
 	public boolean sendPrivateMessage(String from, String to, String room, String body);
-	// FILE als String schicken (body) ? binäres casten....
+	// FILE als String schicken (body) ? binaeres casten....
 	public boolean sendFile(String from, String to, String room, String body);
-	// nur String übergabe?
+	// nur String uebergabe?
 	public ProfileTO showProfile(String from, String to);
 
 	public boolean saveProfile(String name, String password, String email, String realName, String role);
@@ -35,7 +35,7 @@ public interface IClientServiceDelegate {
 	public boolean joinRoom(String name, String roomName);
 
 	public boolean leaveRoom(String name);
-	//name notwendig um rechte zu prüfen ob man die userliste sehen darf
+	//name notwendig um rechte zu pruefen ob man die userliste sehen darf
 	public List<String> getUserList(String roomName);
 
 }

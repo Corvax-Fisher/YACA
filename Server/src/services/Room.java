@@ -1,8 +1,8 @@
-package Server.src.services;
+package services;
 
 import java.util.List;
 
-import Server.src.database.RoomPAO;
+import database.RoomPAO;
 
 public class Room {
 	

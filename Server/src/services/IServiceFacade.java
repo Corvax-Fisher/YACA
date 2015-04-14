@@ -1,10 +1,10 @@
-package Server.src.services;
+package services;
 import java.util.List;
 
-import Server.src.transferObjects.LoginTO;
-import Server.src.transferObjects.MessageTO;
-import Server.src.transferObjects.ProfileTO;
-import Server.src.transferObjects.RegisterTO;
+import transferObjects.LoginTO;
+import transferObjects.MessageTO;
+import transferObjects.ProfileTO;
+import transferObjects.RegisterTO;
 
 
 public interface IServiceFacade {
@@ -39,7 +39,7 @@ public interface IServiceFacade {
 
 	public List<String> getUserList(MessageTO messageTO);
 	
-	//Update Chat Rückgabewert? MessageTO?
+	//Update Chat Rueckgabewert? MessageTO?
 	public void updateChat(MessageTO messageTO);
 
 }

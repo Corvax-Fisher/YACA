@@ -1,15 +1,15 @@
-package Server.src.services;
+package services;
 
-import Server.src.database.UserPAO.Builder;
-import Server.src.database.RolePAO;
-import Server.src.database.AbstractDAOFactory;
-import Server.src.database.RoleDAO;
-import Server.src.database.UserDAO;
-import Server.src.database.UserPAO;
-import Server.src.transferObjects.LoginTO;
-import Server.src.transferObjects.MessageTO;
-import Server.src.transferObjects.ProfileTO;
-import Server.src.transferObjects.RegisterTO;
+import database.UserPAO.Builder;
+import database.RolePAO;
+import database.AbstractDAOFactory;
+import database.RoleDAO;
+import database.UserDAO;
+import database.UserPAO;
+import transferObjects.LoginTO;
+import transferObjects.MessageTO;
+import transferObjects.ProfileTO;
+import transferObjects.RegisterTO;
 
 public class UserService implements IUserService{
 	
@@ -36,18 +36,18 @@ public class UserService implements IUserService{
 		//Die role brauche ich auch
 		rolePAO = roleDAO.getRole();
 		
-		return new ProfileTO()
+		return new ProfileTO();
 		
 	}
 	
 	@Override
 	public boolean saveProfile(ProfileTO profileTO) {
-		
+		return false;
 	}
 	
 	@Override
 	public boolean register(RegisterTO registerTO) {
-		
+		return false;
 	}
 	
 	@Override
@@ -85,7 +85,8 @@ public class UserService implements IUserService{
 	
 	@Override
 	public boolean logOut(String logOutTxt) {
-		//User aus allen Räumen werfen? oder delet user
+		//User aus allen Raeumen werfen? oder delete user
+		return false;
 	}
 
 }

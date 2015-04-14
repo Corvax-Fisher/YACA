@@ -1,11 +1,11 @@
-package Server.src.services;
+package services;
 
 import java.util.List;
 
-import Server.src.database.AbstractDAOFactory;
-import Server.src.database.RoomDAO;
-import Server.src.database.RoomPAO;
-import Server.src.transferObjects.MessageTO;
+import database.AbstractDAOFactory;
+import database.RoomDAO;
+import database.RoomPAO;
+import transferObjects.MessageTO;
 
 public class RoomService implements IRoomService {
 	
@@ -24,10 +24,10 @@ public class RoomService implements IRoomService {
 		abstractDAOFactory.getDAOFactory("SQL");		
 		//RoomDAO erstellen
 		roomDAO = abstractDAOFactory.createRoomDAO();
-		//Raumliste füllen
+		//Raumliste fuellen
 		roomPAO.addAll(roomDAO.getAllRooms());
 		
-		//Müssen alle gepeicherten RoomPAOs in die List<Room> room eingetragen werden?
+		//Muessen alle gepeicherten RoomPAOs in die List<Room> room eingetragen werden?
 			
 	}
 		
@@ -64,7 +64,7 @@ public class RoomService implements IRoomService {
 		}
 		//Room noch nicht da:
 		//neuen Room erstellen... wie sieht es hier mit Berechtigung aus, darf jeder einen Room erstellen?
-		//wie werden die IDs von Rooms erstellt? Random Nr.? Oder gibt es für die Sichbarkeit IDS?
+		//wie werden die IDs von Rooms erstellt? Random Nr.? Oder gibt es fuer die Sichbarkeit IDS?
 		
 		
 //		Boolean abbruch = false;
@@ -81,14 +81,14 @@ public class RoomService implements IRoomService {
 //		
 		
 		//Room erstellen
-		//user einfügen
+		//user einfuegen
 		roomDAO.insertRoom(new RoomPAO(randomIDNr,roomName));
 		Room room = new Room(roomName);
 		room.addUser(userName);
 		updateUserList(room);
 		return true;
 		
-		//Return false? wenn was schief geht? oder Raum Größe überschritten?
+		//Return false? wenn was schief geht? oder Raum Groesse ueberschritten?
 		
 	}
 
