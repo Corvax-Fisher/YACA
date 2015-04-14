@@ -2,7 +2,11 @@ package userinterface;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
 
-public class LoginView extends JFrame {
+public class LoginView extends JFrame implements ActionListener{
 	
 	private JTextField tfUserName;
 	private JPasswordField tfPWD;
@@ -22,14 +26,15 @@ public class LoginView extends JFrame {
 	
 	public LoginView(){
 		
-		setTitle("YACA-Anmeldung");
+		//JDialog login = new JDialog();
+		setTitle("Login");
 		setSize(300,300);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);	
 		
 		pnlLogIn = new JPanel();
-		pnlLogIn.setLayout(new GridLayout(3,3));
+		pnlLogIn.setLayout(new GridLayout(3,2));
 		
 		pnlLogIn.add(new JLabel("Benutzername: "));
 		pnlLogIn.add(tfUserName = new JTextField(" ", 20));
@@ -50,6 +55,10 @@ public class LoginView extends JFrame {
 		setVisible(true);
 		pack();
 	}//UserLogIn()
+	
+	public void actionPerformed(ActionEvent e){
+		
+	}
 	
 	static public void main(String argv[]){
 		new LoginView();
