@@ -17,89 +17,91 @@ public class ServiceFacade implements IServiceFacade {
 	//ServerServiceDelegate hier notwendig? oder erst im ChatService
 	//Haben so alle services das selbe serverServiceDelegate Object?
 	public ServiceFacade() {
+		this.serverServiceDelegate = new ServerServiceDelegate();
 		this.chatService = new ChatService(serverServiceDelegate);
 		this.roomService = new RoomService(serverServiceDelegate);
 		this.userService = new UserService(serverServiceDelegate);
-		this.serverServiceDelegate = serverServiceDelegate;
+		
+	}
+	@Override
+	public void logIn(LoginTO loginTO) {
+		
+		if (loginTO.getType() == "login") {
+			if(userService.logIn(loginTO)) {
+				roomService.getRoomList(loginTO);
+			}
+		}
+		else userService.logInGuest(loginTO);
+	}
+	@Override	
+	public void logOut(MessageTO messageTO) {
+		return userService.logOut(messageTO); 
 	}
 
-	public String logIn(LoginTO loginTO) {
-		return userService.logIn(loginTO); 
+	@Override
+	public void register(RegisterTO registerTO) {
+		userService.register(registerTO); 
 	}
 
-	
-	public String logInGuest(LoginTO loginTO) {
-		return userService.logInGuest(loginTO); 
+	@Override
+	public void kick(MessageTO messageTO) {
+		roomService.kick(messageTO);
 	}
 
-	
-	public boolean logOut(String logOutTxt) {
-		return userService.logOut(logOutTxt); 
+	@Override
+	public void ban(MessageTO messageTO) {
+		roomService.ban(messageTO);
 	}
 
-	
-	public boolean register(RegisterTO registerTO) {
-		return userService.register(registerTO); 
+	@Override
+	public void mute(MessageTO messageTO) {
+		roomService.mute(messageTO);
 	}
 
-	
-	public boolean kick(MessageTO messageTO) {
-		return roomService.kick(messageTO);
+	@Override
+	public void sendMessage(MessageTO messageTO) {
+		chatService.sendMessage(messageTO);
 	}
 
-	
-	public boolean ban(MessageTO messageTO) {
-		return roomService.ban(messageTO);
-	}
-
-	
-	public boolean mute(MessageTO messageTO) {
-		return roomService.mute(messageTO);
-	}
-
-
-	public boolean sendMessage(MessageTO messageTO) {
-		return chatService.sendMessage(messageTO);
-	}
-
-	
-	public boolean sendPrivateMessage(MessageTO messageTO) {
+	@Override
+	public void sendPrivateMessage(MessageTO messageTO) {
 		return chatService.sendPrivateMessage(messageTO);
 	}
 
-	
-	public boolean sendFile(MessageTO messageTO) {
-		return roomService.kick(messageTO);
+	@Override
+	public void sendFile(MessageTO messageTO) {
+		roomService.kick(messageTO);
 	}
 
-	
-	public ProfileTO showProfile(MessageTO messageTO) {
-		return userService.showProfile(messageTO); 
+	@Override
+	public void showProfile(MessageTO messageTO) {
+		userService.showProfile(messageTO); 
 	}
 
-	
-	public boolean saveProfile(ProfileTO profileTO) {
-		return userService.saveProfile(profileTO);
+	@Override
+	public void saveProfile(ProfileTO profileTO) {
+		userService.saveProfile(profileTO);
 	}
 
-
-	public boolean joinRoom(MessageTO messageTO) {
-		return roomService.joinRoom(messageTO);
+	@Override
+	public void joinRoom(MessageTO messageTO) {
+		roomService.joinRoom(messageTO);
 	}
 
-	
-	public boolean leaveRoom(MessageTO messageTO) {
-		return roomService.leaveRoom(messageTO);
+	@Override
+	public void leaveRoom(MessageTO messageTO) {
+		roomService.leaveRoom(messageTO);
 	}
 
-	
-	public List<String> getUserList(MessageTO messageTO) {
-		return roomService.getUserList(messageTO);
+	@Override
+	public void getUserList(MessageTO messageTO) {
+		roomService.getUserList(messageTO);
 	}
 
-	
+	@Override
 	public void updateChat(MessageTO messageTO) {
 		chatService.updateChat(messageTO);
 	}
+	
 	
 }

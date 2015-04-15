@@ -8,9 +8,9 @@ public class MessageTO implements Serializable {
 	private String to;
 	private String room;
 	private String type;
-	private String body;
+	private Object body;
 	
-	public MessageTO(String from, String to, String room, String type, String body) {
+	public MessageTO(String from, String to, String room, String type, Object body) {
 		
 		this.from = from;
 		this.to = to;
@@ -51,11 +51,11 @@ public class MessageTO implements Serializable {
 		this.type = type;
 	}
 
-	public String getBody() {
+	public Object getBody() {
 		return body;
 	}
 
-	public void setBody(String body) {
+	public void setBody(Object body) {
 		this.body = body;
 	}
 }

@@ -4,38 +4,36 @@ import java.util.List;
 import transferObjects.ProfileTO;
 
 public interface IClientServiceDelegate {
-	public static final int PORTFORSOCKETACCESS = 9050;
+	
 
-	public String logIn(String name, String password);
+	public void logIn(String name, String password);
 
-	public String logInGuest(String name);
+	public void logInGuest(String name);
 
-	// Log Out nur String uebergabe? Server wird ja wissen von wem das logOut
-	// geschickt wurde
-	public boolean logOut(String from);
+	public void logOut(String from);
 
-	public boolean register(String name, String password, String email);
+	public void register(String name, String password, String email);
 
-	public boolean kick(String from, String to, String room);
+	public void kick(String from, String to, String room);
 
-	public boolean ban(String from, String to, String room);
+	public void ban(String from, String to, String room);
 
-	public boolean mute(String from, String to, String room);
+	public void mute(String from, String to, String room);
 
-	public boolean sendMessage(String from, String room, String body);
+	public void sendMessage(String from, String room, Object body);
 
-	public boolean sendPrivateMessage(String from, String to, String room, String body);
-	// FILE als String schicken (body) ? binaeres casten....
-	public boolean sendFile(String from, String to, String room, String body);
-	// nur String uebergabe?
-	public ProfileTO showProfile(String from, String to);
+	public void sendPrivateMessage(String from, String to, String room, Object body);
 
-	public boolean saveProfile(String name, String password, String email, String realName, String role);
+	public void sendFile(String from, String to, String room, Object body);
 
-	public boolean joinRoom(String name, String roomName);
+	public void showProfile(String from, String to);
 
-	public boolean leaveRoom(String name);
-	//name notwendig um rechte zu pruefen ob man die userliste sehen darf
-	public List<String> getUserList(String roomName);
+	public void saveProfile(String name, String password, String email, String realName, String role);
+
+	public void joinRoom(String from, String roomName);
+
+	public void leaveRoom(String from, String roomName);
+
+	public void getUserList(String from, String roomName);
 
 }

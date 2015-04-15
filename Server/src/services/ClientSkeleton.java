@@ -5,19 +5,21 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
-import transferObjects.LoginTO;
-import transferObjects.MessageTO;
-import transferObjects.ServerStub;
+import transferObjects.*;
+
 
 
 public class ClientSkeleton extends Thread {
 	private static final int PORT = 32957;
 	private ServerSocket listener;
 	private static ServerStub st;
+	private static ServiceFacade servicefacade;
+
 	private static HashMap<String, String> clients = new HashMap<String, String>();
 	
-	public ClientSkeleton(ServerStub st) {
+	public ClientSkeleton(ServerStub st, ServiceFacade servicefacade) {
 		this.st = st;
+		this.servicefacade = servicefacade;
 	}
 	
 	public void run() {
@@ -59,20 +61,41 @@ public class ClientSkeleton extends Thread {
 					switch (inputType.toLowerCase()) {
 			            case "login":
 			            	LoginTO loginContent = (LoginTO) inStream.readObject();
-							clients.put(ip, loginContent.getName());
-							st.addUser(loginContent.getName(), new ObjectOutputStream(socket.getOutputStream()));
-							
+			            	clients.put(ip, loginContent.getName());
+			            	st.addUser(loginContent.getName(), new ObjectOutputStream(socket.getOutputStream()));
+							servicefacade.logIn(loginContent);
 			                break;
 			            case "message":
 			            	MessageTO messageContent = (MessageTO) inStream.readObject();
+
+			            	switch (messageContent.getType()) {
+					            case "logout":
+					            	servicefacade.logOut(messageContent);
+					                break;
+					            case "joinroom":
+					            	servicefacade.joinRoom(messageContent);			            	
+					                break;
+					            case "leaveroom":
+					            	servicefacade.leaveRoom(messageContent);
+					                break;
+					            case "message":
+					            	servicefacade.sendMessage(messageContent);
+					                break;
+					            case "getuserlist":
+					            	servicefacade.getUserList(messageContent);
+						            break;
+					            default: 
+					                System.out.println("unimplemented Message");
+					                break;
+							}
 			            	
 			                break;
-			            case "profile":
-			            	MessageTO profileContent = (MessageTO) inStream.readObject();
-			            	
+			            case "register":
+			            	RegisterTO registerContent = (RegisterTO) inStream.readObject();
+			            	servicefacade.register(registerContent);
 			                break;
 			            default: 
-			                
+			                System.out.println("unimplemented Type");
 			                break;
 					}					
 				}

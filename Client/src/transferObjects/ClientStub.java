@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+
 public class ClientStub {
 	private static final int PORT = 32957;
 	private static String serverIP;
@@ -24,6 +25,17 @@ public class ClientStub {
 		new SendRequest(mto, "message").start();	
 	}
 	
+	public void sendObject(RegisterTO rto) {
+		new SendRequest(rto, "register").start();	
+	}
+	
+	public void sendObject(String message, String type) {
+		new SendRequest(message, type).start();	
+	}
+	
+	public void sendObject(Object data, String type) {
+		new SendRequest(data, type).start();	
+	}
 	
 	
 	public ObjectInputStream getInStream() {
@@ -53,15 +65,16 @@ public class ClientStub {
 	}
 	
 	
-	public void connect() {
+	public boolean connect() {
 		try {
 			socket = new Socket(serverIP, PORT);
 			outStream = new ObjectOutputStream(socket.getOutputStream());
 			
-			System.out.println("test");
+			return true;
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	

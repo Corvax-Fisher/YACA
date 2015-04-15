@@ -29,46 +29,49 @@ public class UserService implements IUserService{
 	}
 	
 	@Override
-	public ProfileTO showProfile(MessageTO messageTO) {
+	public void showProfile(MessageTO messageTO) {
 		//Name von demjenigen dessen Profile ich sehen will in ein UserPAO. 
 		//Aber wie lese ich die daten der PAO aus
-		userPAO = userDAO.getUser(messageTO.getTo());
+		//userPAO = userDAO.getUser(messageTO.getTo());
 		//Die role brauche ich auch
-		rolePAO = roleDAO.getRole();
+		//rolePAO = roleDAO.getRole();
 		
-		return new ProfileTO();
+		
 		
 	}
 	
 	@Override
-	public boolean saveProfile(ProfileTO profileTO) {
-		return false;
+	public void saveProfile(ProfileTO profileTO) {
+		
 	}
 	
 	@Override
-	public boolean register(RegisterTO registerTO) {
-		return false;
+	public void register(RegisterTO registerTO) {
+		
 	}
 	
 	@Override
-	public String logIn(LoginTO loginTO) {
+	public boolean logIn(LoginTO loginTO) {
 		userPAO = userDAO.getUser(loginTO.getName());
 		//wenn user vorhanden,
 		 if (userPAO != null){
 			 //PaswortCheck
 			 if (userPAO.getPassword()==loginTO.getPassword()) {
 				 //passwort richtig
-				 return "logged in";
+				 serverServiceDelegate.userLoggedIn(loginTO.getName(), null, null, "loggedin", null);
+				 return true;
 			 }
 			 //passwort falsch
-			 return "wrong password";
+			 serverServiceDelegate.userLoggedIn(loginTO.getName(), null, null, "wrongpass", null);
+			 return false;
 		 }
 		 // user gibt es nicht oder falsch geschrieben
-		 return "username unknown";
+		 serverServiceDelegate.userLoggedIn(loginTO.getName(), null, null, "wronguser", null);
+		 return false;
 	}
 	
 	@Override
-	public String logInGuest(LoginTO loginTO) {
+	public void logInGuest(LoginTO loginTO) {
 		userPAO = userDAO.getUser(loginTO.getName());
 		//wenn user name schon beutzt wird,
 		 if (userPAO != null){
@@ -83,10 +86,11 @@ public class UserService implements IUserService{
 		 }
 	}
 	
+
 	@Override
-	public boolean logOut(String logOutTxt) {
-		//User aus allen Raeumen werfen? oder delete user
-		return false;
+	public void logOut(MessageTO messageTO) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

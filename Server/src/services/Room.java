@@ -1,12 +1,13 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import database.RoomPAO;
 
 public class Room {
 	
-	public List<String> userList;
+	public List<String> userList = new ArrayList<String>();
 	public String name;
 	
 	
