@@ -7,16 +7,16 @@ import transferObjects.RegisterTO;
 
 public interface IUserService {
 
-	public ProfileTO showProfile(MessageTO messageTO);
+	public void showProfile(MessageTO messageTO);
 
-	public boolean saveProfile(ProfileTO profileTO);
+	public void saveProfile(ProfileTO profileTO);
 
-	public boolean register(RegisterTO registerTO);
+	public void register(RegisterTO registerTO);
 
-	public String logIn(LoginTO loginTO);
+	public boolean logIn(LoginTO loginTO);
 
-	public String logInGuest(LoginTO loginTO);
+	public void logInGuest(LoginTO loginTO);
 
-	public boolean logOut(String logOutTxt);
+	public void logOut(MessageTO messageTO);
 
 }

@@ -9,37 +9,36 @@ import transferObjects.RegisterTO;
 
 public interface IServiceFacade {
 
-	public String logIn(LoginTO loginTO);
+	public void logIn(LoginTO loginTO);
 
-	public String logInGuest(LoginTO loginTO);
+	//public void logInGuest(LoginTO loginTO);
 
-	public boolean logOut(String logOutTxt);
+	public void logOut(MessageTO messageTO);
 
-	public boolean register(RegisterTO registerTO);
+	public void register(RegisterTO registerTO);
 
-	public boolean kick(MessageTO messageTO);
+	public void kick(MessageTO messageTO);
 
-	public boolean ban(MessageTO messageTO);
+	public void ban(MessageTO messageTO);
 
-	public boolean mute(MessageTO messageTO);
+	public void mute(MessageTO messageTO);
 
-	public boolean sendMessage(MessageTO messageTO);
+	public void sendMessage(MessageTO messageTO);
 
-	public boolean sendPrivateMessage(MessageTO messageTO);
+	public void sendPrivateMessage(MessageTO messageTO);
 
-	public boolean sendFile(MessageTO messageTO);
+	public void sendFile(MessageTO messageTO);
 
-	public ProfileTO showProfile(MessageTO messageTO);
+	public void showProfile(MessageTO messageTO);
 
-	public boolean saveProfile(ProfileTO profilTO);
+	public void saveProfile(ProfileTO profilTO);
 
-	public boolean joinRoom(MessageTO messageTO);
+	public void joinRoom(MessageTO messageTO);
 
-	public boolean leaveRoom(MessageTO messageTO);
+	public void leaveRoom(MessageTO messageTO);
 
-	public List<String> getUserList(MessageTO messageTO);
+	public void getUserList(MessageTO messageTO);
 	
-	//Update Chat Rueckgabewert? MessageTO?
 	public void updateChat(MessageTO messageTO);
 
 }

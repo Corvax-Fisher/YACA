@@ -1,21 +1,26 @@
 package services;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import database.AbstractDAOFactory;
 import database.RoomDAO;
 import database.RoomPAO;
+import transferObjects.LoginTO;
 import transferObjects.MessageTO;
 
 public class RoomService implements IRoomService {
 	
 	
-	public List<Room> room = null;
+	private HashMap<String, Room> roomlist = new HashMap<String, Room>();
 	
 	private IServerServiceDelegate serverServiceDelegate = null;
 	private AbstractDAOFactory abstractDAOFactory = null;
 	private RoomDAO roomDAO = null;
-	private List<RoomPAO> roomPAO = null;
+	private List<RoomPAO> roomPAO = new ArrayList<RoomPAO>();
 	
 	public RoomService(IServerServiceDelegate serverServiceDelegate) {
 		this.serverServiceDelegate = serverServiceDelegate;
@@ -27,86 +32,100 @@ public class RoomService implements IRoomService {
 		//Raumliste fuellen
 		roomPAO.addAll(roomDAO.getAllRooms());
 		
-		//Muessen alle gepeicherten RoomPAOs in die List<Room> room eingetragen werden?
-			
-	}
-		
-	@Override
-	public boolean ban(MessageTO messageTO) {
-	}
-	
-	@Override
-	public boolean kick(MessageTO messageTO) {
-	}
-	
-	@Override
-	public boolean mute(MessageTO messageTO) {
-	}
-	
-	@Override
-	public boolean joinRoom(MessageTO messageTO) {
-		String userName = messageTO.getFrom();
-		String roomName = messageTO.getRoom();
-		//Check ob Room in der Datenbank da ist
+		// roomListe füllen
 		for (RoomPAO roomPAOtemp : roomPAO) {
-			if (roomPAOtemp.getRoomName().equals(roomName)) {
-				//Room vorhanden. Suche nach Room in der Liste. User in Userliste des Rooms eintragen
-				for(Room roomtemp : room) {
-					if (roomtemp.getName().equals(roomName)) {
-						roomtemp.addUser(userName);
-					}
+			roomlist.put(roomPAOtemp.getRoomName(),new Room(roomPAOtemp.getRoomName()));
+		}		
+	}
+		
+	@Override
+	public void ban(MessageTO messageTO) {
+	}
+	
+	@Override
+	public void kick(MessageTO messageTO) {
+	}
+	
+	@Override
+	public void mute(MessageTO messageTO) {
+	}
+	
+	@Override
+	public void joinRoom(MessageTO messageTO) {
+		Room room = roomlist.get(messageTO.getRoom());
+		//Check ob Room in der Datenbank da ist
+		if(room!=null) {
+			//Ja, also User einfügen
+			room.addUser(messageTO.getFrom());
+			//Dann die geupdatete Userliste an alle im Raum verschicken...
+			updateUserList(room);
+		}else {
+			//Room erstellen
+			//user einfuegen
+			room = new Room(messageTO.getRoom());
+			roomlist.put(messageTO.getRoom(), room);
+			room.addUser(messageTO.getFrom());
+			//RoomListe bei allen aktualisieren
+			
+			updateRoomList();
+			
+			//userListe beim user aktualisieren
+			updateUserList(room);
+			
 				
-				//Dann die geupdatete Userliste an alle im Raum verschicken...
-				updateUserList(roomtemp);
-				return true;
-				}
-			}
 		}
-		//Room noch nicht da:
-		//neuen Room erstellen... wie sieht es hier mit Berechtigung aus, darf jeder einen Room erstellen?
-		//wie werden die IDs von Rooms erstellt? Random Nr.? Oder gibt es fuer die Sichbarkeit IDS?
-		
-		
-//		Boolean abbruch = false;
-//		int randomIDNr;
-//		do {
-//			randomIDNr = (int) ((Math.random()*100)+1);
-//			//Check ob idnr dann schon vergeben...
-//			for (RoomPAO roomPAOtemp : roomPAO) {
-//				if (roomPAOtemp.getRoomID() == randomIDNr) {
-//					abbruch = false;
-//				}
-//			}abbruch = true;
-//		} while (!abbruch);
-//		
-		
-		//Room erstellen
-		//user einfuegen
-		roomDAO.insertRoom(new RoomPAO(randomIDNr,roomName));
-		Room room = new Room(roomName);
-		room.addUser(userName);
-		updateUserList(room);
-		return true;
-		
 		//Return false? wenn was schief geht? oder Raum Groesse ueberschritten?
 		
 	}
 
 	@Override
-	public boolean leaveRoom(MessageTO messageTO) {
-	
+	public void leaveRoom(MessageTO messageTO) {
+		Room room = roomlist.get(messageTO.getRoom());
+		room.removeUser(messageTO.getFrom());
+		updateUserList(room);
 	}
 
 	@Override
-	public List<String> getUserList(MessageTO messageTO) {
+	public void getUserList(MessageTO messageTO) {
+		
+	}
+	
+
+	@Override
+	public void updateRoomList() {
+		
+		serverServiceDelegate.updateRoomList(null, null, null, "updateRoomList", getAllRooms());		
+	}
+
+	@Override
+	public void getRoomList(LoginTO loginTO) {
+		
+		serverServiceDelegate.sendRoomList(null, loginTO.getName(), null, "getroomlist", getAllRooms());
+	}
+	
+	
+	public List<String> getAllRooms(){
+		//Hashmap iterieren um alle name von rooms zu bekommen um als liste zu schicken( kleiner als ganze hashmap)
+		List<String> rooms = new ArrayList<String>();
+		for (Map.Entry<String, Room> entry : roomlist.entrySet()) {
+			rooms.add(entry.getKey());
+		}
+		return rooms;
 	}
 	
 	@Override
 	public void updateUserList(Room room) {
-		List<String> userList = null;
+		List<String> userList = new ArrayList<String>();
+		
+		//getUserList gibt was List oder arraylist? problem?
 		userList.addAll(room.getUserList());
-		String strUserList = userList.toString();
-		serverServiceDelegate.updateUserList(null,null,room.getName(),"updateUserList", strUserList);
+		
+		// hier durch user im room iterrieren und neue userliste schicken:
+		for (String user : userList) {
+		serverServiceDelegate.updateUserList(null, user, room.getName(), "updateuserlist", userList);
+		}
 	}
+	
+	
 
 }
