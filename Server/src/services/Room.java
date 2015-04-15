@@ -7,8 +7,8 @@ import database.RoomPAO;
 
 public class Room {
 	
-	public List<String> userList = new ArrayList<String>();
-	public String name;
+	private List<String> userList = new ArrayList<String>();
+	private String name;
 	
 	
 	public Room(String name) {
@@ -24,17 +24,17 @@ public class Room {
 	}
 	
 		
-	public boolean addUser(String user) {
+	public void addUser(String user) {
 		//try?
-		if(userList.add(user)) {
+		userList.add(user);
+		
+	}
+	
+	public boolean removeUser(String user) {
+		if(userList.remove(user)) {
 			return true;
 		}else {
 			return false;
 		}
-		
-	}
-	
-	public void removeUser(String user) {
-		userList.remove(user);
 	}
 }

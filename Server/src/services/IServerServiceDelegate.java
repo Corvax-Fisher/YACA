@@ -1,7 +1,12 @@
 package services;
 
+import transferObjects.ServerStub;
+
+
 public interface IServerServiceDelegate {
 
+	public ServerStub serverStub = null;
+	
 	public void updateChat(String from, String to, String room, String type, Object body);
 
 	public void updateUserList(String from, String to, String room, String type, Object body);
@@ -16,7 +21,7 @@ public interface IServerServiceDelegate {
 
 	public void userLeft();
 	
-	public void userLoggedIn(String from, String to, String room, String type, Object body);
+	public void userLoggedIn(String to, String type);
 	
 	public void sendRoomList(String from, String to, String room, String type, Object body);
 	

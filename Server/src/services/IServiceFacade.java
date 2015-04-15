@@ -9,7 +9,7 @@ import transferObjects.RegisterTO;
 
 public interface IServiceFacade {
 
-	public void logIn(LoginTO loginTO);
+	public boolean logIn(String ip, LoginTO loginTO);
 
 	//public void logInGuest(LoginTO loginTO);
 
