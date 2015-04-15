@@ -34,9 +34,6 @@ import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 
-import userinterface.AddRemoveTab.MyAction;
-import userinterface.MainView_1.ClosableTabbedPane;
-
 public class MainView extends JFrame implements ActionListener {
 	
 	public static void main(String[] args) {
@@ -53,7 +50,7 @@ public class MainView extends JFrame implements ActionListener {
 	//JMenu menuStart;
 	//JMenuItem miBeenden;
 	
-	public ClosableTabbedPane tabbedPane;
+	//public ClosableTabbedPane tabbedPane;
 	
     public MainView() {
     
@@ -62,7 +59,6 @@ public class MainView extends JFrame implements ActionListener {
     	frame.setSize(700, 700);
     	frame.setLocationRelativeTo(null);
     	frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-    	frame.setVisible(true);
     
     	/*Container cp = getContentPane();
 		cp.setLayout (new BorderLayout());
