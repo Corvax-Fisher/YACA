@@ -9,8 +9,6 @@ public class ClientStub {
 	private static final int PORT = 32957;
 	private static String serverIP;
 	private static ObjectOutputStream outStream;
-	private static ObjectInputStream inStream;
-
 	private static Socket socket;
 	
 	public ClientStub(String ip){
@@ -37,12 +35,6 @@ public class ClientStub {
 		new SendRequest(data, type).start();	
 	}
 	
-	
-	public ObjectInputStream getInStream() {
-		return inStream;
-	}
-	
-	
 	private static class SendRequest extends Thread {
 		private Object to;
 		private String type;
@@ -57,7 +49,6 @@ public class ClientStub {
 				outStream.writeObject(type);
 				outStream.writeObject(to);
 				outStream.flush();
-				if(inStream == null) inStream = new ObjectInputStream(socket.getInputStream());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

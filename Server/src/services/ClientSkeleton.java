@@ -12,13 +12,11 @@ import transferObjects.*;
 public class ClientSkeleton extends Thread {
 	private static final int PORT = 32957;
 	private ServerSocket listener;
-	private static ServerStub st;
 	private static ServiceFacade servicefacade;
 
 	private static HashMap<String, String> clients = new HashMap<String, String>();
 	
-	public ClientSkeleton(ServerStub st, ServiceFacade servicefacade) {
-		this.st = st;
+	public ClientSkeleton(ServiceFacade servicefacade) {
 		this.servicefacade = servicefacade;
 	}
 	
@@ -43,7 +41,6 @@ public class ClientSkeleton extends Thread {
 		private Socket socket;
 		private ObjectInputStream inStream;
 		
-		
 		public HandleRequest(Socket socket) {
 			this.socket = socket;
 		}
@@ -51,7 +48,6 @@ public class ClientSkeleton extends Thread {
 		public void run() {
         	try {
 				inStream = new ObjectInputStream(socket.getInputStream());
-				
 				String ip = socket.getInetAddress().getHostAddress();
 	        	
 				while (true) {
@@ -61,9 +57,9 @@ public class ClientSkeleton extends Thread {
 					switch (inputType.toLowerCase()) {
 			            case "login":
 			            	LoginTO loginContent = (LoginTO) inStream.readObject();
-			            	clients.put(ip, loginContent.getName());
-			            	st.addUser(loginContent.getName(), new ObjectOutputStream(socket.getOutputStream()));
-							servicefacade.logIn(loginContent);
+							if(servicefacade.logIn(ip, loginContent)) {
+								clients.put(ip, loginContent.getName());
+							}
 			                break;
 			            case "message":
 			            	MessageTO messageContent = (MessageTO) inStream.readObject();

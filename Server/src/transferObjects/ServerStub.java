@@ -32,8 +32,8 @@ public class ServerStub {
 	
 	
 	public void addUser(String name, String ip) {
-		Socket socket;
 		try {
+			Socket socket;
 			socket = new Socket(ip, PORT);
 			ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
 			clientOutputs.put(name, outStream);
