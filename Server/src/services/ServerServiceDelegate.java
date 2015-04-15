@@ -1,23 +1,25 @@
 package services;
 
+import transferObjects.MessageTO;
+
 public class ServerServiceDelegate implements IServerServiceDelegate {
 	//hier die TOs erstellen
-	private IServerStub serverStub = null;
+	//private IServerStub serverStub = null;
 	
-	public ServerServiceDelegate(IServerStub serverStub) {
+	public ServerServiceDelegate() {
 
-		this.serverStub = serverStub;
+		//this.serverStub = serverStub;
 		
 	}
 	
 	@Override
-	public void updateChat(String from, String to, String room, String type, String body) {
-		
+	public void updateChat(String from, String to, String room, String type, Object body) {
+		serverStub.sendObject(new MessageTO(from, to, room, type, body));
 	}
 	
 	@Override
-	public void updateUserList(String from, String to, String room, String type, String body) {
-		
+	public void updateUserList(String from, String to, String room, String type, Object body) {
+		serverStub.sendObject(new MessageTO(from, to, room, type, body));
 	}
 	
 	@Override
@@ -44,5 +46,22 @@ public class ServerServiceDelegate implements IServerServiceDelegate {
 	public void userLeft() {
 				
 	}
+
+	@Override
+	public void userLoggedIn(String from, String to, String room, String type, Object body) {
+		serverStub.sendObject(new MessageTO(from, to, room, type, body));
+	}
+
+	@Override
+	public void sendRoomList(String from, String to, String room, String type, Object body) {
+		serverStub.sendObject(new MessageTO(from, to, room, type, body));
+	}
+
+	@Override
+	public void updateRoomList(String from, String to, String room,	String type, Object body) {
+		serverStub.sendObject(new MessageTO(from, to, room, type, body));
+		
+	}
+	
 	
 }
