@@ -1,4 +1,9 @@
-package database;
+package database.sql;
+
+import database.AbstractDAOFactory;
+import database.RoleDAO;
+import database.RoomDAO;
+import database.UserDAO;
 
 public class SQLDAOFactory extends AbstractDAOFactory {
 

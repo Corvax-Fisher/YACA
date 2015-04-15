@@ -1,6 +1,9 @@
-package database;
+package database.json;
 
 import java.util.List;
+
+import database.RoomDAO;
+import database.RoomPAO;
 
 public class JSONRoomDAO implements RoomDAO {
 
