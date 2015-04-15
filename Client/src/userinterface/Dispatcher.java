@@ -20,10 +20,9 @@ public class Dispatcher {
 	}
 
 	public void dispatch(String request){
-		mainView.setVisible(true);
 		
 		if(request.equalsIgnoreCase("LOGIN")){
-			mainView.add(loginView);
+			mainView.pnlHome.add(loginView);
 		}
 		else if(request.equalsIgnoreCase("REGISTER")){
 			mainView.add(registerView);
@@ -40,5 +39,6 @@ public class Dispatcher {
 		else if(request.equalsIgnoreCase("CHAT")){
 			mainView.add(chatView);
 		}
+		mainView.setVisible(true);
 	}
 }

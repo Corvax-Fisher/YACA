@@ -50,8 +50,9 @@ public class SQLUserDAO implements UserDAO {
 		if(user.getUserName() == null) return false;
 		
 		if(user.getPassword() != null) updateVarsStr += "Password=?,";
-		if(user.getFullName() != null) updateVarsStr += "FullName=?,";
 		if(user.getRoleID() > 0) updateVarsStr += "RoleID=?,";
+		if(user.getFullName() != null) updateVarsStr += "FullName=?,";
+		if(user.getEMail() != null) updateVarsStr += "eMail=?,";
 		
 		if(updateVarsStr.length() == 0) return false;
 		else {
@@ -91,11 +92,12 @@ public class SQLUserDAO implements UserDAO {
 			rs = pstmnt.executeQuery();
 			
 			if ( rs.next() )
-				user[0] = new UserPAO.Builder( rs.getString("UserName") )
-								.password( rs.getString("Password") )
-								.fullName( rs.getString("FullName") )
-								.roleID( rs.getInt("RoleID") )
-								.build();
+				user[0] = new UserPAO.Builder(	rs.getString("UserName"))
+									.password(	rs.getString("Password"))
+									.roleID(	rs.getInt("RoleID")		)
+									.fullName(	rs.getString("FullName"))
+									.eMail(		rs.getString("eMail")	)
+									.build();
 			
 			return user;
 		}
@@ -117,10 +119,11 @@ public class SQLUserDAO implements UserDAO {
 			
 			while ( rs.next() )
 			{
-				userList.add( new UserPAO.Builder(rs.getString("UserName"))
-										.password(rs.getString("Password"))
-										.fullName(rs.getString("FullName"))
-										.roleID( rs.getInt("RoleID"))
+				userList.add( new UserPAO.Builder(	rs.getString("UserName"))
+										.password(	rs.getString("Password"))
+										.roleID(	rs.getInt("RoleID")		)
+										.fullName(	rs.getString("FullName"))
+										.eMail(		rs.getString("eMail")	)
 										.build() );
 			}
 			
@@ -143,15 +146,19 @@ public class SQLUserDAO implements UserDAO {
 
 		@Override
 		public int execute(Connection conn) throws SQLException {
-			String insertStmntStr = "INSERT INTO Users VALUES(?,?,?,?)";
+			String insertStmntStr = "INSERT INTO Users VALUES(?,?,?,?,?)";
 			PreparedStatement pstmnt;
 			
 			pstmnt = conn.prepareStatement(insertStmntStr);
 			pstmnt.setString(1, user.getUserName());
 			pstmnt.setString(2, user.getPassword());
 			pstmnt.setInt(3, user.getRoleID());
-			if(user.getFullName() != null) pstmnt.setString(4, user.getFullName());
-			else pstmnt.setNull(4, java.sql.Types.VARCHAR);
+			if(user.getFullName() != null) 
+					pstmnt.setString(4, user.getFullName());
+			else 	pstmnt.setNull(4, java.sql.Types.VARCHAR);
+			if(user.getEMail() != null) 
+					pstmnt.setString(5, user.getEMail());
+			else 	pstmnt.setNull(5, java.sql.Types.VARCHAR);
 			
 			return pstmnt.executeUpdate();			
 		}
@@ -171,16 +178,17 @@ public class SQLUserDAO implements UserDAO {
 		@Override
 		public int execute(Connection conn) throws SQLException {
 			PreparedStatement pstmnt;
-			int i=1;
+			int i = 1;
 			
 			pstmnt = conn.prepareStatement(updateStmntStr);
 			
-			if(user.getPassword() != null) pstmnt.setString(i++, user.getPassword());
-			if(user.getFullName() != null) pstmnt.setString(i++, user.getFullName());
-			if(user.getRoleID() > 0) pstmnt.setInt(i++, user.getRoleID());
+			if(user.getPassword() 	!= null) 	pstmnt.setString(	i++, user.getPassword()	);
+			if(user.getRoleID() 	> 0) 		pstmnt.setInt(		i++, user.getRoleID()	);
+			if(user.getFullName() 	!= null) 	pstmnt.setString(	i++, user.getFullName()	);
+			if(user.getEMail() 		!= null) 	pstmnt.setString(	i++, user.getEMail()	);
 			pstmnt.setString(i, user.getUserName());
-						
-			return pstmnt.executeUpdate();			
+			
+			return pstmnt.executeUpdate();
 		}
 		
 	}
