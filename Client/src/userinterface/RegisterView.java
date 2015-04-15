@@ -8,30 +8,27 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class RegisterView extends JFrame {
+public class RegisterView extends JPanel {
 
 	public String name;
 	public int id;
 	public RegisterView rv;
-	
 	private JTextField tfUserName;
 	private JPasswordField tfPWD_1;
 	private JPasswordField tfPWD_2;
 	private JTextField tfEmail;
-	
 	private JPanel pnlButton;
 	private JPanel pnlRegister;
-	
 	private JButton btnAbbrechen;
 	private JButton btnRegistrieren;
 
 	
 	public RegisterView(){
-		setTitle("YACA-Registrierung");
+		/*setTitle("YACA-Registrierung");
 		setSize(300,300);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);		
+		setVisible(true);*/		
 		
 		pnlRegister = new JPanel();
 		pnlRegister.setLayout(new GridLayout(5,5));
@@ -59,14 +56,14 @@ public class RegisterView extends JFrame {
 	   	this.add("Center",pnlRegister);
 		this.add("South", pnlButton);
 			
-		setVisible(true);
-		pack();
+		/*setVisible(true);
+		pack();*/
 	}//UserRegister()
 	
-	static public void main(String argv[])
+	/*static public void main(String argv[])
 	{
 		new RegisterView();
-	}
+	}*/
 
 	
 }//class-RegisterView

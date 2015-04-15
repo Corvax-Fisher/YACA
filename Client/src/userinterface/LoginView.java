@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
 
-public class LoginView extends JFrame implements ActionListener{
+public class LoginView extends JPanel implements ActionListener{
 	
 	private JTextField tfUserName;
 	private JPasswordField tfPWD;
@@ -26,12 +26,12 @@ public class LoginView extends JFrame implements ActionListener{
 	
 	public LoginView(){
 		
-		//JDialog login = new JDialog();
+	/*	//JDialog login = new JDialog();
 		setTitle("Login");
 		setSize(300,300);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);	
+		setVisible(true);	*/
 		
 		pnlLogIn = new JPanel();
 		pnlLogIn.setLayout(new GridLayout(3,2));
@@ -51,14 +51,19 @@ public class LoginView extends JFrame implements ActionListener{
         
 	   	this.add("North",pnlLogIn);
 		this.add("South", pnlButton);
-			
+	/*		
 		setVisible(true);
-		pack();
+		pack();*/
 	}//UserLogIn()
 	
 	public void actionPerformed(ActionEvent e){
 		
 	}
+	
+/*	static public void main(String argv[])
+	{
+		new LoginView();
+	}*/
 	
 }//class-LoginView
 
