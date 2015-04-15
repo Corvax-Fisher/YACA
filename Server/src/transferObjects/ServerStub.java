@@ -1,11 +1,14 @@
 package transferObjects;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.HashMap;
 
 
 public class ServerStub {
-	private static HashMap<String, ObjectOutputStream> clients = new HashMap<String, ObjectOutputStream>();
+	private static final int PORT = 32958;
+	private static HashMap<String, ObjectOutputStream> clientOutputs = new HashMap<String, ObjectOutputStream>();
+	private static HashMap<String, Socket> clientSockets = new HashMap<String, Socket>();
 	
 	public ServerStub() {
 		
@@ -28,18 +31,29 @@ public class ServerStub {
 	}
 	
 	
-	
-	
-	public void addUser(String name, ObjectOutputStream outStream) {
-		clients.put(name, outStream);
+	public void addUser(String name, String ip) {
+		Socket socket;
+		try {
+			socket = new Socket(ip, PORT);
+			ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
+			clientOutputs.put(name, outStream);
+			clientSockets.put(name, socket);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void removeUser(String name) {
-		clients.remove(name);
+		try {
+			clientOutputs.get(name).close();
+			clientSockets.get(name).close();
+			clientOutputs.remove(name);
+			clientSockets.remove(name);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	
-	
+		
 	private static class SendRequest extends Thread {
 		private String name;
 		private Object to;
@@ -53,13 +67,12 @@ public class ServerStub {
 		
 		public void run() {
 			try {
-				ObjectOutputStream outStream = (ObjectOutputStream) clients.get(name);
+				ObjectOutputStream outStream = (ObjectOutputStream) clientOutputs.get(name);
 				outStream.writeObject(type);
 				outStream.writeObject(to);
 				outStream.flush();
 				System.out.println("Server Message wrote");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
