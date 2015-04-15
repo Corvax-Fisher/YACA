@@ -13,19 +13,17 @@ public class MainView extends JFrame implements ActionListener {
 
 	public MainView() {
 
-		JFrame frame = new JFrame("YACA - Yet Another Chat Application");
-		frame.setSize(1200, 900);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		setTitle("YACA-Chat");
+		setSize(1200, 900);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//Tabbed Pane
 		tp = new JTabbedPane();
-		frame.add(tp, BorderLayout.NORTH);
+		add(tp, BorderLayout.NORTH);
 		
 		//Panel Home
 		pnlHome = new JPanel (new BorderLayout());
-		pnlHome.setBorder(BorderFactory.createLineBorder(Color.blue)); //Umrandung
 
 		newRoom = new JButton("Raum anlegen");
 		newRoom.addActionListener(this);
@@ -33,6 +31,7 @@ public class MainView extends JFrame implements ActionListener {
 		pnlHome.add(newRoom, "South");
 		
 		tp.add("Home", pnlHome);
+		
 	}	
 	
 
@@ -60,11 +59,7 @@ public class MainView extends JFrame implements ActionListener {
 			}
 
 		}
-
-	
-	public static void main(String[] args) {
-		MainView mainView = new MainView();	
-	}
+		
 }
 
 

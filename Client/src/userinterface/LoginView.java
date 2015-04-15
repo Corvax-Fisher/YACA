@@ -26,13 +26,6 @@ public class LoginView extends JPanel implements ActionListener{
 	
 	public LoginView(){
 		
-	/*	//JDialog login = new JDialog();
-		setTitle("Login");
-		setSize(300,300);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);	*/
-		
 		pnlLogIn = new JPanel();
 		pnlLogIn.setLayout(new GridLayout(3,2));
 		
@@ -51,19 +44,11 @@ public class LoginView extends JPanel implements ActionListener{
         
 	   	this.add("North",pnlLogIn);
 		this.add("South", pnlButton);
-	/*		
-		setVisible(true);
-		pack();*/
 	}//UserLogIn()
 	
 	public void actionPerformed(ActionEvent e){
 		
 	}
-	
-/*	static public void main(String argv[])
-	{
-		new LoginView();
-	}*/
 	
 }//class-LoginView
 

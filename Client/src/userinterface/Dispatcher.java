@@ -22,7 +22,7 @@ public class Dispatcher {
 	public void dispatch(String request){
 		
 		if(request.equalsIgnoreCase("LOGIN")){
-			mainView.add(loginView);
+			mainView.pnlHome.add(loginView);
 		}
 		else if(request.equalsIgnoreCase("REGISTER")){
 			mainView.add(registerView);
