@@ -5,12 +5,14 @@ public class UserPAO {
 	private String password;
 	private int roleID;
 	private String fullName;
+	private String eMail;
 	
 	public UserPAO(Builder builder) {
 		this.userName = builder.userName;
 		this.password = builder.password;
 		this.roleID = builder.roleID;
 		this.fullName = builder.fullName;
+		this.eMail = builder.eMail;
 	}
 	
 	public String getUserName() {
@@ -41,12 +43,21 @@ public class UserPAO {
 		this.fullName = fullName;
 	}
 	
+	public String getEMail() {
+		return eMail;
+	}
+
+	public void setEMail(String eMail) {
+		this.eMail = eMail;
+	}
+
 	@Override
 	public String toString() {
 		return "\nUser name: " + this.userName +
 				", password: " + this.password + 
 				", role ID: " + this.roleID + 
-				", full name: " + this.fullName;
+				", full name: " + this.fullName +
+				", email: " + this.eMail;
 	}
 	
     public static class Builder
@@ -55,6 +66,7 @@ public class UserPAO {
     	private String password;
     	private int roleID = 0;
     	private String fullName;
+    	private String eMail;
  
         public Builder(String userName) {
             this.userName = userName;
@@ -63,13 +75,17 @@ public class UserPAO {
             this.password = password;
             return this;
         }
+        public Builder roleID(int roleID) {
+        	this.roleID = roleID;
+        	return this;
+        }
         public Builder fullName(String fullName) {
             this.fullName = fullName;
             return this;
         }
-        public Builder roleID(int roleID) {
-        	this.roleID = roleID;
-        	return this;
+        public Builder eMail(String eMail) {
+            this.eMail = eMail;
+            return this;
         }
 
         public UserPAO build() {
