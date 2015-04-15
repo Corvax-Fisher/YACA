@@ -1,4 +1,4 @@
-package database;
+package database.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import database.UserDAO;
+import database.UserPAO;
+import database.UserPAO.Builder;
 
 public class SQLUserDAO implements UserDAO {
 

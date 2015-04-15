@@ -1,5 +1,8 @@
 package database;
 
+import database.json.JSONDAOFactory;
+import database.sql.SQLDAOFactory;
+
 public abstract class AbstractDAOFactory {
 	private static JSONDAOFactory j = null;
 	private static SQLDAOFactory s = null;
@@ -13,8 +16,8 @@ public abstract class AbstractDAOFactory {
 				if(s == null) s = new SQLDAOFactory();
 				return s;
 			default:
-				if(j == null) j = new JSONDAOFactory();
-				return j;
+				if(s == null) s = new SQLDAOFactory();
+				return s;
 		}
 	}
 	
