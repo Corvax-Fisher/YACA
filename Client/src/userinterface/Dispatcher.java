@@ -1,5 +1,7 @@
 package userinterface;
 
+import java.awt.BorderLayout;
+
 public class Dispatcher {
 	private MainView mainView;
 	private LoginView loginView;
@@ -22,22 +24,23 @@ public class Dispatcher {
 	public void dispatch(String request){
 		
 		if(request.equalsIgnoreCase("LOGIN")){
-			mainView.pnlHome.add(loginView);
+			mainView.pnlHome.add(loginView, BorderLayout.CENTER);
 		}
 		else if(request.equalsIgnoreCase("REGISTER")){
-			mainView.add(registerView);
+			mainView.pnlHome.add(registerView, BorderLayout.CENTER);
 		}
 		else if(request.equalsIgnoreCase("PROFILE")){
-			mainView.add(profileView);
+			mainView.add(profileView, BorderLayout.CENTER);
 		}
 		else if(request.equalsIgnoreCase("ROOMLIST")){
-			mainView.add(roomListView);
+			mainView.privateRoom.setVisible(true);
+			mainView.pnlHome.add(roomListView, BorderLayout.EAST);
 		}
 		else if(request.equalsIgnoreCase("USERLIST")){
 			mainView.add(userListView);
 		}
 		else if(request.equalsIgnoreCase("CHAT")){
-			mainView.add(chatView);
+			mainView.pnlHome.add(chatView);
 		}
 		mainView.setVisible(true);
 	}

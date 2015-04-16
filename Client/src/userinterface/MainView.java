@@ -3,12 +3,13 @@ package userinterface;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+
 import javax.swing.*;
 
 public class MainView extends JFrame implements ActionListener {
 
 	JTabbedPane tp;
-	JButton newRoom, closeRoom;
+	JButton privateRoom, closeRoom;
 	JPanel pnlHome, pnlNewRoom;
 
 	public MainView() {
@@ -24,11 +25,11 @@ public class MainView extends JFrame implements ActionListener {
 		
 		//Panel Home
 		pnlHome = new JPanel (new BorderLayout());
-
-		newRoom = new JButton("Raum anlegen");
-		newRoom.addActionListener(this);
+		privateRoom = new JButton("Privaten Raum anlegen");
+		privateRoom.addActionListener(this);
+		privateRoom.setVisible(false);
 		
-		pnlHome.add(newRoom, "South");
+		pnlHome.add(privateRoom, "South");
 		
 		tp.add("Home", pnlHome);
 		
@@ -37,13 +38,12 @@ public class MainView extends JFrame implements ActionListener {
 
 		public void actionPerformed(ActionEvent e){
 			String str = e.getActionCommand();
-			if(str.equals("Raum anlegen")){
+			if(str.equals("Privaten Raum anlegen")){
 				String roomname = JOptionPane.showInputDialog(null, "Raumname:");
 
 				if(!roomname.equals(""))
 				{
 					JPanel pnlnewRoom = new JPanel();	
-					pnlnewRoom.setBorder(BorderFactory.createLineBorder(Color.blue));
 					pnlnewRoom.setLayout(new BorderLayout());
 
 					JButton closeButton =new JButton("Raum schliessen");
@@ -54,7 +54,7 @@ public class MainView extends JFrame implements ActionListener {
 					tp.add(roomname, pnlnewRoom);
 				}
 			}
-			else if(str.equals("Raum schliessen")){
+			if(str.equals("Raum schliessen")){
 				tp.remove(tp.getSelectedIndex());
 			}
 

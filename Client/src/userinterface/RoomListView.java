@@ -3,13 +3,14 @@ package userinterface;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 public class RoomListView extends JPanel implements ActionListener{
 
 	private JPanel pnlRoom;
 	private JList  roomList; 
-	private JButton newRoom;
+	private JButton newRoom, privateRoom;
 
 	public RoomListView(){	
 
@@ -28,8 +29,9 @@ public class RoomListView extends JPanel implements ActionListener{
 		
 		pnlRoom.add(new JScrollPane(roomList), "Center");
 		
-		newRoom = new JButton("Raum anlegen");
+		newRoom = new JButton("Öffentlichem Raum beitreten");
 		newRoom.addActionListener(this);
+		
 		pnlRoom.add(newRoom, "South");
 		
 		add(pnlRoom);		

@@ -35,7 +35,7 @@ public class RegisterView extends JPanel implements ActionListener {
 		pnlButton = new JPanel();
 		pnlButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
-		pnlButton.add("South",btnRegistrieren=new JButton("Registrieren"));
+		pnlButton.add("South",btnRegistrieren=new JButton("OK"));
 		pnlButton.add("South",btnAbbrechen=new JButton("Abrechen"));
 		
 	   	this.add("Center",pnlRegister);
