@@ -1,6 +1,5 @@
 package services;
 
-import database.UserPAO.Builder;
 import database.RolePAO;
 import database.AbstractDAOFactory;
 import database.RoleDAO;
@@ -14,9 +13,9 @@ import transferObjects.RegisterTO;
 public class UserService implements IUserService{
 	
 	private UserDAO userDAO;
-	private RoleDAO roleDAO;
+	//private RoleDAO roleDAO;
 	private UserPAO userPAO;
-	private RolePAO rolePAO;
+	//private RolePAO rolePAO;
 	private IServerServiceDelegate serverServiceDelegate = null;
 	private AbstractDAOFactory abstractDAOFactory = null;
 	
@@ -24,7 +23,7 @@ public class UserService implements IUserService{
 		this.serverServiceDelegate = serverServiceDelegate;
 		//DAO Factory erstellen
 		abstractDAOFactory.getDAOFactory("SQL");
-		roleDAO = abstractDAOFactory.createRoleDAO();
+		//roleDAO = abstractDAOFactory.createRoleDAO();
 		userDAO = abstractDAOFactory.createUserDAO();
 	}
 	
@@ -35,19 +34,24 @@ public class UserService implements IUserService{
 		//userPAO = userDAO.getUser(messageTO.getTo());
 		//Die role brauche ich auch
 		//rolePAO = roleDAO.getRole();
-		
-		
-		
 	}
 	
 	@Override
 	public void saveProfile(ProfileTO profileTO) {
-		
+
 	}
 	
 	@Override
 	public void register(RegisterTO registerTO) {
-		
+		UserPAO newUser = new UserPAO.Builder(registerTO.getName())
+										.password(registerTO.getPassword())
+										.build();
+		//ruckgabe
+		if(userDAO.insertUser(newUser)) {
+			 serverServiceDelegate.userLoggedIn(registerTO.getName(), "registertrue");
+		} else {
+			 serverServiceDelegate.userLoggedIn(registerTO.getName(), "registerfalse");
+		}
 	}
 	
 	@Override
@@ -58,39 +62,35 @@ public class UserService implements IUserService{
 			 //PaswortCheck
 			 if (userPAO.getPassword()==loginTO.getPassword()) {
 				 //passwort richtig
-				 serverServiceDelegate.userLoggedIn(loginTO.getName(), null, null, "loggedin", null);
+				 serverServiceDelegate.userLoggedIn(loginTO.getName(), "loggedin");
 				 return true;
 			 }
 			 //passwort falsch
-			 serverServiceDelegate.userLoggedIn(loginTO.getName(), null, null, "wrongpass", null);
+			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "wrongpass");
 			 return false;
 		 }
 		 // user gibt es nicht oder falsch geschrieben
-		 serverServiceDelegate.userLoggedIn(loginTO.getName(), null, null, "wronguser", null);
+		 serverServiceDelegate.userLoggedIn(loginTO.getName(), "wronguser");
 		 return false;
 	}
 	
 	@Override
-	public void logInGuest(LoginTO loginTO) {
+	public boolean logInGuest(LoginTO loginTO) {
 		userPAO = userDAO.getUser(loginTO.getName());
 		//wenn user name schon beutzt wird,
 		 if (userPAO != null){
-			 return "username unavailable";
+			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "usernameused");
+			 return false;
 		 } else {
-			 //insert Guest user
-			 //String userName = loginTO.getName();
-			 Builder builder = new Builder(loginTO.getName());
-			 //UserPAO newuserPAO;
-			 //builder.build(newuserPAO);
-			 return "logged in as guest";
+			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "loggedinasguest");
+			 return true;
 		 }
 	}
 	
 
 	@Override
 	public void logOut(MessageTO messageTO) {
-		// TODO Auto-generated method stub
-		
+		//WAS HIER NOCH		
 	}
 
 }

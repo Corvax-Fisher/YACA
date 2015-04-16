@@ -66,6 +66,7 @@ public class ClientSkeleton extends Thread {
 
 			            	switch (messageContent.getType()) {
 					            case "logout":
+					            	//user aus clients löschen
 					            	servicefacade.logOut(messageContent);
 					                break;
 					            case "joinroom":

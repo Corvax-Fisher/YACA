@@ -15,7 +15,7 @@ public interface IUserService {
 
 	public boolean logIn(LoginTO loginTO);
 
-	public void logInGuest(LoginTO loginTO);
+	public boolean logInGuest(LoginTO loginTO);
 
 	public void logOut(MessageTO messageTO);
 

@@ -17,12 +17,14 @@ public interface IRoomService {
 
 	public void leaveRoom(MessageTO messageTO);
 
-	public void getUserList(MessageTO messageTO);
+	public List<String> getUserList(MessageTO messageTO);
 
-	public void updateUserList(Room room);
+	public void updateUserList(String userConcerns, String type, Room room);
 	
 	public void getRoomList(LoginTO loginTO);
 	
 	public void updateRoomList();
+	
+	public void logOut(String string);
 
 }

@@ -1,5 +1,4 @@
 package services;
-import java.util.List;
 
 import transferObjects.LoginTO;
 import transferObjects.MessageTO;
@@ -24,18 +23,30 @@ public class ServiceFacade implements IServiceFacade {
 		
 	}
 	@Override
-	public void logIn(LoginTO loginTO) {
-		
+	public boolean logIn(String ip,LoginTO loginTO) {
+		serverServiceDelegate.serverStub.addUser(loginTO.getName(), ip);
 		if (loginTO.getType() == "login") {
 			if(userService.logIn(loginTO)) {
 				roomService.getRoomList(loginTO);
+				return true;
+			} else {
+				serverServiceDelegate.serverStub.removeUser(loginTO.getName());
+				return false;
+			}
+		}else {
+			if(userService.logInGuest(loginTO)) {
+				roomService.getRoomList(loginTO);
+				return true;
+			}else {
+				serverServiceDelegate.serverStub.removeUser(loginTO.getName());
+				return false;
 			}
 		}
-		else userService.logInGuest(loginTO);
 	}
 	@Override	
 	public void logOut(MessageTO messageTO) {
-		return userService.logOut(messageTO); 
+		roomService.logOut(messageTO.getFrom());
+		serverServiceDelegate.serverStub.removeUser(messageTO.getFrom());
 	}
 
 	@Override
@@ -60,12 +71,13 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Override
 	public void sendMessage(MessageTO messageTO) {
-		chatService.sendMessage(messageTO);
+		//userliste vom raum fuer message holen und an chatservice uebergeben
+		chatService.sendMessage(messageTO, roomService.getUserList(messageTO));
 	}
 
 	@Override
 	public void sendPrivateMessage(MessageTO messageTO) {
-		return chatService.sendPrivateMessage(messageTO);
+		chatService.sendPrivateMessage(messageTO);
 	}
 
 	@Override
@@ -95,7 +107,7 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Override
 	public void getUserList(MessageTO messageTO) {
-		roomService.getUserList(messageTO);
+		serverServiceDelegate.updateUserList(null, messageTO.getFrom(), messageTO.getRoom(), "getuserlist", roomService.getUserList(messageTO));
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class RoomService implements IRoomService {
 			//Ja, also User einfügen
 			room.addUser(messageTO.getFrom());
 			//Dann die geupdatete Userliste an alle im Raum verschicken...
-			updateUserList(room);
+			updateUserList(messageTO.getFrom(),"userjoined",room);
 		}else {
 			//Room erstellen
 			//user einfuegen
@@ -66,13 +66,9 @@ public class RoomService implements IRoomService {
 			roomlist.put(messageTO.getRoom(), room);
 			room.addUser(messageTO.getFrom());
 			//RoomListe bei allen aktualisieren
-			
 			updateRoomList();
-			
 			//userListe beim user aktualisieren
-			updateUserList(room);
-			
-				
+			updateUserList(messageTO.getFrom(),"userjoinednewroom",room);
 		}
 		//Return false? wenn was schief geht? oder Raum Groesse ueberschritten?
 		
@@ -82,27 +78,37 @@ public class RoomService implements IRoomService {
 	public void leaveRoom(MessageTO messageTO) {
 		Room room = roomlist.get(messageTO.getRoom());
 		room.removeUser(messageTO.getFrom());
-		updateUserList(room);
+		updateUserList(messageTO.getFrom(),"userleft",room);
 	}
 
 	@Override
-	public void getUserList(MessageTO messageTO) {
+	public List<String> getUserList(MessageTO messageTO) {
+		
+		return roomlist.get(messageTO.getRoom()).getUserList();	
 		
 	}
 	
 
 	@Override
 	public void updateRoomList() {
-		
-		serverServiceDelegate.updateRoomList(null, null, null, "updateRoomList", getAllRooms());		
+		//durch alle Raume gehen
+		for (Map.Entry<String, Room> entry : roomlist.entrySet()) {
+			//den jeweiligen Raum rausholen
+			Room room = roomlist.get(entry.getKey());
+			//eine userliste erstellen, mit der raum userliste füllen
+			List<String> userList = new ArrayList<String>();
+			userList.addAll(room.getUserList());
+			//durch userliste gehen und jedem einzelnen über raumupdate informieren
+			for (int i = 0; i < userList.size(); i++) {
+				serverServiceDelegate.updateRoomList(null, userList.get(i), null, "updateroomlist", getAllRooms());
+			}
+		}
 	}
 
 	@Override
 	public void getRoomList(LoginTO loginTO) {
-		
 		serverServiceDelegate.sendRoomList(null, loginTO.getName(), null, "getroomlist", getAllRooms());
 	}
-	
 	
 	public List<String> getAllRooms(){
 		//Hashmap iterieren um alle name von rooms zu bekommen um als liste zu schicken( kleiner als ganze hashmap)
@@ -114,18 +120,27 @@ public class RoomService implements IRoomService {
 	}
 	
 	@Override
-	public void updateUserList(Room room) {
+	public void updateUserList(String userConcerns, String type, Room room) {
 		List<String> userList = new ArrayList<String>();
-		
 		//getUserList gibt was List oder arraylist? problem?
 		userList.addAll(room.getUserList());
-		
 		// hier durch user im room iterrieren und neue userliste schicken:
 		for (String user : userList) {
-		serverServiceDelegate.updateUserList(null, user, room.getName(), "updateuserlist", userList);
+		serverServiceDelegate.updateUserList(userConcerns, user, room.getName(), type, userList);
 		}
 	}
 	
+	public void logOut(String user) {
+		for (Map.Entry<String, Room> entry : roomlist.entrySet()) {
+			//den jeweiligen Raum rausholen
+			Room room = roomlist.get(entry.getKey());
+			//user rauswerfen, falls vorhanden
+			//und falls vorhanden die userliste in dem raum updaten
+			if(room.removeUser(user)) {
+				updateUserList(user, "userleft", room);
+			}
+		}
+	}
 	
 
 }

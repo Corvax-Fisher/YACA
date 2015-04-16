@@ -1,10 +1,7 @@
 package services;
-import java.util.List;
-
 import transferObjects.ClientStub;
 import transferObjects.LoginTO;
 import transferObjects.MessageTO;
-import transferObjects.ProfileTO;
 import transferObjects.RegisterTO;
 
 
