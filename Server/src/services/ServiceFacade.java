@@ -107,7 +107,7 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Override
 	public void getUserList(MessageTO messageTO) {
-		roomService.getUserList(messageTO);
+		serverServiceDelegate.updateUserList(null, messageTO.getFrom(), messageTO.getRoom(), "getuserlist", roomService.getUserList(messageTO));
 	}
 
 	@Override
