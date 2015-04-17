@@ -3,15 +3,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 import transferObjects.*;
 
 
 public class ServerSkeleton extends Thread {
 	private static final int PORT = 32958;
 	private ServerSocket listener;
+	private static ServerService serverService;
 	
-	public ServerSkeleton() {
-		
+	public ServerSkeleton(ServerService serverService) {
+		this.serverService = serverService;
 	}
 	
 	public void run() {
