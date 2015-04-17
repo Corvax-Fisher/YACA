@@ -26,7 +26,8 @@ public class RoomService implements IRoomService {
 		this.serverServiceDelegate = serverServiceDelegate;
 				
 		//DAO Factory erstellen
-		abstractDAOFactory.getDAOFactory("SQL");		
+		abstractDAOFactory = AbstractDAOFactory.getDAOFactory("SQL");
+		//abstractDAOFactory.getDAOFactory("SQL");		
 		//RoomDAO erstellen
 		roomDAO = abstractDAOFactory.createRoomDAO();
 		//Raumliste fuellen

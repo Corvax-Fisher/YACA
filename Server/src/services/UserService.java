@@ -22,7 +22,7 @@ public class UserService implements IUserService{
 	public UserService(IServerServiceDelegate serverServiceDelegate){
 		this.serverServiceDelegate = serverServiceDelegate;
 		//DAO Factory erstellen
-		abstractDAOFactory.getDAOFactory("SQL");
+		abstractDAOFactory = AbstractDAOFactory.getDAOFactory("SQL");
 		//roleDAO = abstractDAOFactory.createRoleDAO();
 		userDAO = abstractDAOFactory.createUserDAO();
 	}

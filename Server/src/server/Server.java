@@ -1,5 +1,7 @@
 package server;
 
+import services.ClientSkeleton;
+import services.ServiceFacade;
 import database.*;
 
 public class Server {
@@ -43,6 +45,15 @@ public class Server {
 		System.out.println(ro.getRoom(55));
 		System.out.println(ro.deleteRoom(21));
 		System.out.println(ro.getAllRooms());
+		
+		
+		ServiceFacade sf = new ServiceFacade();
+		ClientSkeleton cs = new ClientSkeleton(sf);
+		
+		while (true) {
+			
+			
+		}
 	}
 
 }
