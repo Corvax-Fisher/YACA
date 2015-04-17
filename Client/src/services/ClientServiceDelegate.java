@@ -9,8 +9,8 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 	
 	private ClientStub clientStub = null;
 
-	public ClientServiceDelegate(ClientStub clientStub) {
-		this.clientStub = clientStub;
+	public ClientServiceDelegate() {
+		clientStub = new ClientStub("localhost");
 	}
 
 	@Override

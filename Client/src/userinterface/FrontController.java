@@ -1,11 +1,15 @@
 package userinterface;
 
+import services.ClientServiceDelegate;
+
 public class FrontController {
 
 	private Dispatcher dispatcher;
+	private ClientServiceDelegate clientServiceDelegate;
 
 	public FrontController(){
 		dispatcher = new Dispatcher();
+		clientServiceDelegate = new ClientServiceDelegate();
 	}
 
 	private boolean isAuthenticUser(){
