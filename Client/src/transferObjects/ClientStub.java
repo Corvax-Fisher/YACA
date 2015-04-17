@@ -46,9 +46,11 @@ public class ClientStub {
 		
 		public void run() {
 			try {
-				outStream.writeObject(type);
-				outStream.writeObject(to);
-				outStream.flush();
+				synchronized(outStream) {
+					outStream.writeObject(type);
+					outStream.writeObject(to);
+					outStream.flush();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
