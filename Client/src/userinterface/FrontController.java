@@ -34,4 +34,8 @@ public class FrontController {
 	public void logInGuest(String name) {
 		clientServiceDelegate.logInGuest(name);
 	}
+	
+	public void logIn(String name, String password) {
+		clientServiceDelegate.logIn(name, password);		
+	}
 }
