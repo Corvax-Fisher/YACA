@@ -13,7 +13,6 @@ public class ClientSkeleton extends Thread {
 	private static final int PORT = 32957;
 	private ServerSocket listener;
 	private static ServiceFacade servicefacade;
-
 	private static HashMap<String, String> clients = new HashMap<String, String>();
 	
 	public ClientSkeleton(ServiceFacade servicefacade) {

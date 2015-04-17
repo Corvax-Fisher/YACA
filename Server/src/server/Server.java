@@ -1,9 +1,15 @@
 package server;
 
+import services.ClientSkeleton;
+import services.ServiceFacade;
 import database.*;
 
 public class Server {
 
+	private static ServiceFacade serviceFacade;
+	private static ClientSkeleton clientSkeleton;
+	
+	
 	public static void main(String[] args) {
 		// UserDAO Test
 		System.out.println("UserDAO Test:");
@@ -43,6 +49,14 @@ public class Server {
 		System.out.println(ro.getRoom(55));
 		System.out.println(ro.deleteRoom(21));
 		System.out.println(ro.getAllRooms());
+		
+		serviceFacade = new ServiceFacade();
+		clientSkeleton = new ClientSkeleton(serviceFacade);
+		
+		while (true) {
+			
+			
+		}
 	}
 
 }

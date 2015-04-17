@@ -1,7 +1,14 @@
 package services;
 import transferObjects.*;
+import userinterface.FrontController;
 
 public class ServerService {
+	
+	private static FrontController frontController;
+	
+	public ServerService (FrontController frontController) {
+		this.frontController = frontController;
+	}
 	
 	public void updateChat(MessageTO mto) {
 		
