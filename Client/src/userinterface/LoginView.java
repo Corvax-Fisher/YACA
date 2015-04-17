@@ -10,7 +10,7 @@ import javax.swing.*;
 public class LoginView extends JPanel implements ActionListener{
 
 	private JTextField tfUserName;
-	private JPasswordField tfPWD;
+	private JTextField tfPWD;
 	private JPanel pnlButton,pnlLogIn;
 	private JButton btnRegistrieren;
 	private JButton btnGast;
@@ -28,7 +28,7 @@ public class LoginView extends JPanel implements ActionListener{
 		pnlLogIn.add(tfUserName = new JTextField("", 20));
 
 		pnlLogIn.add(new JLabel("Passwort: "));
-		pnlLogIn.add(tfPWD = new JPasswordField("", 20));
+		pnlLogIn.add(tfPWD = new JTextField("", 20));
 		
 		pnlLogIn.add(errorMsg = new JLabel(""));
 
@@ -54,11 +54,21 @@ public class LoginView extends JPanel implements ActionListener{
 			} else {
 				errorMsg.setText("Username eingeben");
 			}
+		}else if(str.equals("Anmelden")) {
+			if(!tfUserName.getText().equals("") || !tfPWD.getText().equals("")) {
+				logIn(tfUserName.getText(), tfPWD.getText());
+			} else {
+			errorMsg.setText("Username und Passwort eingeben");
+			}
 		}
 	}
 	
 	public void logInGuest(String guestName) {
 		frontController.logInGuest(guestName);
+	}
+	
+	public void logIn(String name, String password) {
+		frontController.logIn(name, password);		
 	}
 	
 	
