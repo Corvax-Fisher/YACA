@@ -27,7 +27,6 @@ public class ProfileView extends JPanel {
 
 		pwd = new JList();
 		pwd.setSelectedIndex(1);
-		pnlProfile.add(pwd);
 		pnlProfile.add(pwd);		
 
 		this.add("Center",pnlProfile);	
