@@ -30,7 +30,7 @@ public class ServiceFacade implements IServiceFacade {
 				roomService.getRoomList(loginTO);
 				return true;
 			} else {
-				serverServiceDelegate.getServerStub().removeUser(loginTO.getName());
+				//serverServiceDelegate.getServerStub().removeUser(loginTO.getName());
 				return false;
 			}
 		}else {
@@ -38,7 +38,7 @@ public class ServiceFacade implements IServiceFacade {
 				roomService.getRoomList(loginTO);
 				return true;
 			}else {
-				serverServiceDelegate.getServerStub().removeUser(loginTO.getName());
+				//serverServiceDelegate.getServerStub().removeUser(loginTO.getName());
 				return false;
 			}
 		}

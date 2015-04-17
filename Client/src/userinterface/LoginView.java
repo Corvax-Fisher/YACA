@@ -36,9 +36,11 @@ public class LoginView extends JPanel implements ActionListener{
 		pnlButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
 		pnlButton.add("South",btnRegistrieren=new JButton("Registrieren"));
+		btnRegistrieren.addActionListener(this);
 		pnlButton.add("South",btnGast=new JButton("Gast"));
 		btnGast.addActionListener(this);
 		pnlButton.add("South",btnAnmelden=new JButton("Anmelden"));
+		btnAnmelden.addActionListener(this);
 
 		this.add("North",pnlLogIn);
 		this.add("South", pnlButton);
@@ -58,8 +60,10 @@ public class LoginView extends JPanel implements ActionListener{
 			if(!tfUserName.getText().equals("") || !tfPWD.getText().equals("")) {
 				logIn(tfUserName.getText(), tfPWD.getText());
 			} else {
-			errorMsg.setText("Username und Passwort eingeben");
+				errorMsg.setText("Username und Passwort eingeben");
 			}
+		}else if(str.equals("Registrieren")) {
+			frontController.dispatchRequest("REGISTER");
 		}
 	}
 	
@@ -69,6 +73,10 @@ public class LoginView extends JPanel implements ActionListener{
 	
 	public void logIn(String name, String password) {
 		frontController.logIn(name, password);		
+	}
+	
+	public void setText(String str) {
+		errorMsg.setText(str);
 	}
 	
 	

@@ -77,7 +77,6 @@ public class ServerStub {
 				
 				synchronized((ObjectOutputStream) clientOutputs.get(name)) {
 					ObjectOutputStream outStream = (ObjectOutputStream) clientOutputs.get(name);
-					outStream.reset();
 					outStream.writeObject(type);
 					outStream.writeObject(to);
 					outStream.flush();

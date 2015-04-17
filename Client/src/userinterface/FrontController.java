@@ -38,4 +38,10 @@ public class FrontController {
 	public void logIn(String name, String password) {
 		clientServiceDelegate.logIn(name, password);		
 	}
+	
+	public void setText(String view, String text) {
+		if (view.equals("loginView")) {
+		dispatcher.loginView.setText(text);
+		}
+	}
 }

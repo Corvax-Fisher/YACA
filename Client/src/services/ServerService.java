@@ -31,10 +31,17 @@ public class ServerService {
 	}
 	
 	public void userJoined() {
-		
+				
 	}
 	
 	public void userLeft() {
+		
+	}
+	
+	public void logInError(MessageTO mTo) {
+		if (mTo.getType().equals("usernameused")) {
+			frontController.setText("loginView", "username used");
+		}
 		
 	}
 	

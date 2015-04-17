@@ -53,7 +53,15 @@ public class ServerSkeleton extends Thread {
 					switch (inputType.toLowerCase()) {
 			            case "message":
 			            	MessageTO messageContent = (MessageTO) inStream.readObject();
-			            	System.out.println("Client - Message arrived: " + messageContent.getBody());
+			            	System.out.println("Client - Message arrived: " + messageContent.getType());
+			            	switch (messageContent.getType()) {
+			            		case "usernameused":
+			            			serverService.logInError(messageContent);
+			            		  break;
+					            default: 
+					            	
+					            break;	
+			            	}
 			                break;
 			            case "profile":
 			            	MessageTO profileContent = (MessageTO) inStream.readObject();

@@ -1,5 +1,8 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import database.RolePAO;
 import database.AbstractDAOFactory;
 import database.RoleDAO;
@@ -16,6 +19,8 @@ public class UserService implements IUserService{
 	//private RoleDAO roleDAO;
 	private UserPAO userPAO;
 	//private RolePAO rolePAO;
+	
+	private List<String> guestUserList = new ArrayList<String>();
 	private IServerServiceDelegate serverServiceDelegate = null;
 	private AbstractDAOFactory abstractDAOFactory = null;
 	
@@ -78,10 +83,11 @@ public class UserService implements IUserService{
 	public boolean logInGuest(LoginTO loginTO) {
 		userPAO = userDAO.getUser(loginTO.getName());
 		//wenn user name schon beutzt wird,
-		 if (userPAO != null){
+		 if (userPAO != null || userInGuestUserList(loginTO.getName())){
 			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "usernameused");
 			 return false;
 		 } else {
+			 guestUserList.add(loginTO.getName());
 			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "loggedinasguest");
 			 return true;
 		 }
@@ -91,6 +97,14 @@ public class UserService implements IUserService{
 	@Override
 	public void logOut(MessageTO messageTO) {
 		//WAS HIER NOCH		
+	}
+	
+	private boolean userInGuestUserList(String name) {
+		for (int i = 0; i < guestUserList.size(); i++) {
+			if (guestUserList.get(i).equals(name));
+			return true;
+		}
+		return false;
 	}
 
 }

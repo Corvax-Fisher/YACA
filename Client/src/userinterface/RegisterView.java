@@ -39,14 +39,22 @@ public class RegisterView extends JPanel implements ActionListener {
 		pnlButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		pnlButton.add("South",btnRegistrieren=new JButton("OK"));
-		pnlButton.add("South",btnAbbrechen=new JButton("Abrechen"));
+		btnRegistrieren.addActionListener(this);
+		pnlButton.add("South",btnAbbrechen=new JButton("Abbrechen"));
+		btnAbbrechen.addActionListener(this);
+
 		
 	   	this.add("Center",pnlRegister);
 		this.add("South", pnlButton);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		String str = e.getActionCommand();
+		if(str.equals("Abbrechen")){
+			frontController.dispatchRequest("LOGIN");
+		}else if (str.equals("OK")) {
+			//TO DO			
+		}
 		
 	}	
 }

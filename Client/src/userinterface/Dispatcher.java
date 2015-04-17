@@ -3,13 +3,13 @@ package userinterface;
 import java.awt.BorderLayout;
 
 public class Dispatcher {
-	private MainView mainView;
-	private LoginView loginView;
-	private RegisterView registerView;
-	private ProfileView profileView;
-	private RoomListView roomListView;
-	private UserListView userListView;
-	private ChatView chatView;
+	public MainView mainView;
+	public LoginView loginView;
+	public RegisterView registerView;
+	public ProfileView profileView;
+	public RoomListView roomListView;
+	public UserListView userListView;
+	public ChatView chatView;
 	private FrontController frontController;
 
 	public Dispatcher(FrontController frontController){
@@ -26,9 +26,11 @@ public class Dispatcher {
 	public void dispatch(String request){
 		
 		if(request.equalsIgnoreCase("LOGIN")){
+			mainView.pnlHome.remove(registerView);
 			mainView.pnlHome.add(loginView, BorderLayout.CENTER);
 		}
 		else if(request.equalsIgnoreCase("REGISTER")){
+			mainView.pnlHome.remove(loginView);
 			mainView.pnlHome.add(registerView, BorderLayout.CENTER);
 		}
 		else if(request.equalsIgnoreCase("PROFILE")){
@@ -46,4 +48,5 @@ public class Dispatcher {
 		}
 		mainView.setVisible(true);
 	}
+	
 }
