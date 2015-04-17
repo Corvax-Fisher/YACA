@@ -74,12 +74,15 @@ public class ServerStub {
 		
 		public void run() {
 			try {
-				ObjectOutputStream outStream = (ObjectOutputStream) clientOutputs.get(name);
-				outStream.reset();
-				outStream.writeObject(type);
-				outStream.writeObject(to);
-				outStream.flush();
-				System.out.println("Server Message wrote");
+				
+				synchronized((ObjectOutputStream) clientOutputs.get(name)) {
+					ObjectOutputStream outStream = (ObjectOutputStream) clientOutputs.get(name);
+					outStream.reset();
+					outStream.writeObject(type);
+					outStream.writeObject(to);
+					outStream.flush();
+					System.out.println("Server Message wrote");
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
