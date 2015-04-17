@@ -20,9 +20,5 @@ public class Client {
 		
 		frontController.dispatchRequest("LOGIN");
 		
-		while (true) {
-			
-			
-		}
 	}
 }

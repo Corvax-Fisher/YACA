@@ -61,10 +61,6 @@ public class Server {
 		clientSkeleton = new ClientSkeleton(serviceFacade);
 		clientSkeleton.start();
 		
-		while (true) {
-			
-			
-		}
 	}
 
 }

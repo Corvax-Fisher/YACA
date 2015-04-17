@@ -64,5 +64,15 @@ public class ServerServiceDelegate implements IServerServiceDelegate {
 		
 	}
 	
+	public void setServerStub(ServerStub serverStub) {
+		this.serverStub = serverStub;
+	}
+	
+	public ServerStub getServerStub() {
+		return serverStub;
+	}
+	
+	
+	
 	
 }

@@ -25,7 +25,7 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 	@Override
 	public void logInGuest(String name) {
 		if (clientStub.connect()) {
-			clientStub.sendObject(new LoginTO(name, null, "loginguest"));
+			clientStub.sendObject(new LoginTO(name, "", "loginguest"));
 		} else {
 			System.out.println("Cant Connect");
 		}

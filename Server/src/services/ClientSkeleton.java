@@ -56,6 +56,7 @@ public class ClientSkeleton extends Thread {
 					switch (inputType.toLowerCase()) {
 			            case "login":
 			            	LoginTO loginContent = (LoginTO) inStream.readObject();
+			            	System.out.println(ip);
 							if(servicefacade.logIn(ip, loginContent)) {
 								clients.put(ip, loginContent.getName());
 							}

@@ -17,7 +17,7 @@ public class MainView extends JFrame implements ActionListener {
 	public MainView(FrontController frontController) {
 		this.frontController = frontController;
 		setTitle("YACA-Chat");
-		setSize(1200, 900);
+		setSize(800, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		

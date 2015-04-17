@@ -24,13 +24,13 @@ public class ServiceFacade implements IServiceFacade {
 	}
 	@Override
 	public boolean logIn(String ip,LoginTO loginTO) {
-		serverServiceDelegate.serverStub.addUser(loginTO.getName(), ip);
+		serverServiceDelegate.getServerStub().addUser(loginTO.getName(), ip);
 		if (loginTO.getType() == "login") {
 			if(userService.logIn(loginTO)) {
 				roomService.getRoomList(loginTO);
 				return true;
 			} else {
-				serverServiceDelegate.serverStub.removeUser(loginTO.getName());
+				serverServiceDelegate.getServerStub().removeUser(loginTO.getName());
 				return false;
 			}
 		}else {
@@ -38,7 +38,7 @@ public class ServiceFacade implements IServiceFacade {
 				roomService.getRoomList(loginTO);
 				return true;
 			}else {
-				serverServiceDelegate.serverStub.removeUser(loginTO.getName());
+				serverServiceDelegate.getServerStub().removeUser(loginTO.getName());
 				return false;
 			}
 		}
@@ -46,7 +46,7 @@ public class ServiceFacade implements IServiceFacade {
 	@Override	
 	public void logOut(MessageTO messageTO) {
 		roomService.logOut(messageTO.getFrom());
-		serverServiceDelegate.serverStub.removeUser(messageTO.getFrom());
+		serverServiceDelegate.getServerStub().removeUser(messageTO.getFrom());
 	}
 
 	@Override

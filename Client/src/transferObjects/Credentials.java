@@ -1,6 +1,8 @@
 package transferObjects;
 
-public class Credentials {
+import java.io.Serializable;
+
+public class Credentials implements Serializable{
 	private String name;
 	private String password;
 	

@@ -60,7 +60,7 @@ public class ServerSkeleton extends Thread {
 			            	
 			                break;
 			            default: 
-			                
+			            	//Object test = inStream.readObject();
 			                break;
 					}	
 					
