@@ -11,9 +11,11 @@ public class MainView extends JFrame implements ActionListener {
 	JTabbedPane tp;
 	JButton privateRoom, closeRoom;
 	JPanel pnlHome, pnlNewRoom;
+	private FrontController frontController;
 
-	public MainView() {
 
+	public MainView(FrontController frontController) {
+		this.frontController = frontController;
 		setTitle("YACA-Chat");
 		setSize(1200, 900);
 		setLocationRelativeTo(null);

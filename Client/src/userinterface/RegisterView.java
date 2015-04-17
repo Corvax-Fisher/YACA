@@ -16,8 +16,11 @@ public class RegisterView extends JPanel implements ActionListener {
 	private JButton btnAbbrechen;
 	private JButton btnRegistrieren;
 	
-	public RegisterView(){
-		
+	private FrontController frontController;
+
+
+	public RegisterView(FrontController frontController) {
+		this.frontController = frontController;
 		pnlRegister = new JPanel();
 		pnlRegister.setLayout(new GridLayout(5,5));
 		pnlRegister.add(new JLabel("Benutzername: "));

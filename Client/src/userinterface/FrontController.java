@@ -8,7 +8,7 @@ public class FrontController {
 	private ClientServiceDelegate clientServiceDelegate;
 
 	public FrontController(){
-		dispatcher = new Dispatcher();
+		dispatcher = new Dispatcher(this);
 		clientServiceDelegate = new ClientServiceDelegate();
 	}
 
@@ -29,5 +29,9 @@ public class FrontController {
 		if(isAuthenticUser()){
 			dispatcher.dispatch(request);
 		}	
+	}
+	
+	public void logInGuest(String name) {
+		clientServiceDelegate.logInGuest(name);
 	}
 }

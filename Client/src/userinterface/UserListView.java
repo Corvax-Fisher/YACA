@@ -1,6 +1,7 @@
 package userinterface;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 public class UserListView extends JPanel{
@@ -9,8 +10,11 @@ public class UserListView extends JPanel{
 		private JList  userList; 
 		private JButton newRoom;
 
-		public UserListView(){	
-		
+		private FrontController frontController;
+
+
+		public UserListView(FrontController frontController) {
+			this.frontController = frontController;
 			pnlUser = new JPanel();
 			pnlUser.setBorder(BorderFactory.createLineBorder(Color.blue));
 			pnlUser.setLayout(new BorderLayout());

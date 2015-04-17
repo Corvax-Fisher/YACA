@@ -12,8 +12,11 @@ public class RoomListView extends JPanel implements ActionListener{
 	private JList  roomList; 
 	private JButton newRoom, privateRoom;
 
-	public RoomListView(){	
+	private FrontController frontController;
 
+
+	public RoomListView(FrontController frontController) {
+		this.frontController = frontController;
 		pnlRoom = new JPanel();
 		pnlRoom.setBorder(BorderFactory.createLineBorder(Color.blue)); //Umrandung
 		pnlRoom.setLayout(new BorderLayout());

@@ -11,9 +11,11 @@ public class ChatView extends JPanel implements ActionListener
 	private JButton sendChatBtn;
 	private JList userList;
 	private JTextArea inputArea;
+	private FrontController frontController;
 
-	public ChatView () 
-	{
+
+	public ChatView(FrontController frontController) {
+		this.frontController = frontController;
 		chatPnl = new JPanel();
 		GridLayout layout = new GridLayout(2,2);
 		chatPnl.setLayout(layout);

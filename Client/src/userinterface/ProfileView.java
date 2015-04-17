@@ -1,5 +1,6 @@
 package userinterface;
 import java.awt.*;
+
 import javax.swing.*;
 
 public class ProfileView extends JPanel {
@@ -7,8 +8,11 @@ public class ProfileView extends JPanel {
 	private JList email, userName,pwd;
 	private JPanel pnlProfile;
 
-	public ProfileView(){
+	private FrontController frontController;
 
+
+	public ProfileView(FrontController frontController) {
+		this.frontController = frontController;
 		pnlProfile = new JPanel();
 		pnlProfile.setLayout(new GridLayout(5,5));
 		pnlProfile.add(new JLabel("Benutzername: "));

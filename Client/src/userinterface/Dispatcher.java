@@ -10,15 +10,17 @@ public class Dispatcher {
 	private RoomListView roomListView;
 	private UserListView userListView;
 	private ChatView chatView;
+	private FrontController frontController;
 
-	public Dispatcher(){
-		mainView = new MainView();
-		loginView = new LoginView();
-		registerView = new RegisterView();
-		profileView = new ProfileView();
-		roomListView = new RoomListView();
-		userListView = new UserListView();
-		chatView = new ChatView();
+	public Dispatcher(FrontController frontController){
+		this.frontController = frontController;
+		mainView = new MainView(frontController);
+		loginView = new LoginView(frontController);
+		registerView = new RegisterView(frontController);
+		profileView = new ProfileView(frontController);
+		roomListView = new RoomListView(frontController);
+		userListView = new UserListView(frontController);
+		chatView = new ChatView(frontController);
 	}
 
 	public void dispatch(String request){

@@ -16,15 +16,16 @@ public class LoginView extends JPanel implements ActionListener{
 	private JButton btnGast;
 	private JButton btnAnmelden;
 	private JLabel errorMsg;
+	private FrontController frontController;
 
 
-	public LoginView(){
-		
+	public LoginView(FrontController frontController) {
+		this.frontController = frontController;
 		pnlLogIn = new JPanel();
 		pnlLogIn.setLayout(new GridLayout(3,2));
 
 		pnlLogIn.add(new JLabel("Benutzername: "));
-		pnlLogIn.add(tfUserName = new JTextField(" ", 20));
+		pnlLogIn.add(tfUserName = new JTextField("", 20));
 
 		pnlLogIn.add(new JLabel("Passwort: "));
 		pnlLogIn.add(tfPWD = new JPasswordField("", 20));
@@ -48,17 +49,19 @@ public class LoginView extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		String str = e.getActionCommand();
 		if(str.equals("Gast")){
-			if(tfUserName.getText()!=null) {
-			logInGuest(tfUserName.getText());
+			if(!tfUserName.getText().equals("")) {
+				logInGuest(tfUserName.getText());
 			} else {
 				errorMsg.setText("Username eingeben");
 			}
 		}
 	}
 	
-	public void logInGuest(String gastName) {
-		
+	public void logInGuest(String guestName) {
+		frontController.logInGuest(guestName);
 	}
+	
+	
 }
 
 
