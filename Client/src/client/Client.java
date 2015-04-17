@@ -16,6 +16,8 @@ public class Client {
 		serverService = new ServerService(frontController);
 		serverSkeleton = new ServerSkeleton(serverService);
 		
+		serverSkeleton.start();
+		
 		frontController.dispatchRequest("LOGIN");
 		
 		while (true) {
