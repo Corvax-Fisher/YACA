@@ -40,7 +40,7 @@ public class Dispatcher {
 			mainView.add(userListView);
 		}
 		else if(request.equalsIgnoreCase("CHAT")){
-			mainView.pnlHome.add(chatView);
+			mainView.pnlHome.add(chatView, BorderLayout.CENTER);
 		}
 		mainView.setVisible(true);
 	}
