@@ -1,7 +1,6 @@
 package transferObjects;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.util.HashMap;
 
@@ -38,13 +37,7 @@ public class ServerStub {
 			socket = new Socket(ip, PORT);
 			clientSockets.put(name, socket);
 			ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
-			//outStream.
 			clientOutputs.put(name, outStream);
-			//outStream.writeObject("test");
-			//outStream.writeObject(new MessageTO("test", "sopp", "raum", "test", null));
-			//outStream.flush();
-			
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,7 +67,6 @@ public class ServerStub {
 		
 		public void run() {
 			try {
-				
 				synchronized((ObjectOutputStream) clientOutputs.get(name)) {
 					ObjectOutputStream outStream = (ObjectOutputStream) clientOutputs.get(name);
 					outStream.writeObject(type);
