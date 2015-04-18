@@ -23,9 +23,9 @@ public class RoomListView extends JPanel implements ActionListener{
 		
 		//list = new JList(DATA);
 		roomList = new JList(new DefaultListModel());
-		((DefaultListModel) roomList.getModel()).addElement("Raum 1");
-		((DefaultListModel) roomList.getModel()).addElement("Raum 2");
-		((DefaultListModel) roomList.getModel()).addElement("Raum 3");
+//		((DefaultListModel) roomList.getModel()).addElement("Raum 1");
+//		((DefaultListModel) roomList.getModel()).addElement("Raum 2");
+//		((DefaultListModel) roomList.getModel()).addElement("Raum 3");
 		roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		roomList.setSelectedIndex(2);
 		roomList.setFixedCellWidth(150);
@@ -38,6 +38,10 @@ public class RoomListView extends JPanel implements ActionListener{
 		pnlRoom.add(newRoom, "South");
 		
 		add(pnlRoom);		
+	}
+	
+	public void addRoom(String room) {
+		((DefaultListModel) roomList.getModel()).addElement(room);
 	}
 
 	public void actionPerformed(ActionEvent e) {

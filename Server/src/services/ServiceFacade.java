@@ -1,5 +1,7 @@
 package services;
 
+import java.util.List;
+
 import transferObjects.LoginTO;
 import transferObjects.MessageTO;
 import transferObjects.ProfileTO;
@@ -24,18 +26,19 @@ public class ServiceFacade implements IServiceFacade {
 	}
 	@Override
 	public boolean logIn(String ip,LoginTO loginTO) {
+		List<String> roomList = roomService.getAllRooms();
 		serverServiceDelegate.getServerStub().addUser(loginTO.getName(), ip);
 		if (loginTO.getType() == "login") {
-			if(userService.logIn(loginTO)) {
-				roomService.getRoomList(loginTO);
+			if(userService.logIn(loginTO, roomList)) {
+				//roomService.getRoomList(loginTO);
 				return true;
 			} else {
 				//serverServiceDelegate.getServerStub().removeUser(loginTO.getName());
 				return false;
 			}
 		}else {
-			if(userService.logInGuest(loginTO)) {
-				roomService.getRoomList(loginTO);
+			if(userService.logInGuest(loginTO, roomList)) {
+				//roomService.getRoomList(loginTO);
 				return true;
 			}else {
 				//serverServiceDelegate.getServerStub().removeUser(loginTO.getName());

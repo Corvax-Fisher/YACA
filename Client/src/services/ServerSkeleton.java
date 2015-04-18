@@ -58,6 +58,8 @@ public class ServerSkeleton extends Thread {
 			            		case "usernameused":
 			            			serverService.logInError(messageContent);
 			            		  break;
+			            		case "loggedinasguest":
+			            			serverService.loggedIn(messageContent);
 					            default: 
 					            	
 					            break;	

@@ -111,6 +111,7 @@ public class RoomService implements IRoomService {
 		serverServiceDelegate.sendRoomList(null, loginTO.getName(), null, "getroomlist", getAllRooms());
 	}
 	
+	@Override
 	public List<String> getAllRooms(){
 		//Hashmap iterieren um alle name von rooms zu bekommen um als liste zu schicken( kleiner als ganze hashmap)
 		List<String> rooms = new ArrayList<String>();

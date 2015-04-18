@@ -1,11 +1,17 @@
 package userinterface;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import services.ClientServiceDelegate;
+import transferObjects.MessageTO;
 
 public class FrontController {
 
 	private Dispatcher dispatcher;
 	private ClientServiceDelegate clientServiceDelegate;
+	private Boolean isAuthenticUser = false;
+	private List<String> roomList = new ArrayList<String>();
 
 	public FrontController(){
 		dispatcher = new Dispatcher(this);
@@ -13,7 +19,8 @@ public class FrontController {
 	}
 
 	private boolean isAuthenticUser(){
-		System.out.println("User is authenticated successfully.");
+		//System.out.println("User is authenticated successfully.");
+		//if(isAuthenticUser)return true; else return false;
 		return true;
 	}
 
@@ -42,6 +49,23 @@ public class FrontController {
 	public void setText(String view, String text) {
 		if (view.equals("loginView")) {
 		dispatcher.loginView.setText(text);
+		}
+	}
+	
+	public void loggedIn(MessageTO mTo) {
+		
+		roomList = (List<String>)mTo.getBody();
+		if(mTo.getType().equals("loggedinasguest")) {
+			isAuthenticUser=true;
+			System.out.println("eingeloggt");
+			dispatchRequest("ROOMLIST");
+			
+			if(!roomList.isEmpty()) {
+				for (String room : roomList) {
+					dispatcher.roomListView.addRoom(room);
+				}
+				
+			}
 		}
 	}
 }

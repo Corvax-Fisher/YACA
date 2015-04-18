@@ -44,6 +44,9 @@ public class ServerService {
 		}
 		
 	}
+	public void loggedIn(MessageTO mTo) {
+		frontController.loggedIn(mTo);
+	}
 	
 	
 }

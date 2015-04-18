@@ -53,42 +53,42 @@ public class UserService implements IUserService{
 										.build();
 		//ruckgabe
 		if(userDAO.insertUser(newUser)) {
-			 serverServiceDelegate.userLoggedIn(registerTO.getName(), "registertrue");
+			 serverServiceDelegate.userLoggedIn(registerTO.getName(), "registertrue", null);
 		} else {
-			 serverServiceDelegate.userLoggedIn(registerTO.getName(), "registerfalse");
+			 serverServiceDelegate.userLoggedIn(registerTO.getName(), "registerfalse", null);
 		}
 	}
 	
 	@Override
-	public boolean logIn(LoginTO loginTO) {
+	public boolean logIn(LoginTO loginTO, List<String> roomList) {
 		userPAO = userDAO.getUser(loginTO.getName());
 		//wenn user vorhanden,
 		 if (userPAO != null){
 			 //PaswortCheck
 			 if (userPAO.getPassword()==loginTO.getPassword()) {
 				 //passwort richtig
-				 serverServiceDelegate.userLoggedIn(loginTO.getName(), "loggedin");
+				 serverServiceDelegate.userLoggedIn(loginTO.getName(), "loggedin", roomList);
 				 return true;
 			 }
 			 //passwort falsch
-			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "wrongpass");
+			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "wrongpass", null);
 			 return false;
 		 }
 		 // user gibt es nicht oder falsch geschrieben
-		 serverServiceDelegate.userLoggedIn(loginTO.getName(), "wronguser");
+		 serverServiceDelegate.userLoggedIn(loginTO.getName(), "wronguser", null);
 		 return false;
 	}
 	
 	@Override
-	public boolean logInGuest(LoginTO loginTO) {
+	public boolean logInGuest(LoginTO loginTO, List<String> roomList) {
 		userPAO = userDAO.getUser(loginTO.getName());
 		//wenn user name schon beutzt wird,
-		 if (userPAO != null || userInGuestUserList(loginTO.getName())){
-			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "usernameused");
+		 if (userPAO != null || guestUserList.contains(loginTO.getName())){
+			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "usernameused", null);
 			 return false;
 		 } else {
 			 guestUserList.add(loginTO.getName());
-			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "loggedinasguest");
+			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "loggedinasguest", roomList);
 			 return true;
 		 }
 	}
@@ -99,12 +99,12 @@ public class UserService implements IUserService{
 		//WAS HIER NOCH		
 	}
 	
-	private boolean userInGuestUserList(String name) {
-		for (int i = 0; i < guestUserList.size(); i++) {
-			if (guestUserList.get(i).equals(name));
-			return true;
-		}
-		return false;
-	}
+//	private boolean userInGuestUserList(String name) {
+//		for (int i = 0; i < guestUserList.size(); i++) {
+//			if (guestUserList.get(i).equals(name));
+//			return true;
+//		}
+//		return false;
+//	}
 
 }

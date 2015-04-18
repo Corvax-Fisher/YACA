@@ -27,4 +27,6 @@ public interface IRoomService {
 	
 	public void logOut(String string);
 
+	public List<String> getAllRooms();
+
 }

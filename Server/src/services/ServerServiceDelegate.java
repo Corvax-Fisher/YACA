@@ -49,8 +49,8 @@ public class ServerServiceDelegate implements IServerServiceDelegate {
 	}
 
 	@Override
-	public void userLoggedIn(String to, String type) {
-		serverStub.sendObject(to, new MessageTO(null, to, null, type, null));
+	public void userLoggedIn(String to, String type, Object body) {
+		serverStub.sendObject(to, new MessageTO(null, to, null, type, body));
 	}
 
 	@Override
