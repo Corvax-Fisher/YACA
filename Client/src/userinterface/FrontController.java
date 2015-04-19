@@ -7,11 +7,13 @@ import services.ClientServiceDelegate;
 import transferObjects.MessageTO;
 
 public class FrontController {
+	
+	private String name;
 
 	private Dispatcher dispatcher;
 	private ClientServiceDelegate clientServiceDelegate;
 	private Boolean isAuthenticUser = false;
-	private List<String> roomList = new ArrayList<String>();
+	
 
 	public FrontController(){
 		dispatcher = new Dispatcher(this);
@@ -40,10 +42,15 @@ public class FrontController {
 	
 	public void logInGuest(String name) {
 		clientServiceDelegate.logInGuest(name);
+		this.name = name;
 	}
 	
 	public void logIn(String name, String password) {
 		clientServiceDelegate.logIn(name, password);		
+	}
+	
+	public void getUserList(String room) {
+		clientServiceDelegate.getUserList(name, room);
 	}
 	
 	public void setText(String view, String text) {
@@ -53,7 +60,7 @@ public class FrontController {
 	}
 	
 	public void loggedIn(MessageTO mTo) {
-		
+		List<String> roomList = new ArrayList<String>();
 		roomList = (List<String>)mTo.getBody();
 		if(mTo.getType().equals("loggedinasguest")) {
 			isAuthenticUser=true;
@@ -66,6 +73,20 @@ public class FrontController {
 				}
 				
 			}
+		}
+	}
+	
+	public void roomUserList(MessageTO mTo) {
+		List<String> userList = new ArrayList<String>();
+		userList = (List<String>)mTo.getBody();
+		
+		if(!userList.isEmpty()) {
+			for (String user : userList) {
+				dispatcher.roomListView.addUser(user);
+			}
+			
+		}else {
+			dispatcher.roomListView.addUser("Keiner im Raum");
 		}
 	}
 }

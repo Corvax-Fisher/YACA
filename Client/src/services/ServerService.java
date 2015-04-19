@@ -44,8 +44,13 @@ public class ServerService {
 		}
 		
 	}
+	
 	public void loggedIn(MessageTO mTo) {
 		frontController.loggedIn(mTo);
+	}
+	
+	public void roomUserList(MessageTO mTo) {
+		frontController.roomUserList(mTo);
 	}
 	
 	

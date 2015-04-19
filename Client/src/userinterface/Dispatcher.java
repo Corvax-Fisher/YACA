@@ -37,6 +37,7 @@ public class Dispatcher {
 			mainView.add(profileView, BorderLayout.CENTER);
 		}
 		else if(request.equalsIgnoreCase("ROOMLIST")){
+			mainView.pnlHome.remove(loginView);
 			mainView.privateRoom.setVisible(true);
 			mainView.pnlHome.add(roomListView, BorderLayout.EAST);
 		}

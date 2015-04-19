@@ -36,7 +36,13 @@ public class RoomService implements IRoomService {
 		// roomListe füllen
 		for (RoomPAO roomPAOtemp : roomPAO) {
 			roomlist.put(roomPAOtemp.getRoomName(),new Room(roomPAOtemp.getRoomName()));
-		}		
+		}
+		
+		// testUser einfuegen
+		Room room = roomlist.get("Wetter");
+		room.addUser("Alex");
+		room.addUser("Basti");
+
 	}
 		
 	@Override

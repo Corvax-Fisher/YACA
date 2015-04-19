@@ -57,9 +57,13 @@ public class ServerSkeleton extends Thread {
 			            	switch (messageContent.getType()) {
 			            		case "usernameused":
 			            			serverService.logInError(messageContent);
-			            		  break;
+			            			break;
 			            		case "loggedinasguest":
 			            			serverService.loggedIn(messageContent);
+			            			break;
+			            		case "getuserlist":
+			            			serverService.roomUserList(messageContent);
+			            			break;
 					            default: 
 					            	
 					            break;	
