@@ -40,12 +40,16 @@ public class Dispatcher {
 			mainView.pnlHome.remove(loginView);
 			mainView.privateRoom.setVisible(true);
 			mainView.pnlHome.add(roomListView, BorderLayout.EAST);
+			mainView.pnlHome.add(userListView, BorderLayout.WEST);
 		}
 		else if(request.equalsIgnoreCase("USERLIST")){
 			mainView.add(userListView);
 		}
 		else if(request.equalsIgnoreCase("CHAT")){
 			mainView.pnlHome.add(chatView, BorderLayout.CENTER);
+			mainView.pnlHome.remove(roomListView);
+			mainView.pnlHome.add(userListView, BorderLayout.WEST);
+
 		}
 		mainView.setVisible(true);
 	}

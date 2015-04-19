@@ -30,6 +30,7 @@ public class UserService implements IUserService{
 		abstractDAOFactory = AbstractDAOFactory.getDAOFactory("SQL");
 		//roleDAO = abstractDAOFactory.createRoleDAO();
 		userDAO = abstractDAOFactory.createUserDAO();
+		guestUserList.add("Alex");
 	}
 	
 	@Override
@@ -81,14 +82,19 @@ public class UserService implements IUserService{
 	
 	@Override
 	public boolean logInGuest(LoginTO loginTO, List<String> roomList) {
-		userPAO = userDAO.getUser(loginTO.getName());
+		String newGuestName = loginTO.getName();
+		Boolean nameUsed = false;
+		for (String name : guestUserList) {
+			if(name.equalsIgnoreCase(newGuestName))nameUsed=true;
+		}
+		userPAO = userDAO.getUser(newGuestName);
 		//wenn user name schon beutzt wird,
-		 if (userPAO != null || guestUserList.contains(loginTO.getName())){
-			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "usernameused", null);
+		 if (userPAO != null || nameUsed){
+			 serverServiceDelegate.userLoggedIn(newGuestName, "usernameused", null);
 			 return false;
 		 } else {
-			 guestUserList.add(loginTO.getName());
-			 serverServiceDelegate.userLoggedIn(loginTO.getName(), "loggedinasguest", roomList);
+			 guestUserList.add(newGuestName);
+			 serverServiceDelegate.userLoggedIn(newGuestName, "loggedinasguest", roomList);
 			 return true;
 		 }
 	}

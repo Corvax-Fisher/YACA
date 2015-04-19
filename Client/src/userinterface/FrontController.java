@@ -9,7 +9,7 @@ import transferObjects.MessageTO;
 public class FrontController {
 	
 	private String name;
-
+	private List<String> activeRooms = new ArrayList<String>();
 	private Dispatcher dispatcher;
 	private ClientServiceDelegate clientServiceDelegate;
 	private Boolean isAuthenticUser = false;
@@ -79,14 +79,42 @@ public class FrontController {
 	public void roomUserList(MessageTO mTo) {
 		List<String> userList = new ArrayList<String>();
 		userList = (List<String>)mTo.getBody();
-		
+		dispatcher.userListView.clearUserList();
+
 		if(!userList.isEmpty()) {
 			for (String user : userList) {
-				dispatcher.roomListView.addUser(user);
+				dispatcher.userListView.addUser(user);
 			}
 			
 		}else {
-			dispatcher.roomListView.addUser("Keiner im Raum");
+			dispatcher.userListView.addUser("Keiner im Raum");
+		}
+	}
+	
+	public void joinRoom(String room) {
+		dispatchRequest("CHAT");
+		clientServiceDelegate.joinRoom(name, room);
+		activeRooms.add(room);
+	}
+	
+	
+	//User joine und room userList unterscheiden.
+	public void userJoined(MessageTO mTo) {
+		if(activeRooms.contains(mTo.getRoom())) {
+			//KURZFORM NUR ADDEN
+		
+//			dispatcher.userListView.addUser(mTo.getFrom());
+//			dispatcher.chatView.setText(mTo.getFrom() + "has joined");
+//		}
+			
+			//LANGFORM NEUE LISTE ERSTELLEN
+		List<String> userList = new ArrayList<String>();
+		userList = (List<String>)mTo.getBody();
+		dispatcher.userListView.clearUserList();
+		for (String user : userList) {
+			dispatcher.userListView.addUser(user);
+		}
+		dispatcher.chatView.setText(mTo.getFrom() + " has joined");
 		}
 	}
 }

@@ -64,6 +64,9 @@ public class ServerSkeleton extends Thread {
 			            		case "getuserlist":
 			            			serverService.roomUserList(messageContent);
 			            			break;
+			            		case "userjoined":
+			            			serverService.userJoined(messageContent);
+			            			break;
 					            default: 
 					            	
 					            break;	

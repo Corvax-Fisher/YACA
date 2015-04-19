@@ -12,7 +12,6 @@ public class RoomListView extends JPanel implements ActionListener{
 
 	private JPanel pnlRoom;
 	private JList  roomList;
-	private JList  userList;
 	private JButton newRoom, privateRoom;
 
 	private FrontController frontController;
@@ -26,8 +25,6 @@ public class RoomListView extends JPanel implements ActionListener{
 		
 		//list = new JList(DATA);
 		roomList = new JList(new DefaultListModel());
-		userList = new JList(new DefaultListModel());
-		userList.setFixedCellWidth(150);
 //		((DefaultListModel) roomList.getModel()).addElement("Raum 1");
 //		((DefaultListModel) roomList.getModel()).addElement("Raum 2");
 //		((DefaultListModel) roomList.getModel()).addElement("Raum 3");
@@ -37,7 +34,6 @@ public class RoomListView extends JPanel implements ActionListener{
 		roomList.addListSelectionListener(listSelectionListener);
 		
 		pnlRoom.add(new JScrollPane(roomList), "Center");
-		pnlRoom.add(new JScrollPane(userList), "West");
 
 		newRoom = new JButton("Öffentlichem Raum beitreten");
 		newRoom.addActionListener(this);
@@ -51,21 +47,18 @@ public class RoomListView extends JPanel implements ActionListener{
 		((DefaultListModel) roomList.getModel()).addElement(room);
 	}
 	
-	public void addUser(String user) {
-		((DefaultListModel) userList.getModel()).addElement(user);
-	}
-
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		String str = e.getActionCommand();
+		if(str.equals("Öffentlichem Raum beitreten")){
+			frontController.joinRoom((String) roomList.getSelectedValue());
+		}
 		
 	}
 	
 	ListSelectionListener listSelectionListener = new ListSelectionListener() {
 		public void valueChanged(ListSelectionEvent listSelectionEvent) {
-			((DefaultListModel) userList.getModel()).clear();
 			 if (listSelectionEvent.getValueIsAdjusting()) return;
 	    	 String s = (String) roomList.getSelectedValue();
-             System.out.println("Value Selected: " + s);
              if(s!=null) {            	 
             	 frontController.getUserList(s);
              }

@@ -30,8 +30,8 @@ public class ServerService {
 		
 	}
 	
-	public void userJoined() {
-				
+	public void userJoined(MessageTO mTo) {
+		frontController.userJoined(mTo);		
 	}
 	
 	public void userLeft() {
