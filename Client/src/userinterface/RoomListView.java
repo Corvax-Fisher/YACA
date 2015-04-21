@@ -30,7 +30,6 @@ public class RoomListView extends JPanel implements ActionListener{
 //		((DefaultListModel) roomList.getModel()).addElement("Raum 3");
 		roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		roomList.setSelectedIndex(2);
-		roomList.setFixedCellWidth(150);
 		roomList.addListSelectionListener(listSelectionListener);
 		
 		pnlRoom.add(new JScrollPane(roomList), "Center");

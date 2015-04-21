@@ -31,7 +31,7 @@ public class MainView extends JFrame implements ActionListener {
 		privateRoom.addActionListener(this);
 		privateRoom.setVisible(false);
 		
-		pnlHome.add(privateRoom, "South");
+		pnlHome.add(privateRoom, BorderLayout.SOUTH);
 		
 		tp.add("Home", pnlHome);
 		
