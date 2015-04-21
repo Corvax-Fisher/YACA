@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 public class RoomListView extends JPanel implements ActionListener{
 
 	private JPanel pnlRoom;
-	private JList  roomList;
+	public JList  roomList;
 	private JButton newRoom, privateRoom;
 
 	private FrontController frontController;
