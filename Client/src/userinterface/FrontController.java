@@ -70,13 +70,14 @@ public class FrontController {
 			isAuthenticUser=true;
 			System.out.println("eingeloggt");
 			dispatchRequest("ROOMLIST");
-			
-			if(!roomList.isEmpty()) {
+			try {
+			    Thread.sleep(100);                 //1000 milliseconds is one second.
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
 				for (String room : roomList) {
 					dispatcher.roomListView.addRoom(room);
 				}
-				
-			}
 		}
 	}
 	
@@ -98,7 +99,6 @@ public class FrontController {
 	public void joinRoom(String room) {
 		dispatchRequest("CHAT");
 		clientServiceDelegate.joinRoom(name, room);
-			
 	}
 	
 	
@@ -115,11 +115,11 @@ public class FrontController {
 			//LANGFORM NEUE LISTE ERSTELLEN
 		List<String> userList = new ArrayList<String>();
 		userList = (List<String>)mTo.getBody();
-		dispatcher.userListView.clearUserList();
+		chatView.clearUserList();
 		for (String user : userList) {
 			chatView.addUser(user);
 		}
-		dispatcher.chatView.setText(mTo.getFrom() + " has joined");
+		    chatView.setText(mTo.getFrom() + " has joined");
 		}
 	}
 	
