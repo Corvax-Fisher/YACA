@@ -47,6 +47,7 @@ public class Dispatcher {
 		else if(request.equalsIgnoreCase("CHAT")){
 			String roomName = (String)roomListView.roomList.getSelectedValue();
 			mainView.tp.add(roomName, chatView = new ChatView(frontController, roomName));
+			frontController.addChatView(roomName, chatView);
 			///chatView.userList.add(userListView);
 
 		}
