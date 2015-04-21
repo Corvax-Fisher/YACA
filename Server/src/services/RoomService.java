@@ -41,7 +41,7 @@ public class RoomService implements IRoomService {
 		// testUser einfuegen
 		Room room = roomlist.get("Wetter");
 		room.addUser("Alex");
-		room.addUser("Basti");
+		//room.addUser("Basti");
 
 	}
 		
@@ -90,9 +90,7 @@ public class RoomService implements IRoomService {
 
 	@Override
 	public List<String> getUserList(MessageTO messageTO) {
-		
 		return roomlist.get(messageTO.getRoom()).getUserList();	
-		
 	}
 	
 
@@ -129,9 +127,7 @@ public class RoomService implements IRoomService {
 	
 	@Override
 	public void updateUserList(String userConcerns, String type, Room room) {
-		List<String> userList = new ArrayList<String>();
-		//getUserList gibt was List oder arraylist? problem?
-		userList.addAll(room.getUserList());
+		List<String> userList = new ArrayList<String>(room.getUserList());
 		// hier durch user im room iterrieren und neue userliste schicken:
 		for (String user : userList) {
 		serverServiceDelegate.updateUserList(userConcerns, user, room.getName(), type, userList);

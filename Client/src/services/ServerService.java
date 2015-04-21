@@ -11,7 +11,7 @@ public class ServerService {
 	}
 	
 	public void updateChat(MessageTO mto) {
-		
+		frontController.recieveMessage(mto.getFrom(), mto.getRoom(), (String)mto.getBody());
 	}
 	
 	public void updateUserList(MessageTO mto) {

@@ -27,35 +27,13 @@ public class MainView extends JFrame implements ActionListener {
 		
 		//Panel Home
 		pnlHome = new JPanel (new BorderLayout());
-		privateRoom = new JButton("Privaten Raum anlegen");
-		privateRoom.addActionListener(this);
-		privateRoom.setVisible(false);
-		
-		pnlHome.add(privateRoom, "South");
-		
+		pnlHome.setSize(800, 600);
 		tp.add("Home", pnlHome);
-		
 	}	
 	
 
 		public void actionPerformed(ActionEvent e){
 			String str = e.getActionCommand();
-			if(str.equals("Privaten Raum anlegen")){
-				String roomname = JOptionPane.showInputDialog(null, "Raumname:");
-
-				if(!roomname.equals(""))
-				{
-					JPanel pnlnewRoom = new JPanel();	
-					pnlnewRoom.setLayout(new BorderLayout());
-
-					JButton closeButton =new JButton("Raum schliessen");
-					closeButton.addActionListener(this);
-					
-					pnlnewRoom.add(closeButton, "North");
-
-					tp.add(roomname, pnlnewRoom);
-				}
-			}
 			if(str.equals("Raum schliessen")){
 				tp.remove(tp.getSelectedIndex());
 			}

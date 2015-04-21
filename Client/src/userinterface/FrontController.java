@@ -70,13 +70,14 @@ public class FrontController {
 			isAuthenticUser=true;
 			System.out.println("eingeloggt");
 			dispatchRequest("ROOMLIST");
-			
-			if(!roomList.isEmpty()) {
+			try {
+			    Thread.sleep(100);                 //1000 milliseconds is one second.
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
 				for (String room : roomList) {
 					dispatcher.roomListView.addRoom(room);
 				}
-				
-			}
 		}
 	}
 	
@@ -96,9 +97,10 @@ public class FrontController {
 	}
 	
 	public void joinRoom(String room) {
+		if (!activeRooms.containsKey(room)) {
 		dispatchRequest("CHAT");
 		clientServiceDelegate.joinRoom(name, room);
-			
+		} 
 	}
 	
 	
@@ -115,16 +117,25 @@ public class FrontController {
 			//LANGFORM NEUE LISTE ERSTELLEN
 		List<String> userList = new ArrayList<String>();
 		userList = (List<String>)mTo.getBody();
-		dispatcher.userListView.clearUserList();
+		chatView.clearUserList();
 		for (String user : userList) {
 			chatView.addUser(user);
 		}
-		dispatcher.chatView.setText(mTo.getFrom() + " has joined");
+		    chatView.setText("\n" + mTo.getFrom() + " has joined");
 		}
 	}
 	
 	
 	public void addChatView(String roomName, ChatView chatView) {
 		activeRooms.put(roomName, chatView);
+	}
+	
+	public void sendMessage(String msg, String room) {
+		clientServiceDelegate.sendMessage(name, room, msg);
+	}
+	
+	public void recieveMessage(String from, String room, String msg) {
+		ChatView chatView = activeRooms.get(room);
+		chatView.setText("\n" + from + ": " + msg);
 	}
 }

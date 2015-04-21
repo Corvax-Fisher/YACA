@@ -8,8 +8,8 @@ import javax.swing.*;
 public class ChatView extends JPanel implements ActionListener
 {
 	private String roomName;
-	private JPanel chatPnl;
-	private JButton sendChatBtn;
+	private JPanel chatPnl, sendPnl;
+	private JButton sendChatBtn, closeBtn;
 	private JList userList;
 	private JTextArea inputArea,historyPnl;
 	private FrontController frontController;
@@ -28,29 +28,44 @@ public class ChatView extends JPanel implements ActionListener
 		
 		historyPnl = new JTextArea();
 		historyPnl.setEditable(false);
+		historyPnl.setBackground(Color.lightGray);
         chatPnl.add(historyPnl);
         
 		userList = new JList(new DefaultListModel());
         chatPnl.add(userList);
         
         inputArea = new JTextArea();
-        inputArea.setPreferredSize(new Dimension(750,100));
         chatPnl.add(inputArea);
         
-        sendChatBtn = new JButton("Senden");
-        chatPnl.add(sendChatBtn);
+        sendPnl = new JPanel();
+        sendPnl.setLayout(new BoxLayout(sendPnl, BoxLayout.Y_AXIS));
+        chatPnl.add(sendPnl);
         
-        chatPnl.add(errorMsg = new JLabel("TEST"));
+        errorMsg = new JLabel("TEST");
+        sendPnl.add(errorMsg);
+        
+        sendChatBtn = new JButton("Senden");
+        sendPnl.add(sendChatBtn);
+        sendChatBtn.addActionListener(this);
+        
+        closeBtn = new JButton("Raum schliessen");
+        sendPnl.add(closeBtn);       
        
         this.add("CENTER", chatPnl);
 	}
 
 	public void actionPerformed(ActionEvent event){
+		String str = event.getActionCommand();
+		if(str.equals("Senden")){
+			frontController.sendMessage(inputArea.getText(), roomName);
+			inputArea.setText("");
+		}
+		
 		
 	}
 	public void setText(String str) {
 		
-		errorMsg.setText(roomName + ": " + str);
+		historyPnl.append(str);
 	}
 	
 	public String getRoomName() {
