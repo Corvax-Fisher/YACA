@@ -1,6 +1,7 @@
 package userinterface;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import services.ClientServiceDelegate;
@@ -9,7 +10,10 @@ import transferObjects.MessageTO;
 public class FrontController {
 	
 	private String name;
-	private List<String> activeRooms = new ArrayList<String>();
+	
+	private HashMap<String, ChatView> activeRooms = new HashMap<String, ChatView>();
+	
+	//private List<String> activeRooms = new ArrayList<String>();
 	private Dispatcher dispatcher;
 	private ClientServiceDelegate clientServiceDelegate;
 	private Boolean isAuthenticUser = false;
@@ -94,13 +98,14 @@ public class FrontController {
 	public void joinRoom(String room) {
 		dispatchRequest("CHAT");
 		clientServiceDelegate.joinRoom(name, room);
-		activeRooms.add(room);
+			
 	}
 	
 	
 	//User joine und room userList unterscheiden.
 	public void userJoined(MessageTO mTo) {
-		if(activeRooms.contains(mTo.getRoom())) {
+		if(activeRooms.containsKey(mTo.getRoom())) {
+			ChatView chatView = activeRooms.get(mTo.getRoom());
 			//KURZFORM NUR ADDEN
 		
 //			dispatcher.userListView.addUser(mTo.getFrom());
@@ -112,9 +117,14 @@ public class FrontController {
 		userList = (List<String>)mTo.getBody();
 		dispatcher.userListView.clearUserList();
 		for (String user : userList) {
-			dispatcher.userListView.addUser(user);
+			chatView.addUser(user);
 		}
 		dispatcher.chatView.setText(mTo.getFrom() + " has joined");
 		}
+	}
+	
+	
+	public void addChatView(String roomName, ChatView chatView) {
+		activeRooms.put(roomName, chatView);
 	}
 }

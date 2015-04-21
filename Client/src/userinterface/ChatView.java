@@ -10,7 +10,7 @@ public class ChatView extends JPanel implements ActionListener
 	private String roomName;
 	private JPanel chatPnl;
 	private JButton sendChatBtn;
-	private JPanel userList;
+	private JList userList;
 	private JTextArea inputArea,historyPnl;
 	private FrontController frontController;
 	private JLabel errorMsg;
@@ -29,7 +29,7 @@ public class ChatView extends JPanel implements ActionListener
 		historyPnl.setEditable(false);
         chatPnl.add(historyPnl);
         
-        userList = new JPanel();
+		userList = new JList(new DefaultListModel());
         chatPnl.add(userList);
         
         inputArea = new JTextArea();
@@ -49,6 +49,19 @@ public class ChatView extends JPanel implements ActionListener
 	public void setText(String str) {
 		
 		errorMsg.setText(roomName + ": " + str);
+	}
+	
+	public String getRoomName() {
+		return roomName;
+	}
+	
+	public void addUser(String user) {
+		((DefaultListModel) userList.getModel()).addElement(user);
+	}
+	
+	public void clearUserList() {
+		((DefaultListModel) userList.getModel()).clear();
+
 	}
 	
 	
