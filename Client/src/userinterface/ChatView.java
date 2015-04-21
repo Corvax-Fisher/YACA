@@ -7,16 +7,19 @@ import javax.swing.*;
 
 public class ChatView extends JPanel implements ActionListener
 {
+	private String roomName;
 	private JPanel chatPnl;
 	private JButton sendChatBtn;
-	private JList userList;
+	private JPanel userList;
 	private JTextArea inputArea,historyPnl;
 	private FrontController frontController;
 	private JLabel errorMsg;
 
 
 
-	public ChatView(FrontController frontController) {
+	public ChatView(FrontController frontController, String roomName) {
+		this.roomName = roomName;
+		
 		this.frontController = frontController;
 		chatPnl = new JPanel();
 		GridLayout layout = new GridLayout(3,3);
@@ -27,8 +30,7 @@ public class ChatView extends JPanel implements ActionListener
 		historyPnl.setEditable(false);
         chatPnl.add(historyPnl);
         
-        userList = new JList();
-        userList.setFixedCellWidth(150);
+        userList = new JPanel();
         chatPnl.add(userList);
         
         inputArea = new JTextArea();
@@ -48,6 +50,8 @@ public class ChatView extends JPanel implements ActionListener
 	}
 	public void setText(String str) {
 		
-		errorMsg.setText(str);
+		errorMsg.setText(roomName + ": " + str);
 	}
+	
+	
 }

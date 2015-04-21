@@ -20,7 +20,6 @@ public class Dispatcher {
 		profileView = new ProfileView(frontController);
 		roomListView = new RoomListView(frontController);
 		userListView = new UserListView(frontController);
-		chatView = new ChatView(frontController);
 	}
 
 	public void dispatch(String request){
@@ -46,8 +45,9 @@ public class Dispatcher {
 			mainView.add(userListView);
 		}
 		else if(request.equalsIgnoreCase("CHAT")){
-			mainView.pnlHome.add(chatView, BorderLayout.CENTER);
-			mainView.pnlHome.remove(roomListView);
+			String roomName = (String)roomListView.roomList.getSelectedValue();
+			mainView.tp.add(roomName, chatView = new ChatView(frontController, roomName));
+			///chatView.userList.add(userListView);
 
 		}
 		mainView.setVisible(true);
