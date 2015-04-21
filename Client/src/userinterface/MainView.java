@@ -13,7 +13,6 @@ public class MainView extends JFrame implements ActionListener {
 	JPanel pnlHome, pnlNewRoom;
 	private FrontController frontController;
 
-
 	public MainView(FrontController frontController) {
 		this.frontController = frontController;
 		setTitle("YACA-Chat");
@@ -27,22 +26,27 @@ public class MainView extends JFrame implements ActionListener {
 		
 		//Panel Home
 		pnlHome = new JPanel (new BorderLayout());
+<<<<<<< HEAD
+				
+=======
 		privateRoom = new JButton("Privaten Raum anlegen");
 		privateRoom.addActionListener(this);
 		privateRoom.setVisible(false);
 		
-		pnlHome.add(privateRoom, "South");
+		pnlHome.add(privateRoom, BorderLayout.SOUTH);
 		
+>>>>>>> 6266543c91131e1579ce4810152070117ed98f98
 		tp.add("Home", pnlHome);
 		
 	}	
 	
-
+//
 		public void actionPerformed(ActionEvent e){
 			String str = e.getActionCommand();
-			if(str.equals("Privaten Raum anlegen")){
-				String roomname = JOptionPane.showInputDialog(null, "Raumname:");
 
+<<<<<<< HEAD
+			if(str.equals("Raum schliessen")){
+=======
 				if(!roomname.equals(""))
 				{
 					JPanel pnlnewRoom = new JPanel();	
@@ -57,6 +61,7 @@ public class MainView extends JFrame implements ActionListener {
 				}
 			}
 			else if(str.equals("Raum schliessen")){
+>>>>>>> 6266543c91131e1579ce4810152070117ed98f98
 				tp.remove(tp.getSelectedIndex());
 			}
 

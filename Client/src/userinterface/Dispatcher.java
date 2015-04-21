@@ -37,7 +37,6 @@ public class Dispatcher {
 		}
 		else if(request.equalsIgnoreCase("ROOMLIST")){
 			mainView.pnlHome.remove(loginView);
-			mainView.privateRoom.setVisible(true);
 			mainView.pnlHome.add(roomListView, BorderLayout.EAST);
 			mainView.pnlHome.add(userListView, BorderLayout.WEST);
 		}
@@ -45,7 +44,7 @@ public class Dispatcher {
 			mainView.add(userListView);
 		}
 		else if(request.equalsIgnoreCase("CHAT")){
-			String roomName = (String)roomListView.roomList.getSelectedValue();
+			String roomName = roomListView.getJoinedRoom();
 			mainView.tp.add(roomName, chatView = new ChatView(frontController, roomName));
 			frontController.addChatView(roomName, chatView);
 			///chatView.userList.add(userListView);
