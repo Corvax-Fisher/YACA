@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class ServerStub {
@@ -67,12 +68,14 @@ public class ServerStub {
 		
 		public void run() {
 			try {
-				synchronized((ObjectOutputStream) clientOutputs.get(name)) {
-					ObjectOutputStream outStream = (ObjectOutputStream) clientOutputs.get(name);
-					outStream.writeObject(type);
-					outStream.writeObject(to);
-					outStream.flush();
-					System.out.println("Server Message wrote");
+				if(clientOutputs.get(name)!=null) {
+					synchronized((ObjectOutputStream) clientOutputs.get(name)) {
+						ObjectOutputStream outStream = (ObjectOutputStream) clientOutputs.get(name);
+						outStream.writeObject(type);
+						outStream.writeObject(to);
+						outStream.flush();
+						//System.out.println("Server Message wrote");
+					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

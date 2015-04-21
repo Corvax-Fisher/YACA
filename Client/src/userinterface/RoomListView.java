@@ -29,10 +29,16 @@ public class RoomListView extends JPanel implements ActionListener{
 //		((DefaultListModel) roomList.getModel()).addElement("Raum 1");
 //		((DefaultListModel) roomList.getModel()).addElement("Raum 2");
 //		((DefaultListModel) roomList.getModel()).addElement("Raum 3");
+<<<<<<< HEAD
 		getRoomList().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		getRoomList().setSelectedIndex(2);
 		getRoomList().setFixedCellWidth(150);
 		getRoomList().addListSelectionListener(listSelectionListener);
+=======
+		roomList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		roomList.setSelectedIndex(2);
+		roomList.addListSelectionListener(listSelectionListener);
+>>>>>>> 6266543c91131e1579ce4810152070117ed98f98
 		
 		pnlRoom.add(new JScrollPane(getRoomList()), "Center");
 

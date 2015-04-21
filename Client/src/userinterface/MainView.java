@@ -26,7 +26,16 @@ public class MainView extends JFrame implements ActionListener {
 		
 		//Panel Home
 		pnlHome = new JPanel (new BorderLayout());
+<<<<<<< HEAD
 				
+=======
+		privateRoom = new JButton("Privaten Raum anlegen");
+		privateRoom.addActionListener(this);
+		privateRoom.setVisible(false);
+		
+		pnlHome.add(privateRoom, BorderLayout.SOUTH);
+		
+>>>>>>> 6266543c91131e1579ce4810152070117ed98f98
 		tp.add("Home", pnlHome);
 		
 	}	
@@ -35,7 +44,24 @@ public class MainView extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			String str = e.getActionCommand();
 
+<<<<<<< HEAD
 			if(str.equals("Raum schliessen")){
+=======
+				if(!roomname.equals(""))
+				{
+					JPanel pnlnewRoom = new JPanel();	
+					pnlnewRoom.setLayout(new BorderLayout());
+
+					JButton closeButton =new JButton("Raum schliessen");
+					closeButton.addActionListener(this);
+					
+					pnlnewRoom.add(closeButton, "North");
+
+					tp.add(roomname, pnlnewRoom);
+				}
+			}
+			else if(str.equals("Raum schliessen")){
+>>>>>>> 6266543c91131e1579ce4810152070117ed98f98
 				tp.remove(tp.getSelectedIndex());
 			}
 
