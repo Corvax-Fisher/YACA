@@ -56,7 +56,7 @@ public class MainView extends JFrame implements ActionListener {
 					tp.add(roomname, pnlnewRoom);
 				}
 			}
-			if(str.equals("Raum schliessen")){
+			else if(str.equals("Raum schliessen")){
 				tp.remove(tp.getSelectedIndex());
 			}
 
