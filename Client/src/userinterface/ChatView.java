@@ -22,24 +22,26 @@ public class ChatView extends JPanel implements ActionListener
 		
 		this.frontController = frontController;
 		chatPnl = new JPanel();
-		GridLayout layout = new GridLayout(3,3);
-		chatPnl.setLayout(layout);
-		chatPnl.setPreferredSize(new Dimension(750,750));
+		//BorderLayout layout = new BorderLayout();//GridLayout(3,3);
+		chatPnl.setLayout(new BorderLayout());
+		chatPnl.setPreferredSize (new Dimension(750,650));
 		
 		historyPnl = new JTextArea();
 		historyPnl.setEditable(false);
 		historyPnl.setBackground(Color.lightGray);
-        chatPnl.add(historyPnl);
+        chatPnl.add(historyPnl, BorderLayout.CENTER);
         
 		userList = new JList(new DefaultListModel());
-        chatPnl.add(userList);
+		userList.setBorder(BorderFactory.createLineBorder(Color.blue));
+		userList.setPreferredSize (new Dimension(100,650));
+        chatPnl.add(userList, BorderLayout.WEST);
         
         inputArea = new JTextArea();
-        chatPnl.add(inputArea);
+        chatPnl.add(inputArea, BorderLayout.NORTH);
         
         sendPnl = new JPanel();
         sendPnl.setLayout(new BoxLayout(sendPnl, BoxLayout.Y_AXIS));
-        chatPnl.add(sendPnl);
+        chatPnl.add(sendPnl, BorderLayout.EAST);
         
         errorMsg = new JLabel("TEST");
         sendPnl.add(errorMsg);
@@ -51,7 +53,7 @@ public class ChatView extends JPanel implements ActionListener
         closeBtn = new JButton("Raum schliessen");
         sendPnl.add(closeBtn);       
        
-        this.add("CENTER", chatPnl);
+        this.add(chatPnl);
 	}
 
 	public void actionPerformed(ActionEvent event){
