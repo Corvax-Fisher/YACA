@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import transferObjects.LoginTO;
@@ -110,7 +111,9 @@ public class ServiceFacade implements IServiceFacade {
 
 	@Override
 	public void getUserList(MessageTO messageTO) {
-		serverServiceDelegate.updateUserList(null, messageTO.getFrom(), messageTO.getRoom(), "getuserlist", roomService.getUserList(messageTO));
+		List<String> userList = new ArrayList<String>(roomService.getUserList(messageTO));
+		serverServiceDelegate.updateUserList(null, messageTO.getFrom(), messageTO.getRoom(), "getuserlist", userList);
+		
 	}
 
 	@Override
