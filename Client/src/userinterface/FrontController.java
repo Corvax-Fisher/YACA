@@ -97,8 +97,10 @@ public class FrontController {
 	}
 	
 	public void joinRoom(String room) {
+		if (!activeRooms.containsKey(room)) {
 		dispatchRequest("CHAT");
 		clientServiceDelegate.joinRoom(name, room);
+		} 
 	}
 	
 	
@@ -119,12 +121,21 @@ public class FrontController {
 		for (String user : userList) {
 			chatView.addUser(user);
 		}
-		    chatView.setText(mTo.getFrom() + " has joined");
+		    chatView.setText("\n" + mTo.getFrom() + " has joined");
 		}
 	}
 	
 	
 	public void addChatView(String roomName, ChatView chatView) {
 		activeRooms.put(roomName, chatView);
+	}
+	
+	public void sendMessage(String msg, String room) {
+		clientServiceDelegate.sendMessage(name, room, msg);
+	}
+	
+	public void recieveMessage(String from, String room, String msg) {
+		ChatView chatView = activeRooms.get(room);
+		chatView.setText("\n" + from + ": " + msg);
 	}
 }

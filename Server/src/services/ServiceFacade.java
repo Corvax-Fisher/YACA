@@ -76,6 +76,8 @@ public class ServiceFacade implements IServiceFacade {
 	@Override
 	public void sendMessage(MessageTO messageTO) {
 		//userliste vom raum fuer message holen und an chatservice uebergeben
+		//List<String> userList = new ArrayList<String>(roomService.getUserList(messageTO));
+		
 		chatService.sendMessage(messageTO, roomService.getUserList(messageTO));
 	}
 

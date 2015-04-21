@@ -46,6 +46,7 @@ public class ChatView extends JPanel implements ActionListener
         
         sendChatBtn = new JButton("Senden");
         sendPnl.add(sendChatBtn);
+        sendChatBtn.addActionListener(this);
         
         closeBtn = new JButton("Raum schliessen");
         sendPnl.add(closeBtn);       
@@ -54,13 +55,17 @@ public class ChatView extends JPanel implements ActionListener
 	}
 
 	public void actionPerformed(ActionEvent event){
-		
+		String str = event.getActionCommand();
+		if(str.equals("Senden")){
+			frontController.sendMessage(inputArea.getText(), roomName);
+			inputArea.setText("");
+		}
 		
 		
 	}
 	public void setText(String str) {
 		
-		errorMsg.setText(roomName + ": " + str);
+		historyPnl.append(str);
 	}
 	
 	public String getRoomName() {
