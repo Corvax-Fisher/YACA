@@ -48,7 +48,6 @@ public class Dispatcher {
 		else if(request.equalsIgnoreCase("CHAT")){
 			mainView.pnlHome.add(chatView, BorderLayout.CENTER);
 			mainView.pnlHome.remove(roomListView);
-			mainView.pnlHome.add(userListView, BorderLayout.WEST);
 
 		}
 		mainView.setVisible(true);
