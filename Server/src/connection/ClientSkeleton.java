@@ -80,6 +80,9 @@ public class ClientSkeleton extends Thread {
 					            case "message":
 					            	servicefacade.sendMessage(messageContent);
 					                break;
+					            case "sendprivatemessage":
+					            	servicefacade.sendPrivateMessage(messageContent);
+					                break;
 					            case "getuserlist":
 					            	servicefacade.getUserList(messageContent);
 						            break;

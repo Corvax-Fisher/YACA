@@ -9,7 +9,7 @@ public class ChatView extends JPanel implements ActionListener
 {
 	private String roomName;
 	private JPanel chatPnl, sendPnl;
-	private JButton sendChatBtn, closeBtn;
+	private JButton sendChatBtn, closeBtn, sendPrivateChatBtn;
 	private JList userList;
 	private JTextArea inputArea,historyPnl;
 	private FrontController frontController;
@@ -46,6 +46,10 @@ public class ChatView extends JPanel implements ActionListener
         sendPnl.add(sendChatBtn);
         sendChatBtn.addActionListener(this);
         
+        sendPrivateChatBtn = new JButton("Sende privat");
+        sendPnl.add(sendPrivateChatBtn);
+        sendPrivateChatBtn.addActionListener(this);
+        
         closeBtn = new JButton("Raum schliessen");
         sendPnl.add(closeBtn);
         closeBtn.addActionListener(this);
@@ -58,7 +62,10 @@ public class ChatView extends JPanel implements ActionListener
 		if(str.equals("Senden")){
 			frontController.sendMessage(inputArea.getText(), roomName);
 			inputArea.setText("");
-		} else if(str.equals("Raum schliessen")){
+		}else if(str.equals("Sende privat")){
+			frontController.sendPrivateMessage((String)userList.getSelectedValue(),inputArea.getText(), roomName);
+			inputArea.setText("");
+		}else if(str.equals("Raum schliessen")){
 			frontController.leaveRoom(roomName);
 			System.out.println("chatview");
 		}
@@ -66,7 +73,6 @@ public class ChatView extends JPanel implements ActionListener
 		
 	}
 	public void setText(String str) {
-		
 		historyPnl.append(str);
 	}
 	
@@ -80,7 +86,6 @@ public class ChatView extends JPanel implements ActionListener
 	
 	public void clearUserList() {
 		((DefaultListModel) userList.getModel()).clear();
-
 	}
 	
 	
