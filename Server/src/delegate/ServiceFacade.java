@@ -35,7 +35,7 @@ public class ServiceFacade implements IServiceFacade {
 	public boolean logIn(String ip,LoginTO loginTO) {
 		List<String> roomList = roomService.getAllRooms();
 		serverServiceDelegate.getServerStub().addUser(loginTO.getName(), ip);
-		if (loginTO.getType() == "login") {
+		if (loginTO.getType().equals("login")) {
 			if(userService.logIn(loginTO, roomList)) {
 				//roomService.getRoomList(loginTO);
 				return true;
@@ -60,8 +60,10 @@ public class ServiceFacade implements IServiceFacade {
 	}
 
 	@Override
-	public void register(RegisterTO registerTO) {
-		userService.register(registerTO); 
+	public void register(String ip, RegisterTO registerTO) {
+		serverServiceDelegate.getServerStub().addUser(registerTO.getName(), ip);
+		List<String> roomList = roomService.getAllRooms();
+		userService.register(registerTO, roomList); 
 	}
 
 	@Override

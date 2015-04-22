@@ -13,6 +13,7 @@ public class RoomListView extends JPanel implements ActionListener{
 	private JPanel pnlRoom;
 	private JList  roomList;
 	private JButton newRoom, privateRoom;
+	private JLabel msg;
 
 	private FrontController frontController;
 	private String joinedRoom;
@@ -40,6 +41,8 @@ public class RoomListView extends JPanel implements ActionListener{
 		privateRoom = new JButton("Privaten Raum anlegen");
 		privateRoom.addActionListener(this);
 		pnlRoom.add(privateRoom, "North");
+		
+		pnlRoom.add(msg = new JLabel(""), "East");
 
 		add(pnlRoom);
 	}
@@ -67,6 +70,10 @@ public class RoomListView extends JPanel implements ActionListener{
 	
 	public JList getRoomList() {
 		return roomList;
+	}
+	
+	public void setText(String str) {
+		msg.setText("eingeloggt als: " + str);
 	}
 
 	ListSelectionListener listSelectionListener = new ListSelectionListener() {

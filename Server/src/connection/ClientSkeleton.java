@@ -80,6 +80,9 @@ public class ClientSkeleton extends Thread {
 					            case "message":
 					            	servicefacade.sendMessage(messageContent);
 					                break;
+					            case "sendprivatemessage":
+					            	servicefacade.sendPrivateMessage(messageContent);
+					                break;
 					            case "getuserlist":
 					            	servicefacade.getUserList(messageContent);
 						            break;
@@ -91,7 +94,8 @@ public class ClientSkeleton extends Thread {
 			                break;
 			            case "register":
 			            	RegisterTO registerContent = (RegisterTO) inStream.readObject();
-			            	servicefacade.register(registerContent);
+							clients.put(ip, registerContent.getName());
+			            	servicefacade.register(ip, registerContent);
 			                break;
 			            default: 
 			                System.out.println("unimplemented Type");

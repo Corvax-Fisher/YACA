@@ -1,21 +1,18 @@
 package userinterface;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.BorderLayout;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
-public class MainView extends JFrame implements ActionListener {
+public class MainView extends JFrame {
 
-	JTabbedPane tp;
-	JButton privateRoom, closeRoom;
-	JPanel pnlHome, pnlNewRoom;
-	private FrontController frontController;
+	private JTabbedPane tp;
+	private JPanel pnlHome;
 
 
-	public MainView(FrontController frontController) {
-		this.frontController = frontController;
+	public MainView() {
 		setTitle("YACA-Chat");
 		setSize(800, 600);
 		setLocationRelativeTo(null);
@@ -29,16 +26,27 @@ public class MainView extends JFrame implements ActionListener {
 		pnlHome = new JPanel (new BorderLayout());
 		pnlHome.setSize(800, 600);
 		tp.add("Home", pnlHome);
-	}	
-	
+	}
 
-		public void actionPerformed(ActionEvent e){
-			String str = e.getActionCommand();
-			if(str.equals("Raum schliessen")){
-				tp.remove(tp.getSelectedIndex());
-			}
 
-		}
+	public JTabbedPane getTp() {
+		return tp;
+	}
+
+
+	public void setTp(JTabbedPane tp) {
+		this.tp = tp;
+	}
+
+
+	public JPanel getPnlHome() {
+		return pnlHome;
+	}
+
+
+	public void setPnlHome(JPanel pnlHome) {
+		this.pnlHome = pnlHome;
+	}
 		
 }
 

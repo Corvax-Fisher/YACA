@@ -72,7 +72,8 @@ public class LoginView extends JPanel implements ActionListener{
 	}
 	
 	public void logIn(String name, String password) {
-		frontController.logIn(name, password);		
+		frontController.logIn(name, password);	
+		System.out.println("login view " + name);
 	}
 	
 	public void setText(String str) {
