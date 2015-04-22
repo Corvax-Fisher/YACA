@@ -15,7 +15,7 @@ public interface IUserService {
 
 	public void saveProfile(ProfileTO profileTO);
 
-	public void register(RegisterTO registerTO);
+	public void register(RegisterTO registerTO, List<String> roomList);
 
 	public boolean logIn(LoginTO loginTO, List<String> roomList);
 

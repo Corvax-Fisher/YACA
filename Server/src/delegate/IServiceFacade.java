@@ -15,7 +15,7 @@ public interface IServiceFacade {
 
 	public void logOut(MessageTO messageTO);
 
-	public void register(RegisterTO registerTO);
+	public void register(String ip, RegisterTO registerTO);
 
 	public void kick(MessageTO messageTO);
 

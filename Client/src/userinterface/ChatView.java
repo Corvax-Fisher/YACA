@@ -13,7 +13,6 @@ public class ChatView extends JPanel implements ActionListener
 	private JList userList;
 	private JTextArea inputArea,historyPnl;
 	private FrontController frontController;
-	private JLabel errorMsg;
 
 
 
@@ -43,15 +42,13 @@ public class ChatView extends JPanel implements ActionListener
         sendPnl.setLayout(new BoxLayout(sendPnl, BoxLayout.Y_AXIS));
         chatPnl.add(sendPnl, BorderLayout.EAST);
         
-        errorMsg = new JLabel("TEST");
-        sendPnl.add(errorMsg);
-        
         sendChatBtn = new JButton("Senden");
         sendPnl.add(sendChatBtn);
         sendChatBtn.addActionListener(this);
         
         closeBtn = new JButton("Raum schliessen");
-        sendPnl.add(closeBtn);       
+        sendPnl.add(closeBtn);
+        closeBtn.addActionListener(this);
        
         this.add(chatPnl);
 	}
@@ -61,6 +58,9 @@ public class ChatView extends JPanel implements ActionListener
 		if(str.equals("Senden")){
 			frontController.sendMessage(inputArea.getText(), roomName);
 			inputArea.setText("");
+		} else if(str.equals("Raum schliessen")){
+			frontController.leaveRoom(roomName);
+			System.out.println("chatview");
 		}
 		
 		

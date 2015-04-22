@@ -24,19 +24,13 @@ public class UserService implements IUserService{
 	private List<String> userList = new ArrayList<String>();
 
 	private IServerServiceDelegate serverServiceDelegate = null;
-	private AbstractDAOFactory abstractDAOFactory = null;
 	
 	public UserService(IServerServiceDelegate serverServiceDelegate){
 		this.serverServiceDelegate = serverServiceDelegate;
 		//DAO Factory erstellen
-		abstractDAOFactory = AbstractDAOFactory.getDAOFactory("SQL");
-		//roleDAO = abstractDAOFactory.createRoleDAO();
-		userDAO = abstractDAOFactory.createUserDAO();
-		userList.add("Alex");
-	}
-	
-	public List<String> getUserList() {
-		return userList;
+		//roleDAO = AbstractDAOFactory.getDAOFactory("SQL").createRoleDAO();
+		userDAO = AbstractDAOFactory.getDAOFactory("SQL").createUserDAO();
+		guestUserList.add("Alex");
 	}
 	
 	@Override
@@ -54,15 +48,30 @@ public class UserService implements IUserService{
 	}
 	
 	@Override
-	public void register(RegisterTO registerTO) {
+	public void register(RegisterTO registerTO, List<String> roomList) {
+		String newUserName = registerTO.getName();
+		Boolean nameUsed = false;
+		//Check ob name schon benutzt wird
+		for (String name : guestUserList) {
+			if(name.equalsIgnoreCase(newUserName))nameUsed=true;
+		}
+		userPAO = userDAO.getUser(newUserName);
+		if (userPAO != null || nameUsed){
+			serverServiceDelegate.userLoggedIn(newUserName, "usernameused", null);
+		}else {
 		UserPAO newUser = new UserPAO.Builder(registerTO.getName())
 										.password(registerTO.getPassword())
+										.eMail(registerTO.getEmail())
+										.roleID(2)
 										.build();
+		
 		//ruckgabe
 		if(userDAO.insertUser(newUser)) {
-			 serverServiceDelegate.userLoggedIn(registerTO.getName(), "registertrue", null);
+			 serverServiceDelegate.userLoggedIn(registerTO.getName(), "registertrue", roomList);
+			 
 		} else {
 			 serverServiceDelegate.userLoggedIn(registerTO.getName(), "registerfalse", null);
+		}
 		}
 	}
 	
@@ -72,7 +81,7 @@ public class UserService implements IUserService{
 		//wenn user vorhanden,
 		 if (userPAO != null){
 			 //PaswortCheck
-			 if (userPAO.getPassword() == loginTO.getPassword()) {
+			 if (userPAO.getPassword().equals(loginTO.getPassword())) {
 				 //passwort richtig
 				 userList.add(loginTO.getName());
 				 serverServiceDelegate.userLoggedIn(loginTO.getName(), "loggedin", roomList);

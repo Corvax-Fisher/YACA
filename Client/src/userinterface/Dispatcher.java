@@ -14,7 +14,7 @@ public class Dispatcher {
 
 	public Dispatcher(FrontController frontController){
 		this.frontController = frontController;
-		mainView = new MainView(frontController);
+		mainView = new MainView();
 		loginView = new LoginView(frontController);
 		registerView = new RegisterView(frontController);
 		profileView = new ProfileView(frontController);
@@ -25,31 +25,36 @@ public class Dispatcher {
 	public void dispatch(String request){
 		
 		if(request.equalsIgnoreCase("LOGIN")){
-			mainView.pnlHome.remove(registerView);
-			mainView.pnlHome.add(loginView, BorderLayout.CENTER);
+			mainView.getPnlHome().remove(registerView);
+			mainView.getPnlHome().add(loginView, BorderLayout.CENTER);
 		}
 		else if(request.equalsIgnoreCase("REGISTER")){
-			mainView.pnlHome.remove(loginView);
-			mainView.pnlHome.add(registerView, BorderLayout.CENTER);
+			mainView.getPnlHome().remove(loginView);
+			mainView.getPnlHome().add(registerView, BorderLayout.CENTER);
 		}
 		else if(request.equalsIgnoreCase("PROFILE")){
 			mainView.add(profileView, BorderLayout.CENTER);
 		}
 		else if(request.equalsIgnoreCase("ROOMLIST")){
-			mainView.pnlHome.remove(loginView);
-			mainView.pnlHome.add(roomListView, BorderLayout.EAST);
-			mainView.pnlHome.add(userListView, BorderLayout.WEST);
+			mainView.getPnlHome().remove(loginView);
+			mainView.getPnlHome().remove(registerView);
+			mainView.getPnlHome().add(roomListView, BorderLayout.EAST);
+			mainView.getPnlHome().add(userListView, BorderLayout.WEST);
 		}
 		else if(request.equalsIgnoreCase("USERLIST")){
 			mainView.add(userListView);
 		}
 		else if(request.equalsIgnoreCase("CHAT")){
 			String roomName = roomListView.getJoinedRoom();
-			mainView.tp.add(roomName, chatView = new ChatView(frontController, roomName));
+			mainView.getTp().add(roomName, chatView = new ChatView(frontController, roomName));
 			frontController.addChatView(roomName, chatView);
 			///chatView.userList.add(userListView);
 
 		}
+		else if(request.equalsIgnoreCase("CLOSE")) {
+			mainView.getTp().remove(mainView.getTp().getSelectedIndex());			
+		}
+		
 		mainView.setVisible(true);
 	}
 	
