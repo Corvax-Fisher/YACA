@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import services.ClientServiceDelegate;
-import transferObjects.MessageTO;
+import connection.MessageTO;
+import delegate.ClientServiceDelegate;
 
 public class FrontController {
 	
@@ -71,13 +71,14 @@ public class FrontController {
 			System.out.println("eingeloggt");
 			dispatchRequest("ROOMLIST");
 			try {
-			    Thread.sleep(100);                 //1000 milliseconds is one second.
+			    Thread.sleep(100);
 			} catch(InterruptedException ex) {
 			    Thread.currentThread().interrupt();
 			}
-				for (String room : roomList) {
-					dispatcher.roomListView.addRoom(room);
-				}
+			
+			for (String room : roomList) {
+				dispatcher.roomListView.addRoom(room);
+			}
 		}
 	}
 	
@@ -89,17 +90,16 @@ public class FrontController {
 		if(!userList.isEmpty()) {
 			for (String user : userList) {
 				dispatcher.userListView.addUser(user);
-			}
-			
-		}else {
+			}	
+		} else {
 			dispatcher.userListView.addUser("Keiner im Raum");
 		}
 	}
 	
 	public void joinRoom(String room) {
 		if (!activeRooms.containsKey(room)) {
-		dispatchRequest("CHAT");
-		clientServiceDelegate.joinRoom(name, room);
+			dispatchRequest("CHAT");
+			clientServiceDelegate.joinRoom(name, room);
 		} 
 	}
 	
@@ -115,12 +115,12 @@ public class FrontController {
 //		}
 			
 			//LANGFORM NEUE LISTE ERSTELLEN
-		List<String> userList = new ArrayList<String>();
-		userList = (List<String>)mTo.getBody();
-		chatView.clearUserList();
-		for (String user : userList) {
-			chatView.addUser(user);
-		}
+			List<String> userList = new ArrayList<String>();
+			userList = (List<String>)mTo.getBody();
+			chatView.clearUserList();
+			for (String user : userList) {
+				chatView.addUser(user);
+			}
 		    chatView.setText("\n" + mTo.getFrom() + " has joined");
 		}
 	}
