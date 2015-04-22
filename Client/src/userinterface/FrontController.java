@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import services.ClientServiceDelegate;
-import transferObjects.MessageTO;
+import connection.MessageTO;
+import delegate.ClientServiceDelegate;
 
 public class FrontController {
 	
@@ -76,11 +76,16 @@ public class FrontController {
 		if(type.equals("loggedinasguest") || type.equals("registertrue") || type.equals("loggedin")) {
 			isAuthenticUser=true;
 			System.out.println("eingeloggt");
-			dispatcher.roomListView.setText(name);
+			dispatchRequest("ROOMLIST");
+			try {
+			    Thread.sleep(100);
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+			
 			for (String room : roomList) {
 				dispatcher.roomListView.addRoom(room);
 			}
-			dispatchRequest("ROOMLIST");
 		}
 	}
 	
@@ -89,16 +94,16 @@ public class FrontController {
 		if(!userList.isEmpty()) {
 			for (String user : userList) {
 				dispatcher.userListView.addUser(user);
-			}
-		}else {
+			}	
+		} else {
 			dispatcher.userListView.addUser("Keiner im Raum");
 		}
 	}
 	
 	public void joinRoom(String room) {
 		if (!activeRooms.containsKey(room)) {
-		dispatchRequest("CHAT");
-		clientServiceDelegate.joinRoom(name, room);
+			dispatchRequest("CHAT");
+			clientServiceDelegate.joinRoom(name, room);
 		} 
 	}
 	

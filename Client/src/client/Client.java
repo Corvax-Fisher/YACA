@@ -1,7 +1,7 @@
 package client;
 
-import services.ServerService;
-import services.ServerSkeleton;
+import connection.ServerSkeleton;
+import service.ServerService;
 import userinterface.FrontController;
 
 
