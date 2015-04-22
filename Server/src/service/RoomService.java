@@ -1,6 +1,5 @@
 package service;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +13,6 @@ import database.RoomPAO;
 import delegate.IServerServiceDelegate;
 
 public class RoomService implements IRoomService {
-	
 	
 	private HashMap<String, Room> roomlist = new HashMap<String, Room>();
 	
@@ -58,21 +56,21 @@ public class RoomService implements IRoomService {
 	public void joinRoom(MessageTO messageTO, List<String> userList) {
 		Room room = roomlist.get(messageTO.getRoom());
 		//Check ob Room in der Datenbank da ist
-		if(room!=null) {
-			//Ja, also User einfügen
-			room.addUser(messageTO.getFrom());
-			//Dann die geupdatete Userliste an alle im Raum verschicken...
-			updateUserList(messageTO.getFrom(),"userjoined",room);
-		} else {
+		if(room == null) {
 			//Room erstellen
 			room = new Room(messageTO.getRoom());
 			roomlist.put(messageTO.getRoom(), room);
 			//user einfuegen
-			room.addUser(messageTO.getFrom());
 			//RoomListe bei allen aktualisieren
-			updateRoomList(userList);
+//			updateRoomList(userList);
 			//userListe beim user aktualisieren
-			updateUserList(messageTO.getFrom(),"userjoined",room);
+		}
+		room.addUser(messageTO.getFrom());
+		
+		List<String> userListCopy = new ArrayList<String>(room.getUserList());
+		// hier durch user im room iterrieren und neue userliste schicken:
+		for (String user : userListCopy) {
+			serverServiceDelegate.userJoined(messageTO.getFrom(), user, room.getName(), userListCopy);
 		}
 		//Return false? wenn was schief geht? oder Raum Groesse ueberschritten?
 		
@@ -82,7 +80,12 @@ public class RoomService implements IRoomService {
 	public void leaveRoom(MessageTO messageTO) {
 		Room room = roomlist.get(messageTO.getRoom());
 		room.removeUser(messageTO.getFrom());
-		updateUserList(messageTO.getFrom(),"userleft",room);
+		
+		List<String> userListCopy = new ArrayList<String>(room.getUserList());
+		// hier durch user im room iterrieren und neue userliste schicken:
+		for (String user : userListCopy) {
+			serverServiceDelegate.userLeft(messageTO.getFrom(), user, room.getName(), userListCopy);
+		}	
 	}
 
 	@Override
@@ -90,17 +93,21 @@ public class RoomService implements IRoomService {
 		return roomlist.get(messageTO.getRoom()).getUserList();	
 	}
 	
+	public void fetchUserList(MessageTO mto) {
+		List<String> userListCopy = new ArrayList<String>(getUserList(mto));
+		serverServiceDelegate.roomUserList(mto.getFrom(), mto.getFrom(), mto.getRoom(), userListCopy);
+	}
 
 	@Override
 	public void updateRoomList(List<String> userList) {
 		for(String user : userList)
-			serverServiceDelegate.updateRoomList(null, user, null, "updateroomlist", getAllRooms());
+			serverServiceDelegate.updateRoomList(null, user, null, getAllRooms());
 	}
 
-	@Override
-	public void getRoomList(LoginTO loginTO) {
-		serverServiceDelegate.sendRoomList(null, loginTO.getName(), null, "getroomlist", getAllRooms());
-	}
+//	@Override
+//	public void getRoomList(LoginTO loginTO) {
+//		serverServiceDelegate.sendRoomList(null, loginTO.getName(), null, getAllRooms());
+//	}
 	
 	@Override
 	public List<String> getAllRooms(){
@@ -113,11 +120,11 @@ public class RoomService implements IRoomService {
 	}
 	
 	@Override
-	public void updateUserList(String userConcerns, String type, Room room) {
+	public void updateUserList(String from, String type, Room room) {
 		List<String> userList = new ArrayList<String>(room.getUserList());
 		// hier durch user im room iterrieren und neue userliste schicken:
 		for (String user : userList) {
-			serverServiceDelegate.updateUserList(userConcerns, user, room.getName(), type, userList);
+			serverServiceDelegate.updateUserList(from, user, room.getName(), userList);
 		}
 	}
 	
@@ -128,10 +135,12 @@ public class RoomService implements IRoomService {
 			//user rauswerfen, falls vorhanden
 			//und falls vorhanden die userliste in dem raum updaten
 			if(room.removeUser(user)) {
-				updateUserList(user, "userleft", room);
+				List<String> userList = new ArrayList<String>(room.getUserList());
+				// hier durch user im room iterrieren und neue userliste schicken:
+				for (String aUser : userList)
+					serverServiceDelegate.userLoggedOut(user, aUser, room.getName(), userList);
 			}
 		}
 	}
 	
-
 }

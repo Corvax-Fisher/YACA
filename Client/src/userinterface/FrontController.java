@@ -1,10 +1,8 @@
 package userinterface;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import connection.MessageTO;
 import delegate.ClientServiceDelegate;
 
 public class FrontController {
@@ -13,7 +11,6 @@ public class FrontController {
 	
 	private HashMap<String, ChatView> activeRooms = new HashMap<String, ChatView>();
 	
-	//private List<String> activeRooms = new ArrayList<String>();
 	private Dispatcher dispatcher;
 	private ClientServiceDelegate clientServiceDelegate;
 	private Boolean isAuthenticUser = false;
@@ -76,16 +73,11 @@ public class FrontController {
 		if(type.equals("loggedinasguest") || type.equals("registertrue") || type.equals("loggedin")) {
 			isAuthenticUser=true;
 			System.out.println("eingeloggt");
-			dispatchRequest("ROOMLIST");
-			try {
-			    Thread.sleep(100);
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
-			
 			for (String room : roomList) {
 				dispatcher.roomListView.addRoom(room);
 			}
+			dispatcher.roomListView.setText(name);
+			dispatchRequest("ROOMLIST");
 		}
 	}
 	
@@ -130,7 +122,7 @@ public class FrontController {
 		clientServiceDelegate.sendMessage(name, room, msg);
 	}
 	
-	public void recieveMessage(String from, String room, String msg) {
+	public void updateChat(String from, String room, String msg) {
 		ChatView chatView = activeRooms.get(room);
 		chatView.setText("\n" + from + ": " + msg);
 	}
@@ -144,5 +136,10 @@ public class FrontController {
 	public void userLeft(String user, String room) {
 		ChatView chatView = activeRooms.get(room);
 		chatView.setText("\n" + user + ": " + "left");
+	}
+
+	public void userLoggedOut(String user, String room) {
+		ChatView chatView = activeRooms.get(room);
+		chatView.setText("\n" + user + ": " + "logged out");		
 	}
 }

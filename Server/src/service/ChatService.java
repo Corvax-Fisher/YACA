@@ -19,29 +19,29 @@ public class ChatService implements IChatService {
 	public void sendMessage(MessageTO messageTO, List<String> userList) {
 		//An alle in der Liste durchgehen und nachricht schicken
 		for (String to : userList) {
-			serverServiceDelegate.updateChat(messageTO.getFrom(), to, messageTO.getRoom(), "updatechat", messageTO.getBody());
+			messageTO.setTo(to);
+			updateChat(messageTO);
 		}
 	}
 	
 	@Override
 	public void sendPrivateMessage(MessageTO messageTO) {
-		//ueberpruefung ob Raum vorhanden, und User enthalten sinnvoll?
-		serverServiceDelegate.updateChat(messageTO.getFrom(), messageTO.getTo(), messageTO.getRoom(), "updatechat", messageTO.getBody());
+		updateChat(messageTO);
 	}
 	
 	@Override
 	public void sendFile(MessageTO messageTO) {
 		//an alle oder nur einen?
-		if(messageTO.getTo() == null) {
-			serverServiceDelegate.updateChat(messageTO.getFrom(),null,messageTO.getRoom(), "sendfile",messageTO.getBody());
-		}else {
-			serverServiceDelegate.updateChat(messageTO.getFrom(),messageTO.getTo(),messageTO.getRoom(), "updatechat",messageTO.getBody());
-		}
+//		if(messageTO.getTo() == null) {
+//			serverServiceDelegate.sendFile(messageTO.getFrom(),null,messageTO.getRoom(),messageTO.getBody());
+//		}else {
+//			serverServiceDelegate.sendFile(messageTO.getFrom(),messageTO.getTo(),messageTO.getRoom(),messageTO.getBody());
+//		}
 	}
 	
 	@Override
 	public boolean updateChat(MessageTO messageTO) {
-		//Was macht man hier?
+		serverServiceDelegate.updateChat(messageTO.getFrom(), messageTO.getTo(), messageTO.getRoom(), messageTO.getBody());
 		return false;
 	}
 
