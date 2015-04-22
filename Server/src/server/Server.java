@@ -1,9 +1,10 @@
 package server;
 
 import javax.swing.JFrame;
-import services.ClientSkeleton;
-import services.ServiceFacade;
+
+import connection.ClientSkeleton;
 import database.*;
+import delegate.ServiceFacade;
 
 public class Server {
 
