@@ -122,6 +122,10 @@ public class FrontController {
 		clientServiceDelegate.sendMessage(name, room, msg);
 	}
 	
+	public void sendPrivateMessage(String to, String msg, String room) {
+		clientServiceDelegate.sendPrivateMessage(name, to, room, msg);
+	}
+	
 	public void updateChat(String from, String room, String msg) {
 		ChatView chatView = activeRooms.get(room);
 		chatView.setText("\n" + from + ": " + msg);

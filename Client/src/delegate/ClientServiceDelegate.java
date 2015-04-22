@@ -67,7 +67,7 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 
 	@Override
 	public void sendPrivateMessage(String from, String to, String room, Object body) {
-//		return clientStub.sendObject(new MessageTO(from, to, room, "sendPrivateMessage", body));
+		clientStub.sendObject(new MessageTO(from, to, room, "sendprivatemessage", body));
 	}
 	// FILE als String schicken (body) ? binaeres casten....
 	@Override
