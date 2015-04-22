@@ -89,7 +89,8 @@ public class ClientSkeleton extends Thread {
 			                break;
 			            case "register":
 			            	RegisterTO registerContent = (RegisterTO) inStream.readObject();
-			            	servicefacade.register(registerContent);
+							clients.put(ip, registerContent.getName());
+			            	servicefacade.register(ip, registerContent);
 			                break;
 			            default: 
 			                System.out.println("unimplemented Type");

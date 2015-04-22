@@ -61,6 +61,9 @@ public class ServerSkeleton extends Thread {
 			            		case "loggedinasguest":
 			            			serverService.loggedIn(messageContent);
 			            			break;
+			            		case "loggedin":
+			            			serverService.loggedIn(messageContent);
+			            			break;
 			            		case "getuserlist":
 			            			serverService.roomUserList(messageContent);
 			            			break;
@@ -68,8 +71,22 @@ public class ServerSkeleton extends Thread {
 			            			serverService.userJoined(messageContent);
 			            			break;
 			            		case "updatechat":
-			            			System.out.println("updatechat: " +messageContent.getBody());
 			            			serverService.updateChat(messageContent);
+			            			break;
+			            		case "userleft":
+			            			serverService.userLeft(messageContent);
+			            			break;
+			            		case "registertrue":
+			            			serverService.loggedIn(messageContent);
+			            			break;
+			            		case "registerfalse":
+			            			serverService.logInError(messageContent);
+			            			break;
+			            		case "wrongpass":
+			            			serverService.logInError(messageContent);
+			            			break;
+			            		case "wronguser":
+			            			serverService.logInError(messageContent);
 			            			break;
 					            default: 
 					            	

@@ -44,6 +44,11 @@ public class FrontController {
 		}	
 	}
 	
+	public void register(String name, String password, String email) {
+		clientServiceDelegate.register(name, password, email);
+		this.name = name;
+	}
+	
 	public void logInGuest(String name) {
 		clientServiceDelegate.logInGuest(name);
 		this.name = name;
@@ -51,6 +56,7 @@ public class FrontController {
 	
 	public void logIn(String name, String password) {
 		clientServiceDelegate.logIn(name, password);		
+		this.name = name;
 	}
 	
 	public void getUserList(String room) {
@@ -59,38 +65,31 @@ public class FrontController {
 	
 	public void setText(String view, String text) {
 		if (view.equals("loginView")) {
-		dispatcher.loginView.setText(text);
+			dispatcher.loginView.setText(text);
+		}else if(view.equals("registerView")) {
+			dispatcher.registerView.setText(text);
 		}
 	}
 	
-	public void loggedIn(MessageTO mTo) {
-		List<String> roomList = new ArrayList<String>();
-		roomList = (List<String>)mTo.getBody();
-		if(mTo.getType().equals("loggedinasguest")) {
+	public void loggedIn(List<String> roomList, String type) {
+		
+		if(type.equals("loggedinasguest") || type.equals("registertrue") || type.equals("loggedin")) {
 			isAuthenticUser=true;
 			System.out.println("eingeloggt");
-			dispatchRequest("ROOMLIST");
-			try {
-			    Thread.sleep(100);                 //1000 milliseconds is one second.
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
+			dispatcher.roomListView.setText(name);
+			for (String room : roomList) {
+				dispatcher.roomListView.addRoom(room);
 			}
-				for (String room : roomList) {
-					dispatcher.roomListView.addRoom(room);
-				}
+			dispatchRequest("ROOMLIST");
 		}
 	}
 	
-	public void roomUserList(MessageTO mTo) {
-		List<String> userList = new ArrayList<String>();
-		userList = (List<String>)mTo.getBody();
+	public void roomUserList(List<String> userList) {
 		dispatcher.userListView.clearUserList();
-
 		if(!userList.isEmpty()) {
 			for (String user : userList) {
 				dispatcher.userListView.addUser(user);
 			}
-			
 		}else {
 			dispatcher.userListView.addUser("Keiner im Raum");
 		}
@@ -105,23 +104,15 @@ public class FrontController {
 	
 	
 	//User joine und room userList unterscheiden.
-	public void userJoined(MessageTO mTo) {
-		if(activeRooms.containsKey(mTo.getRoom())) {
-			ChatView chatView = activeRooms.get(mTo.getRoom());
-			//KURZFORM NUR ADDEN
-		
-//			dispatcher.userListView.addUser(mTo.getFrom());
-//			dispatcher.chatView.setText(mTo.getFrom() + "has joined");
-//		}
-			
+	public void userJoined(String from, String room, List<String> userList ) {
+		if(activeRooms.containsKey(room)) {
+			ChatView chatView = activeRooms.get(room);
 			//LANGFORM NEUE LISTE ERSTELLEN
-		List<String> userList = new ArrayList<String>();
-		userList = (List<String>)mTo.getBody();
 		chatView.clearUserList();
 		for (String user : userList) {
 			chatView.addUser(user);
 		}
-		    chatView.setText("\n" + mTo.getFrom() + " has joined");
+		    chatView.setText("\n" + from + " has joined");
 		}
 	}
 	
@@ -137,5 +128,16 @@ public class FrontController {
 	public void recieveMessage(String from, String room, String msg) {
 		ChatView chatView = activeRooms.get(room);
 		chatView.setText("\n" + from + ": " + msg);
+	}
+	
+	public void leaveRoom(String room) {
+		activeRooms.remove(room);
+		dispatcher.dispatch("close");
+		clientServiceDelegate.leaveRoom(name, room);
+	}
+	
+	public void userLeft(String user, String room) {
+		ChatView chatView = activeRooms.get(room);
+		chatView.setText("\n" + user + ": " + "left");
 	}
 }

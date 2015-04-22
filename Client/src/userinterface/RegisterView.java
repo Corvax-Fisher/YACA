@@ -8,14 +8,15 @@ import javax.swing.*;
 public class RegisterView extends JPanel implements ActionListener {
 
 	private JTextField UserName;
-	private JPasswordField pwd_1;
+	private JTextField pwd_1;
 	private JPasswordField pwd_2;
 	private JTextField Email;
 	private JPanel pnlButton;
 	private JPanel pnlRegister;
 	private JButton btnAbbrechen;
 	private JButton btnRegistrieren;
-	
+	private JLabel errorMsg;
+
 	private FrontController frontController;
 
 
@@ -30,10 +31,12 @@ public class RegisterView extends JPanel implements ActionListener {
 		pnlRegister.add(Email = new JTextField());
 		
 		pnlRegister.add(new JLabel("Passwort: "));
-		pnlRegister.add(pwd_1 = new JPasswordField());	
+		pnlRegister.add(pwd_1 = new JTextField());	
 		
 		pnlRegister.add(new JLabel("Passwort erneut: "));
 		pnlRegister.add(pwd_2 = new JPasswordField());	
+		
+		pnlRegister.add(errorMsg = new JLabel(""));
 		
 		pnlButton = new JPanel();
 		pnlButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -53,8 +56,13 @@ public class RegisterView extends JPanel implements ActionListener {
 		if(str.equals("Abbrechen")){
 			frontController.dispatchRequest("LOGIN");
 		}else if (str.equals("OK")) {
-			//TO DO			
+			//TO DO	 CHECK FOR INPUT und doopelt passwortfeld
+			frontController.register(UserName.getText(), pwd_1.getText(), Email.getText());
 		}
 		
-	}	
+	}
+	public void setText(String str) {
+		errorMsg.setText(str);
+	}
+	
 }

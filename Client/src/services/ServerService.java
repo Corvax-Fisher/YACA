@@ -1,4 +1,6 @@
 package services;
+import java.util.List;
+
 import transferObjects.*;
 import userinterface.FrontController;
 
@@ -31,26 +33,30 @@ public class ServerService {
 	}
 	
 	public void userJoined(MessageTO mTo) {
-		frontController.userJoined(mTo);		
+		frontController.userJoined(mTo.getFrom(), mTo.getRoom(),(List<String>) mTo.getBody());		
 	}
 	
-	public void userLeft() {
-		
+	public void userLeft(MessageTO mTo) {
+		frontController.userLeft(mTo.getFrom(), mTo.getRoom());
 	}
 	
 	public void logInError(MessageTO mTo) {
-		if (mTo.getType().equals("usernameused")) {
+		if(mTo.getType().equals("wrongpass")) {
+			frontController.setText("loginView", "wrong password");
+
+		}else if (mTo.getType().equals("wronguser")) {
+			frontController.setText("loginView", "username not in database");
+		}else
 			frontController.setText("loginView", "username used");
-		}
-		
+			frontController.setText("registerView", "username used");
 	}
 	
 	public void loggedIn(MessageTO mTo) {
-		frontController.loggedIn(mTo);
+		frontController.loggedIn((List<String>)mTo.getBody(), mTo.getType());
 	}
 	
 	public void roomUserList(MessageTO mTo) {
-		frontController.roomUserList(mTo);
+		frontController.roomUserList((List<String>)mTo.getBody());
 	}
 	
 	

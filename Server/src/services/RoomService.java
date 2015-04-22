@@ -18,18 +18,14 @@ public class RoomService implements IRoomService {
 	private HashMap<String, Room> roomlist = new HashMap<String, Room>();
 	
 	private IServerServiceDelegate serverServiceDelegate;
-	private AbstractDAOFactory abstractDAOFactory;
 	private RoomDAO roomDAO;
 	private List<RoomPAO> roomPAO = new ArrayList<RoomPAO>();
 	
 	public RoomService(IServerServiceDelegate serverServiceDelegate) {
 		this.serverServiceDelegate = serverServiceDelegate;
-				
-		//DAO Factory erstellen
-		abstractDAOFactory = AbstractDAOFactory.getDAOFactory("SQL");
-		//abstractDAOFactory.getDAOFactory("SQL");		
+	
 		//RoomDAO erstellen
-		roomDAO = abstractDAOFactory.createRoomDAO();
+		roomDAO = AbstractDAOFactory.getDAOFactory("SQL").createRoomDAO();
 		//Raumliste fuellen
 		roomPAO.addAll(roomDAO.getAllRooms());
 		
