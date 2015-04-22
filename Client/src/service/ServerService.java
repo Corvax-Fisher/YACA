@@ -1,4 +1,6 @@
 package service;
+import java.util.List;
+
 import connection.MessageTO;
 import userinterface.FrontController;
 

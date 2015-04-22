@@ -30,9 +30,13 @@ public class UserService implements IUserService{
 		//DAO Factory erstellen
 		//roleDAO = AbstractDAOFactory.getDAOFactory("SQL").createRoleDAO();
 		userDAO = AbstractDAOFactory.getDAOFactory("SQL").createUserDAO();
-		guestUserList.add("Alex");
+		userList.add("Alex");
 	}
 	
+	public List<String> getUserList() {
+		return userList;
+	}
+
 	@Override
 	public void showProfile(MessageTO messageTO) {
 		//Name von demjenigen dessen Profile ich sehen will in ein UserPAO. 
@@ -52,7 +56,7 @@ public class UserService implements IUserService{
 		String newUserName = registerTO.getName();
 		Boolean nameUsed = false;
 		//Check ob name schon benutzt wird
-		for (String name : guestUserList) {
+		for (String name : userList) {
 			if(name.equalsIgnoreCase(newUserName))nameUsed=true;
 		}
 		userPAO = userDAO.getUser(newUserName);
