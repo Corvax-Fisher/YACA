@@ -69,6 +69,9 @@ public class ServerSkeleton extends Thread {
 			            		case "userjoined":
 			            			serverService.userJoined(messageContent);
 			            			break;
+			            		case "updateuserlist":
+			            			serverService.updateUserList(messageContent);
+			            			break;
 			            		case "updatechat":
 			            			serverService.updateChat(messageContent);
 			            			break;

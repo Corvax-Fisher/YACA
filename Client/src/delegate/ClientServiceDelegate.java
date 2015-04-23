@@ -11,6 +11,7 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 
 	public ClientServiceDelegate() {
 		clientStub = new ClientStub("localhost");
+//		clientStub = new ClientStub("169.254.217.1");
 	}
 
 	@Override

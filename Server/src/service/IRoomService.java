@@ -21,7 +21,7 @@ public interface IRoomService {
 	
 	public void fetchUserList(MessageTO mto);
 
-	public void updateUserList(String userConcerns, String type, Room room);
+	public void updateUserList(String userConcerns, Room room);
 	
 //	public void getRoomList(LoginTO loginTO);
 	

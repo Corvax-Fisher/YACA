@@ -35,7 +35,7 @@ public class RoomService implements IRoomService {
 		
 		// testUser einfuegen
 		Room room = roomlist.get("Wetter");
-		room.addUser("Alex");
+		room.getUserList().add("Alex");
 		//room.addUser("Basti");
 
 	}
@@ -65,15 +65,18 @@ public class RoomService implements IRoomService {
 //			updateRoomList(userList);
 			//userListe beim user aktualisieren
 		}
-		room.addUser(messageTO.getFrom());
 		
-		List<String> userListCopy = new ArrayList<String>(room.getUserList());
-		// hier durch user im room iterrieren und neue userliste schicken:
-		for (String user : userListCopy) {
-			serverServiceDelegate.userJoined(messageTO.getFrom(), user, room.getName(), userListCopy);
+		if(!room.getUserList().contains(messageTO.getFrom()) ) {
+			room.getUserList().add(messageTO.getFrom());
+			updateUserList(messageTO.getFrom(), room);
+			
+			List<String> userListCopy = new ArrayList<String>(room.getUserList());
+			// hier durch user im room iterieren und neue userliste schicken:
+			for (String user : userListCopy) {
+				if(!user.equals(messageTO.getFrom()))
+					serverServiceDelegate.userJoined(messageTO.getFrom(), user, room.getName(), userListCopy);
+			}			
 		}
-		//Return false? wenn was schief geht? oder Raum Groesse ueberschritten?
-		
 	}
 
 	@Override
@@ -119,13 +122,13 @@ public class RoomService implements IRoomService {
 		return rooms;
 	}
 	
+	
+	//will be sent to the user that joined a room
 	@Override
-	public void updateUserList(String from, String type, Room room) {
+	public void updateUserList(String from, Room room) {
 		List<String> userList = new ArrayList<String>(room.getUserList());
-		// hier durch user im room iterrieren und neue userliste schicken:
-		for (String user : userList) {
-			serverServiceDelegate.updateUserList(from, user, room.getName(), userList);
-		}
+
+		serverServiceDelegate.updateUserList(from, from, room.getName(), userList);
 	}
 	
 	public void logOut(String user) {
