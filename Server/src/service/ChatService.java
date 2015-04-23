@@ -27,6 +27,8 @@ public class ChatService implements IChatService {
 	@Override
 	public void sendPrivateMessage(MessageTO messageTO) {
 		updateChat(messageTO);
+		messageTO.setTo(messageTO.getFrom());
+		updateChat(messageTO);
 	}
 	
 	@Override
