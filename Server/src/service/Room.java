@@ -23,13 +23,6 @@ public class Room {
 		return name;		
 	}
 	
-		
-	public void addUser(String user) {
-		//try?
-		userList.add(user);
-		
-	}
-	
 	public boolean removeUser(String user) {
 		if(userList.remove(user)) {
 			return true;

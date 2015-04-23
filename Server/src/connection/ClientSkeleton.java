@@ -47,9 +47,10 @@ public class ClientSkeleton extends Thread {
 		}
 		
 		public void run() {
+			String ip = "";
         	try {
 				inStream = new ObjectInputStream(socket.getInputStream());
-				String ip = socket.getInetAddress().getHostAddress();
+				ip = socket.getInetAddress().getHostAddress();
 	        	
 				while (true) {
 					String inputType = (String) inStream.readObject();
@@ -70,7 +71,7 @@ public class ClientSkeleton extends Thread {
 					            case "logout":
 					            	//user aus clients löschen
 					            	servicefacade.logOut(messageContent);
-					                break;
+					            	return;
 					            case "joinroom":
 					            	servicefacade.joinRoom(messageContent);			            	
 					                break;
@@ -105,6 +106,8 @@ public class ClientSkeleton extends Thread {
 			}
         	catch (IOException | ClassNotFoundException e) {
         		System.out.println(e);
+            	if(clients.get(ip) != null)
+            		servicefacade.logOut(new MessageTO(clients.get(ip), null, null, "logout", null));
             } 
         	finally {
                 try {

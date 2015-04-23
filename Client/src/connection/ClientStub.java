@@ -45,6 +45,7 @@ public class ClientStub {
 		}
 		
 		public void run() {
+			if(outStream == null) return;
 			try {
 				synchronized(outStream) {
 					outStream.writeObject(type);

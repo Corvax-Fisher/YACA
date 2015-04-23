@@ -1,24 +1,18 @@
 package userinterface;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import connection.MessageTO;
 import delegate.ClientServiceDelegate;
 
 public class FrontController {
 	
 	private String name;
-	
-	private HashMap<String, ChatView> activeRooms = new HashMap<String, ChatView>();
-	
-	//private List<String> activeRooms = new ArrayList<String>();
+		
 	private Dispatcher dispatcher;
 	private ClientServiceDelegate clientServiceDelegate;
 	private Boolean isAuthenticUser = false;
 	
-
 	public FrontController(){
 		dispatcher = new Dispatcher(this);
 		clientServiceDelegate = new ClientServiceDelegate();
@@ -44,6 +38,8 @@ public class FrontController {
 		}	
 	}
 	
+	// View Methods
+	
 	public void register(String name, String password, String email) {
 		clientServiceDelegate.register(name, password, email);
 		this.name = name;
@@ -63,67 +59,9 @@ public class FrontController {
 		clientServiceDelegate.getUserList(name, room);
 	}
 	
-	public void setText(String view, String text) {
-		if (view.equals("loginView")) {
-			dispatcher.loginView.setText(text);
-		}else if(view.equals("registerView")) {
-			dispatcher.registerView.setText(text);
-		}
-	}
-	
-	public void loggedIn(List<String> roomList, String type) {
-		
-		if(type.equals("loggedinasguest") || type.equals("registertrue") || type.equals("loggedin")) {
-			isAuthenticUser=true;
-			System.out.println("eingeloggt");
-			dispatchRequest("ROOMLIST");
-			try {
-			    Thread.sleep(100);
-			} catch(InterruptedException ex) {
-			    Thread.currentThread().interrupt();
-			}
-			
-			for (String room : roomList) {
-				dispatcher.roomListView.addRoom(room);
-			}
-		}
-	}
-	
-	public void roomUserList(List<String> userList) {
-		dispatcher.userListView.clearUserList();
-		if(!userList.isEmpty()) {
-			for (String user : userList) {
-				dispatcher.userListView.addUser(user);
-			}	
-		} else {
-			dispatcher.userListView.addUser("Keiner im Raum");
-		}
-	}
-	
 	public void joinRoom(String room) {
-		if (!activeRooms.containsKey(room)) {
-			dispatchRequest("CHAT");
-			clientServiceDelegate.joinRoom(name, room);
-		} 
-	}
-	
-	
-	//User joine und room userList unterscheiden.
-	public void userJoined(String from, String room, List<String> userList ) {
-		if(activeRooms.containsKey(room)) {
-			ChatView chatView = activeRooms.get(room);
-			//LANGFORM NEUE LISTE ERSTELLEN
-		chatView.clearUserList();
-		for (String user : userList) {
-			chatView.addUser(user);
-		}
-		    chatView.setText("\n" + from + " has joined");
-		}
-	}
-	
-	
-	public void addChatView(String roomName, ChatView chatView) {
-		activeRooms.put(roomName, chatView);
+		dispatchRequest("CHAT");
+		clientServiceDelegate.joinRoom(name, room);
 	}
 	
 	public void sendMessage(String msg, String room) {
@@ -134,19 +72,57 @@ public class FrontController {
 		clientServiceDelegate.sendPrivateMessage(name, to, room, msg);
 	}
 	
-	public void recieveMessage(String from, String room, String msg) {
-		ChatView chatView = activeRooms.get(room);
-		chatView.setText("\n" + from + ": " + msg);
-	}
-	
 	public void leaveRoom(String room) {
-		activeRooms.remove(room);
-		dispatcher.dispatch("close");
+		dispatchRequest("LEAVE ROOM");
 		clientServiceDelegate.leaveRoom(name, room);
 	}
 	
-	public void userLeft(String user, String room) {
-		ChatView chatView = activeRooms.get(room);
-		chatView.setText("\n" + user + ": " + "left");
+	public void logOut() {
+		clientServiceDelegate.logOut(name);
 	}
+	
+	//Server Methods
+	
+	public void loggedIn(List<String> roomList, String type) {
+		
+		if(type.equals("loggedinasguest") || type.equals("registertrue") || type.equals("loggedin")) {
+			isAuthenticUser=true;
+			System.out.println("eingeloggt");
+			
+			dispatcher.initRoomListView(roomList, name);
+			dispatchRequest("ROOMLIST");
+		}
+	}
+	
+	public void roomUserList(List<String> userList) {
+		dispatcher.refreshUserListView(userList);
+	}
+	
+	public void updateUserList(String room, List<String> userList) {
+		dispatcher.refreshUserList(room, userList);
+	}
+
+	public void userJoined(String user, String room, List<String> userList ) {
+		dispatcher.refreshUserList(room, userList);
+		dispatcher.updateChat(user, room, user + " has joined\n");
+	}
+	
+	public void updateChat(String from, String room, String msg) {
+		dispatcher.updateChat(from, room, from + ": " + msg + "\n");
+	}
+	
+	public void userLeft(String user, String room, List<String> userList) {
+		dispatcher.refreshUserList(room, userList);
+		dispatcher.updateChat(user, room, user + " has left the room\n");
+	}
+
+	public void userLoggedOut(String user, String room, List<String> userList) {
+		dispatcher.refreshUserList(room, userList);
+		dispatcher.updateChat(user, room, user + " has logged out\n");
+	}
+	
+	public void showText(String text) {
+		dispatcher.showText(text);
+	}
+	
 }

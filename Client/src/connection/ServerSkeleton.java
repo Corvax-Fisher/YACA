@@ -63,17 +63,23 @@ public class ServerSkeleton extends Thread {
 			            		case "loggedin":
 			            			serverService.loggedIn(messageContent);
 			            			break;
-			            		case "getuserlist":
+			            		case "roomuserlist":
 			            			serverService.roomUserList(messageContent);
 			            			break;
 			            		case "userjoined":
 			            			serverService.userJoined(messageContent);
+			            			break;
+			            		case "updateuserlist":
+			            			serverService.updateUserList(messageContent);
 			            			break;
 			            		case "updatechat":
 			            			serverService.updateChat(messageContent);
 			            			break;
 			            		case "userleft":
 			            			serverService.userLeft(messageContent);
+			            			break;
+			            		case "userloggedout":
+			            			serverService.userLoggedOut(messageContent);
 			            			break;
 			            		case "registertrue":
 			            			serverService.loggedIn(messageContent);

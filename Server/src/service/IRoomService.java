@@ -18,10 +18,12 @@ public interface IRoomService {
 	public void leaveRoom(MessageTO messageTO);
 
 	public List<String> getUserList(MessageTO messageTO);
-
-	public void updateUserList(String userConcerns, String type, Room room);
 	
-	public void getRoomList(LoginTO loginTO);
+	public void fetchUserList(MessageTO mto);
+
+	public void updateUserList(String userConcerns, Room room);
+	
+//	public void getRoomList(LoginTO loginTO);
 	
 	public void updateRoomList(List<String> userList);
 	

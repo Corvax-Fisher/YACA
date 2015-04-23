@@ -13,11 +13,11 @@ public class ServerService {
 	}
 	
 	public void updateChat(MessageTO mto) {
-		frontController.recieveMessage(mto.getFrom(), mto.getRoom(), (String)mto.getBody());
+		frontController.updateChat(mto.getFrom(), mto.getRoom(), (String)mto.getBody());
 	}
 	
 	public void updateUserList(MessageTO mto) {
-		
+		frontController.updateUserList(mto.getRoom(),(List<String>) mto.getBody());
 	}
 
 	public void kick() {
@@ -37,18 +37,21 @@ public class ServerService {
 	}
 	
 	public void userLeft(MessageTO mTo) {
-		frontController.userLeft(mTo.getFrom(), mTo.getRoom());
+		frontController.userLeft(mTo.getFrom(), mTo.getRoom(),(List<String>) mTo.getBody());
+	}
+	
+	public void userLoggedOut(MessageTO mTo) {
+		frontController.userLoggedOut(mTo.getFrom(), mTo.getRoom(),(List<String>) mTo.getBody());
 	}
 	
 	public void logInError(MessageTO mTo) {
 		if(mTo.getType().equals("wrongpass")) {
-			frontController.setText("loginView", "wrong password");
-
-		}else if (mTo.getType().equals("wronguser")) {
-			frontController.setText("loginView", "username not in database");
-		}else
-			frontController.setText("loginView", "username used");
-			frontController.setText("registerView", "username used");
+			frontController.showText("wrong password");
+		} else if (mTo.getType().equals("wronguser")) {
+			frontController.showText("username not in database");
+		} else {
+			frontController.showText("username used");
+		}
 	}
 	
 	public void loggedIn(MessageTO mTo) {
