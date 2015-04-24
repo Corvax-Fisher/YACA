@@ -44,30 +44,30 @@ public class ChatView extends JPanel implements ActionListener, KeyListener
         sendPnl.setLayout(new BoxLayout(sendPnl, BoxLayout.Y_AXIS));
         chatPnl.add(sendPnl, BorderLayout.EAST);
         
-        sendChatBtn = new JButton("Senden");
+        sendChatBtn = new JButton("Senden               ");
         sendPnl.add(sendChatBtn);
         sendChatBtn.addActionListener(this);
         
-        sendPrivateChatBtn = new JButton("Sende privat");
+        sendPrivateChatBtn = new JButton("Senden privat    ");
         sendPnl.add(sendPrivateChatBtn);
         sendPrivateChatBtn.addActionListener(this);
         
-        closeBtn = new JButton("Raum schliessen");
+        closeBtn = new JButton("Raum schließen");
         sendPnl.add(closeBtn);
         closeBtn.addActionListener(this);
-       
+      
         this.add(chatPnl);
 	}
 
 	public void actionPerformed(ActionEvent event){
 		String str = event.getActionCommand();
-		if(str.equals("Senden") && inputField.getText().length() != 0){
+		if(str.equals("Senden               ") && inputField.getText().length() != 0){
 			frontController.sendMessage(inputField.getText(), roomName);
 			inputField.setText("");
-		}else if(str.equals("Sende privat") && inputField.getText().length() != 0){
+		}else if(str.equals("Senden privat    ") && inputField.getText().length() != 0){
 			frontController.sendPrivateMessage((String)userList.getSelectedValue(),inputField.getText(), roomName);
 			inputField.setText("");
-		}else if(str.equals("Raum schliessen")){
+		}else if(str.equals("Raum schließen")){
 			frontController.leaveRoom(roomName);
 			System.out.println("chatview");
 		}
