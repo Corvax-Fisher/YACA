@@ -10,8 +10,8 @@ public class ClientServiceDelegate implements IClientServiceDelegate {
 	private ClientStub clientStub = null;
 
 	public ClientServiceDelegate() {
-		clientStub = new ClientStub("localhost");
-//		clientStub = new ClientStub("169.254.217.1");
+		//clientStub = new ClientStub("localhost");
+		clientStub = new ClientStub("169.254.117.87");
 	}
 
 	@Override
