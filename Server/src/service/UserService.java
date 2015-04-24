@@ -121,8 +121,8 @@ public class UserService implements IUserService{
 	
 
 	@Override
-	public void logOut(MessageTO messageTO) {
-		//WAS HIER NOCH		
+	public void logOut(String user) {
+		userList.remove(user);	
 	}
 	
 //	private boolean userInGuestUserList(String name) {

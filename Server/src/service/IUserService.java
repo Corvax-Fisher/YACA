@@ -21,6 +21,6 @@ public interface IUserService {
 
 	public boolean logInGuest(LoginTO loginTO, List<String> roomList);
 
-	public void logOut(MessageTO messageTO);
+	public void logOut(String user);
 
 }

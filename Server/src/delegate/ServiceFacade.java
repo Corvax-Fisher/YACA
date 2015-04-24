@@ -56,6 +56,7 @@ public class ServiceFacade implements IServiceFacade {
 	@Override	
 	public void logOut(MessageTO messageTO) {
 		roomService.logOut(messageTO.getFrom());
+		userService.logOut(messageTO.getFrom());
 		serverServiceDelegate.getServerStub().removeUser(messageTO.getFrom());
 	}
 
