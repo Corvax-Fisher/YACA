@@ -72,11 +72,11 @@ public class Dispatcher {
 		
 	}
 	
-	public void initRoomListView(List<String> roomList, String userName) {
+	public void initRoomListView(List<String> roomList, String name) {
 		for (String room : roomList) {
 			roomListView.addRoom(room);
 		}
-		roomListView.setText(userName);
+		roomListView.setText(name);
 	}
 	
 	public void showText(String text) {

@@ -56,7 +56,6 @@ public class RegisterView extends JPanel implements ActionListener {
 		if(str.equals("Abbrechen")){
 			frontController.dispatchRequest("LOGIN");
 		}else if (str.equals("OK")) {
-			//TO DO	 CHECK FOR INPUT und doopelt passwortfeld
 			frontController.register(UserName.getText(), pwd_1.getText(), Email.getText());
 		}
 		
