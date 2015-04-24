@@ -18,12 +18,7 @@ public class UserListView extends JPanel{
 			pnlUser = new JPanel();
 			pnlUser.setBorder(BorderFactory.createLineBorder(Color.blue));
 			pnlUser.setLayout(new BorderLayout());
-			//list = new JList(DATA);
 			userList = new JList(new DefaultListModel());
-//			((DefaultListModel) userList.getModel()).addElement("User 1");
-//			((DefaultListModel) userList.getModel()).addElement("User 2");
-//			((DefaultListModel) userList.getModel()).addElement("User 3");
-//			
 			userList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			userList.setSelectedIndex(2);
 			userList.setFixedCellWidth(150);

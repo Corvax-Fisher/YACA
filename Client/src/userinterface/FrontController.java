@@ -41,18 +41,29 @@ public class FrontController {
 	// View Methods
 	
 	public void register(String name, String password, String email) {
+		if(name.equals("") || password.equals("") || email.equals("")) { 
+			showText("Username, Passwort und Email eingeben");
+		}else {
 		clientServiceDelegate.register(name, password, email);
 		this.name = name;
+		}
 	}
 	
 	public void logInGuest(String name) {
-		clientServiceDelegate.logInGuest(name);
-		this.name = name;
+		if(name.equals("")) {
+			showText("Username eingeben");		
+		}else {
+			clientServiceDelegate.logInGuest(name);
+			this.name = name;		}
 	}
 	
 	public void logIn(String name, String password) {
-		clientServiceDelegate.logIn(name, password);		
-		this.name = name;
+		if(name.equals("") || password.equals("")) {
+			showText("Username und Passwort eingeben");
+		}else {
+			clientServiceDelegate.logIn(name, password);		
+			this.name = name;
+		}
 	}
 	
 	public void getUserList(String room) {

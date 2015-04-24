@@ -51,17 +51,9 @@ public class LoginView extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		String str = e.getActionCommand();
 		if(str.equals("Gast")){
-			if(!tfUserName.getText().equals("")) {
-				logInGuest(tfUserName.getText());
-			} else {
-				errorMsg.setText("Username eingeben");
-			}
+			logInGuest(tfUserName.getText());
 		}else if(str.equals("Anmelden")) {
-			if(!tfUserName.getText().equals("") || !tfPWD.getText().equals("")) {
 				logIn(tfUserName.getText(), tfPWD.getText());
-			} else {
-				errorMsg.setText("Username und Passwort eingeben");
-			}
 		}else if(str.equals("Registrieren")) {
 			frontController.dispatchRequest("REGISTER");
 		}
