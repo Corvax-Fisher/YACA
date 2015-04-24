@@ -48,11 +48,11 @@ public class ChatView extends JPanel implements ActionListener, KeyListener
         sendPnl.add(sendChatBtn);
         sendChatBtn.addActionListener(this);
         
-        sendPrivateChatBtn = new JButton("Sende privat");
+        sendPrivateChatBtn = new JButton("Senden privat");
         sendPnl.add(sendPrivateChatBtn);
         sendPrivateChatBtn.addActionListener(this);
         
-        closeBtn = new JButton("Raum schliessen");
+        closeBtn = new JButton("Raum schließen");
         sendPnl.add(closeBtn);
         closeBtn.addActionListener(this);
        
